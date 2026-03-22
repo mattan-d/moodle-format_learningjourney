@@ -33,6 +33,10 @@ use stdClass;
  */
 class section extends section_base {
 
+    public function get_template_name(\renderer_base $renderer): string {
+        return 'format_learningjourney/local/content/section';
+    }
+
     public function export_for_template(renderer_base $output): stdClass {
         $format = $this->format;
         $data = parent::export_for_template($output);
@@ -42,6 +46,35 @@ class section extends section_base {
             $data->numsections = $addsection->export_for_template($output);
             $data->insertafter = true;
         }
+        $this->add_learning_journey_dates_to_export($data);
         return $data;
+    }
+
+    /**
+     * Expose section schedule on the course page (start/end from format options).
+     */
+    protected function add_learning_journey_dates_to_export(stdClass $data): void {
+        $section = $this->section;
+        if ((int) $section->section === 0) {
+            return;
+        }
+        $start = (int) ($section->tjstart ?? 0);
+        $end = (int) ($section->tjend ?? 0);
+        if ($start <= 0 && $end <= 0) {
+            return;
+        }
+        $dateformat = get_string('strftimedatetimeshort', 'langconfig');
+        $parts = [];
+        if ($start > 0) {
+            $parts[] = get_string('ljdisplayfrom', 'format_learningjourney', userdate($start, $dateformat));
+        }
+        if ($end > 0) {
+            $parts[] = get_string('ljdisplayuntil', 'format_learningjourney', userdate($end, $dateformat));
+        }
+        if (!$parts) {
+            return;
+        }
+        $data->hasljdates = true;
+        $data->ljrangeline = implode(get_string('ljdatesseparator', 'format_learningjourney'), $parts);
     }
 }

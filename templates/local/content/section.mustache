@@ -1,0 +1,47 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template format_learningjourney/local/content/section
+
+    Learning journey format: same as core section wrapper; inner content adds schedule dates.
+}}
+<li id="section-{{num}}"
+    class="section course-section main {{#onlysummary}} section-summary {{/onlysummary}} clearfix
+            {{#ishidden}} hidden {{/ishidden}} {{#iscurrent}}{{^displayonesection}} current {{/displayonesection}}{{/iscurrent}}
+            {{#isstealth}} orphaned {{/isstealth}}"
+    data-sectionid="{{num}}"
+    data-sectionreturnnum="{{sectionreturnnum}}"
+    data-for="section"
+    data-id="{{id}}"
+    data-number="{{num}}"
+    data-sectionname="{{sectionname}}"
+    {{#isstealth}} data-orphan="true" {{/isstealth}}
+>
+    <div class="section-item">
+        {{$ core_courseformat/local/content/section/content }}
+            {{> format_learningjourney/local/content/section/content }}
+        {{/ core_courseformat/local/content/section/content }}
+    </div>
+
+    {{#insertafter}}
+        {{#numsections}}
+            {{$ core_courseformat/local/content/addsection}}
+                {{> core_courseformat/local/content/section/addsectiondivider }}
+            {{/ core_courseformat/local/content/addsection}}
+        {{/numsections}}
+    {{/insertafter}}
+</li>

@@ -36,7 +36,12 @@ use section_info;
 class format_learningjourney extends course_format_base {
 
     /**
-     * Whether the current time is inside the section schedule (ignores Moodle section visibility).
+     * Whether "today" for the current user falls inside the section schedule.
+     *
+     * Comparison uses the calendar day in the user's timezone (not the exact time of day):
+     * - start: first enabled day is the calendar day of the stored start timestamp;
+     * - end: last enabled day is the calendar day of the stored end timestamp.
+     * If either date is unset, that bound is treated as open.
      */
     public function is_section_within_schedule(section_info $section): bool {
         if ((int) $section->section === 0) {
@@ -44,14 +49,38 @@ class format_learningjourney extends course_format_base {
         }
         $start = (int) ($section->tjstart ?? 0);
         $end = (int) ($section->tjend ?? 0);
-        $now = time();
-        if ($start > 0 && $now < $start) {
-            return false;
+        if ($start <= 0 && $end <= 0) {
+            return true;
         }
-        if ($end > 0 && $now > $end) {
-            return false;
+
+        $now = time();
+        $todaykey = (int) userdate($now, '%Y%m%d', 99);
+        if ($start > 0) {
+            $startdaykey = (int) userdate($start, '%Y%m%d', 99);
+            if ($todaykey < $startdaykey) {
+                return false;
+            }
+        }
+        if ($end > 0) {
+            $enddaykey = (int) userdate($end, '%Y%m%d', 99);
+            if ($todaykey > $enddaykey) {
+                return false;
+            }
         }
         return true;
+    }
+
+    /**
+     * Hide sections outside the learning-journey date window for anyone who does not bypass schedule rules.
+     */
+    public function is_section_visible(section_info $section): bool {
+        global $USER;
+        if ((int) $section->section !== 0 && !$this->user_bypasses_section_schedule((int) $USER->id)) {
+            if (!$this->is_section_within_schedule($section)) {
+                return false;
+            }
+        }
+        return parent::is_section_visible($section);
     }
 
     /**
