@@ -26,12 +26,63 @@ namespace format_learningjourney\form;
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once(__DIR__ . '/../../../../editsection_form.php');
+global $CFG;
+require_once($CFG->dirroot . '/course/editsection_form.php');
 
 /**
  * Section edit form.
  */
 class editsection_form extends \editsection_form {
+
+    public function definition() {
+        parent::definition();
+        $mform = $this->_form;
+        $mform->addElement('header', 'learningjourneyimagehdr', get_string('sectionimage', 'format_learningjourney'));
+        $mform->addElement(
+            'filemanager',
+            'sectionimage',
+            get_string('sectionimage', 'format_learningjourney'),
+            null,
+            \format_learningjourney::section_image_file_options()
+        );
+        $mform->addHelpButton('sectionimage', 'sectionimage', 'format_learningjourney');
+    }
+
+    public function set_data($default_values) {
+        if (!is_object($default_values)) {
+            $default_values = (object) $default_values;
+        }
+        $course = $this->_customdata['course'];
+        $context = \context_course::instance($course->id);
+        $draftitemid = file_get_submitted_draft_itemid('sectionimage');
+        file_prepare_draft_area(
+            $draftitemid,
+            $context->id,
+            'format_learningjourney',
+            \format_learningjourney::FILEAREA_SECTION_IMAGE,
+            $default_values->id,
+            \format_learningjourney::section_image_file_options()
+        );
+        $default_values->sectionimage = $draftitemid;
+        parent::set_data($default_values);
+    }
+
+    public function get_data() {
+        $data = parent::get_data();
+        if ($data !== null) {
+            $course = $this->_customdata['course'];
+            $context = \context_course::instance($course->id);
+            file_save_draft_area_files(
+                $data->sectionimage,
+                $context->id,
+                'format_learningjourney',
+                \format_learningjourney::FILEAREA_SECTION_IMAGE,
+                $data->id,
+                \format_learningjourney::section_image_file_options()
+            );
+        }
+        return $data;
+    }
 
     public function validation($data, $files) {
         $errors = parent::validation($data, $files);

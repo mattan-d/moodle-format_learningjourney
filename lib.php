@@ -35,6 +35,24 @@ use section_info;
  */
 class format_learningjourney extends course_format_base {
 
+    /** @var string File area for optional section banner/cover image ({@see format_learningjourney_pluginfile()}). */
+    public const FILEAREA_SECTION_IMAGE = 'sectionimage';
+
+    /**
+     * File manager options for {@link self::FILEAREA_SECTION_IMAGE}.
+     *
+     * @return array
+     */
+    public static function section_image_file_options(): array {
+        global $CFG;
+        return [
+            'subdirs' => 0,
+            'maxfiles' => 1,
+            'maxbytes' => $CFG->maxbytes,
+            'accepted_types' => ['image'],
+        ];
+    }
+
     /**
      * Whether "today" for the current user falls inside the section schedule.
      *
@@ -323,6 +341,27 @@ class format_learningjourney extends course_format_base {
         return $this->update_format_options($data);
     }
 
+    public function delete_section($sectionornum, $forcedeleteifnotempty = false) {
+        global $DB;
+        $courseid = $this->get_courseid();
+        if (is_object($sectionornum)) {
+            $sectionid = (int) $sectionornum->id;
+        } else {
+            $rec = $DB->get_record('course_sections', ['course' => $courseid, 'section' => $sectionornum], 'id', IGNORE_MISSING);
+            $sectionid = $rec ? (int) $rec->id : 0;
+        }
+        if ($sectionid > 0) {
+            $context = context_course::instance($courseid);
+            get_file_storage()->delete_area_files(
+                $context->id,
+                'format_learningjourney',
+                self::FILEAREA_SECTION_IMAGE,
+                $sectionid
+            );
+        }
+        return parent::delete_section($sectionornum, $forcedeleteifnotempty);
+    }
+
     public function can_delete_section($section) {
         return true;
     }
@@ -372,6 +411,52 @@ class format_learningjourney extends course_format_base {
         }
         return new \format_learningjourney\form\editsection_form($action, $customdata);
     }
+}
+
+/**
+ * Serve section images from this format.
+ *
+ * @param stdClass $course
+ * @param stdClass $cm
+ * @param \context $context
+ * @param string $filearea
+ * @param array $args
+ * @param bool $forcedownload
+ * @param array $options
+ * @return void
+ */
+function format_learningjourney_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload, array $options = []) {
+    global $DB;
+
+    if ($context->contextlevel != CONTEXT_COURSE) {
+        send_file_not_found();
+    }
+    if ($filearea !== format_learningjourney::FILEAREA_SECTION_IMAGE) {
+        send_file_not_found();
+    }
+
+    require_login($course);
+
+    $sectionid = (int) array_shift($args);
+    if (!$DB->record_exists('course_sections', ['id' => $sectionid, 'course' => $course->id])) {
+        send_file_not_found();
+    }
+
+    $sectionnum = (int) $DB->get_field('course_sections', 'section', ['id' => $sectionid], MUST_EXIST);
+    $sectioninfo = get_fast_modinfo($course)->get_section_info($sectionnum);
+    if (!$sectioninfo->uservisible && !has_capability('moodle/course:update', $context)) {
+        send_file_not_found();
+    }
+
+    $filename = array_pop($args);
+    $filepath = $args ? '/' . implode('/', $args) . '/' : '/';
+    $fs = get_file_storage();
+    if (!$file = $fs->get_file($context->id, 'format_learningjourney', $filearea, $sectionid, $filepath, $filename)
+            || $file->is_directory()) {
+        send_file_not_found();
+    }
+
+    send_stored_file($file, 60 * 60, 0, $forcedownload, $options);
 }
 
 /**

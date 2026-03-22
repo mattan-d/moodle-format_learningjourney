@@ -36,4 +36,6 @@ $string['err_endbeforestart'] = 'End date must be the same as or after the start
 $string['ljdisplayfrom'] = 'Available from {$a}';
 $string['ljdisplayuntil'] = 'Available until {$a}';
 $string['ljdatesseparator'] = ' · ';
-$string['privacy:metadata'] = 'The Learning journey course format plugin does not store any personal data.';
+$string['sectionimage'] = 'Section image';
+$string['sectionimage_help'] = 'Optional image shown at the top of this section on the course page. One image file only.';
+$string['privacy:metadata'] = 'The Learning journey course format plugin does not store personal data. Optional section images are stored as files in the course context.';

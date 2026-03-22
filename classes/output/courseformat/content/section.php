@@ -25,6 +25,8 @@
 namespace format_learningjourney\output\courseformat\content;
 
 use core_courseformat\output\local\content\section as section_base;
+use format_learningjourney;
+use moodle_url;
 use renderer_base;
 use stdClass;
 
@@ -47,6 +49,7 @@ class section extends section_base {
             $data->insertafter = true;
         }
         $this->add_learning_journey_dates_to_export($data);
+        $this->add_learning_journey_image_to_export($data);
         return $data;
     }
 
@@ -76,5 +79,39 @@ class section extends section_base {
         }
         $data->hasljdates = true;
         $data->ljrangeline = implode(get_string('ljdatesseparator', 'format_learningjourney'), $parts);
+    }
+
+    /**
+     * Section banner image URL for the course page (if uploaded).
+     */
+    protected function add_learning_journey_image_to_export(stdClass $data): void {
+        $section = $this->section;
+        $course = $this->format->get_course();
+        $context = \context_course::instance($course->id);
+        $fs = get_file_storage();
+        $files = $fs->get_area_files(
+            $context->id,
+            'format_learningjourney',
+            format_learningjourney::FILEAREA_SECTION_IMAGE,
+            $section->id,
+            'itemid, filepath, filename',
+            false
+        );
+        foreach ($files as $file) {
+            if ($file->is_directory()) {
+                continue;
+            }
+            $data->hassectionimage = true;
+            $data->sectionimageurl = moodle_url::make_pluginfile_url(
+                $context->id,
+                'format_learningjourney',
+                format_learningjourney::FILEAREA_SECTION_IMAGE,
+                $section->id,
+                '/',
+                $file->get_filename()
+            )->out(false);
+            $data->sectionimagealt = s($this->format->get_section_name($section));
+            return;
+        }
     }
 }
