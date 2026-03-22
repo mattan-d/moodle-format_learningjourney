@@ -187,6 +187,51 @@ class format_learningjourney extends course_format_base {
         return (bool) get_config('format_learningjourney', 'indentation');
     }
 
+    /**
+     * Show one section by number (URL ?section=). Uses core APIs available on the running Moodle version.
+     *
+     * @since Moodle 4.4 core provides {@see parent::set_sectionnum()}; older versions use {@see parent::set_sectionid()}
+     * or the deprecated {@see parent::set_section_number()}.
+     */
+    public function set_display_section(?int $sectionnum): void {
+        if ($sectionnum === null) {
+            return;
+        }
+        if (is_callable([$this, 'set_sectionnum'])) {
+            $this->set_sectionnum($sectionnum);
+            return;
+        }
+        $course = $this->get_course();
+        if (!$course) {
+            return;
+        }
+        $modinfo = get_fast_modinfo($course);
+        $sectioninfo = $modinfo->get_section_info((int) $sectionnum, IGNORE_MISSING);
+        if ($sectioninfo !== null && is_callable([$this, 'set_sectionid'])) {
+            $this->set_sectionid((int) $sectioninfo->id);
+            return;
+        }
+        if (is_callable([$this, 'set_section_number'])) {
+            $this->set_section_number((int) $sectionnum);
+        }
+    }
+
+    /**
+     * True when the main course page lists all sections (not a single-section view).
+     */
+    public function is_showing_all_sections(): bool {
+        if (is_callable([$this, 'get_sectionnum'])) {
+            return $this->get_sectionnum() === null;
+        }
+        if (is_callable([$this, 'get_sectionid'])) {
+            return $this->get_sectionid() === null;
+        }
+        if (is_callable([$this, 'get_section_number'])) {
+            return $this->get_section_number() === 0;
+        }
+        return true;
+    }
+
     public function get_section_name($section) {
         $section = $this->get_section($section);
         if ((string) $section->name !== '') {

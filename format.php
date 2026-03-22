@@ -48,7 +48,7 @@ course_create_sections_if_missing($course, 0);
 $renderer = $PAGE->get_renderer('format_learningjourney');
 
 if (!is_null($displaysection)) {
-    $format->set_sectionnum($displaysection);
+    $format->set_display_section((int) $displaysection);
 }
 $outputclass = $format->get_output_classname('content');
 $widget = new $outputclass($format);
