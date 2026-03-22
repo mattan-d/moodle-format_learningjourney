@@ -156,7 +156,7 @@ class format_learningjourney extends course_format_base {
         if ($userid <= 0) {
             return false;
         }
-        $context = $this->get_context();
+        $context = context_course::instance($this->get_courseid());
         return has_capability('moodle/course:update', $context, $userid);
     }
 
