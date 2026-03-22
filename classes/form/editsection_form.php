@@ -26,7 +26,7 @@ namespace format_learningjourney\form;
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once(__DIR__ . '/../../../editsection_form.php');
+require_once(__DIR__ . '/../../../../editsection_form.php');
 
 /**
  * Section edit form.
