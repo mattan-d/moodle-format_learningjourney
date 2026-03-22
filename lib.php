@@ -92,6 +92,15 @@ class format_learningjourney extends course_format_base {
     }
 
     /**
+     * True when the section is delegated to another component ({@see section_info::is_delegated()}).
+     *
+     * Older Moodle builds omit that API; treat as not delegated.
+     */
+    public static function section_info_is_delegated(section_info $section): bool {
+        return method_exists($section, 'is_delegated') && $section->is_delegated();
+    }
+
+    /**
      * Whether "today" for the current user falls inside the section schedule.
      *
      * Comparison uses the calendar day in the user's timezone (not the exact time of day):
@@ -162,7 +171,7 @@ class format_learningjourney extends course_format_base {
         if ((int) $section->section > $courseformat->get_last_section_number()) {
             return true;
         }
-        if (method_exists($section, 'is_delegated') && $section->is_delegated()) {
+        if (self::section_info_is_delegated($section)) {
             if (method_exists($section, 'get_component_instance') && !$section->get_component_instance()) {
                 return true;
             }
