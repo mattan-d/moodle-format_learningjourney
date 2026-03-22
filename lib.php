@@ -284,6 +284,7 @@ class format_learningjourney extends course_format_base {
     }
 
     public function get_view_url($section, $options = []) {
+        global $CFG;
         $course = $this->get_course();
         if (array_key_exists('sr', $options) && !is_null($options['sr'])) {
             $sectionno = $options['sr'];
@@ -294,7 +295,14 @@ class format_learningjourney extends course_format_base {
         }
         if ((!empty($options['navigation']) || array_key_exists('sr', $options)) && $sectionno !== null) {
             $sectioninfo = $this->get_section($sectionno);
-            return new moodle_url('/course/section.php', ['id' => $sectioninfo->id]);
+            // Dedicated section page exists in newer Moodle only; older installs 404 on /course/section.php.
+            if (file_exists($CFG->dirroot . '/course/section.php')) {
+                return new moodle_url('/course/section.php', ['id' => $sectioninfo->id]);
+            }
+            return new moodle_url('/course/view.php', [
+                'id' => $course->id,
+                'section' => $sectioninfo->section,
+            ]);
         }
         return new moodle_url('/course/view.php', ['id' => $course->id]);
     }
