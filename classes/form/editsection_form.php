@@ -45,6 +45,7 @@ class editsection_form extends \editsection_form {
             null,
             \format_learningjourney::section_image_file_options()
         );
+        $mform->setType('sectionimage', PARAM_INT);
         $mform->addHelpButton('sectionimage', 'sectionimage', 'format_learningjourney');
     }
 

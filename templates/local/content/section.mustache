@@ -21,6 +21,7 @@
 }}
 <li id="section-{{num}}"
     class="section course-section main {{#onlysummary}} section-summary {{/onlysummary}} clearfix
+            {{#ljcontentdisabled}} lj-section-unavailable {{/ljcontentdisabled}}
             {{#ishidden}} hidden {{/ishidden}} {{#iscurrent}}{{^displayonesection}} current {{/displayonesection}}{{/iscurrent}}
             {{#isstealth}} orphaned {{/isstealth}}"
     data-sectionid="{{num}}"

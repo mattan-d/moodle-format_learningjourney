@@ -103,6 +103,12 @@
     <img src="{{{sectionimageurl}}}" alt="{{sectionimagealt}}" class="img-fluid rounded border w-100" style="max-height: 220px; object-fit: cover;"/>
 </div>
 {{/hassectionimage}}
+{{#ljcontentdisabled}}
+<div class="section-learningjourney-locked text-muted small px-2 mb-2" data-for="learningjourney_locked" role="status">
+    {{#str}} sectioncontentlocked, format_learningjourney {{/str}}
+</div>
+{{/ljcontentdisabled}}
+{{^ljcontentdisabled}}
 <div id="coursecontentcollapseid{{id}}"
      class="content {{^iscoursedisplaymultipage}}{{^sitehome}}{{^displayonesection}}course-content-item-content collapse {{^contentcollapsed}}show{{/contentcollapsed}}{{/displayonesection}}{{/sitehome}}{{/iscoursedisplaymultipage}}">
     <div class="{{#hasavailability}}description{{/hasavailability}} my-3" data-for="sectioninfo">
@@ -134,3 +140,4 @@
     {{/cmlist}}
     {{{cmcontrols}}}
 </div>
+{{/ljcontentdisabled}}

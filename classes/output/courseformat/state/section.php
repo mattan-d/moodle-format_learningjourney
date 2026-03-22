@@ -15,15 +15,28 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version details.
+ * Section state for course index / editor (adds section image fields).
  *
  * @package    format_learningjourney
  * @copyright  2025
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
+namespace format_learningjourney\output\courseformat\state;
 
-$plugin->version   = 2025032209;
-$plugin->requires  = 2024100100;
-$plugin->component = 'format_learningjourney';
+use core_courseformat\output\local\state\section as section_base;
+use format_learningjourney;
+use renderer_base;
+use stdClass;
+
+/**
+ * Section state export.
+ */
+class section extends section_base {
+
+    public function export_for_template(renderer_base $output): stdClass {
+        $data = parent::export_for_template($output);
+        format_learningjourney::append_section_image_to_export_data($this->format, $this->section, $data);
+        return $data;
+    }
+}

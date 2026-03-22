@@ -35,10 +35,18 @@ class content extends content_base {
     /** @var bool */
     protected $hasaddsection = true;
 
+    public function get_template_name(\renderer_base $renderer): string {
+        return 'format_learningjourney/local/content';
+    }
+
     public function export_for_template(renderer_base $output) {
         global $PAGE;
+        $format = $this->format;
         $PAGE->requires->js_call_amd('format_learningjourney/mutations', 'init');
         $PAGE->requires->js_call_amd('format_learningjourney/section', 'init');
+        if ($PAGE->theme->usescourseindex && $format->uses_course_index()) {
+            $PAGE->requires->js_call_amd('format_learningjourney/courseindex_section_images', 'init');
+        }
         return parent::export_for_template($output);
     }
 }

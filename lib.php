@@ -54,6 +54,38 @@ class format_learningjourney extends course_format_base {
     }
 
     /**
+     * Add hassectionimage / sectionimageurl / sectionimagealt to a template or state export object.
+     */
+    public static function append_section_image_to_export_data(course_format_base $format, section_info $section, stdClass $data): void {
+        $context = context_course::instance($format->get_course()->id);
+        $fs = get_file_storage();
+        $files = $fs->get_area_files(
+            $context->id,
+            'format_learningjourney',
+            self::FILEAREA_SECTION_IMAGE,
+            $section->id,
+            'itemid, filepath, filename',
+            false
+        );
+        foreach ($files as $file) {
+            if ($file->is_directory()) {
+                continue;
+            }
+            $data->hassectionimage = true;
+            $data->sectionimageurl = moodle_url::make_pluginfile_url(
+                $context->id,
+                'format_learningjourney',
+                self::FILEAREA_SECTION_IMAGE,
+                $section->id,
+                '/',
+                $file->get_filename()
+            )->out(false);
+            $data->sectionimagealt = s($format->get_section_name($section));
+            return;
+        }
+    }
+
+    /**
      * Whether "today" for the current user falls inside the section schedule.
      *
      * Comparison uses the calendar day in the user's timezone (not the exact time of day):
@@ -89,15 +121,10 @@ class format_learningjourney extends course_format_base {
     }
 
     /**
-     * Hide sections outside the learning-journey date window for anyone who does not bypass schedule rules.
+     * Section listing follows core visibility (hidden sections, etc.). Schedule locking is enforced
+     * via {@see self::section_get_available_hook()} (uservisible) and teaser output on the course page.
      */
     public function is_section_visible(section_info $section): bool {
-        global $USER;
-        if ((int) $section->section !== 0 && !$this->user_bypasses_section_schedule((int) $USER->id)) {
-            if (!$this->is_section_within_schedule($section)) {
-                return false;
-            }
-        }
         return parent::is_section_visible($section);
     }
 
@@ -414,6 +441,19 @@ class format_learningjourney extends course_format_base {
 }
 
 /**
+ * Register stylesheet before HTTP headers. Course format rendering runs after {@see $OUTPUT->header()}.
+ */
+function format_learningjourney_before_http_headers(): void {
+    global $PAGE;
+
+    if (($PAGE->pagetype ?? '') !== 'course-view-learningjourney') {
+        return;
+    }
+
+    $PAGE->requires->css(new moodle_url('/course/format/learningjourney/styles.css'));
+}
+
+/**
  * Serve section images from this format.
  *
  * @param stdClass $course
@@ -445,14 +485,17 @@ function format_learningjourney_pluginfile($course, $cm, $context, $filearea, $a
     $sectionnum = (int) $DB->get_field('course_sections', 'section', ['id' => $sectionid], MUST_EXIST);
     $sectioninfo = get_fast_modinfo($course)->get_section_info($sectionnum);
     if (!$sectioninfo->uservisible && !has_capability('moodle/course:update', $context)) {
-        send_file_not_found();
+        $canviewhidden = has_capability('moodle/course:viewhiddensections', $context);
+        if (!$sectioninfo->visible && !$canviewhidden) {
+            send_file_not_found();
+        }
     }
 
     $filename = array_pop($args);
     $filepath = $args ? '/' . implode('/', $args) . '/' : '/';
     $fs = get_file_storage();
-    if (!$file = $fs->get_file($context->id, 'format_learningjourney', $filearea, $sectionid, $filepath, $filename)
-            || $file->is_directory()) {
+    $file = $fs->get_file($context->id, 'format_learningjourney', $filearea, $sectionid, $filepath, $filename);
+    if (!$file || $file->is_directory()) {
         send_file_not_found();
     }
 

@@ -38,4 +38,5 @@ $string['ljdisplayuntil'] = 'Available until {$a}';
 $string['ljdatesseparator'] = ' · ';
 $string['sectionimage'] = 'Section image';
 $string['sectionimage_help'] = 'Optional image shown at the top of this section on the course page. One image file only.';
+$string['sectioncontentlocked'] = 'This section is not available yet. You can see the title and image; activities will appear when it opens.';
 $string['privacy:metadata'] = 'The Learning journey course format plugin does not store personal data. Optional section images are stored as files in the course context.';
