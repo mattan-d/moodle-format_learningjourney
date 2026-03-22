@@ -47,6 +47,11 @@ class content extends content_base {
         if ($PAGE->theme->usescourseindex && $format->uses_course_index()) {
             $PAGE->requires->js_call_amd('format_learningjourney/courseindex_section_images', 'init');
         }
-        return parent::export_for_template($output);
+        $data = parent::export_for_template($output);
+        $opts = $format->get_format_options();
+        $layout = (int) ($opts['sectionlayout'] ?? \format_learningjourney::SECTION_LAYOUT_GRID);
+        $data->ljsectionlayoutgrid = ($layout === \format_learningjourney::SECTION_LAYOUT_GRID);
+
+        return $data;
     }
 }

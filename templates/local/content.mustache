@@ -23,7 +23,7 @@
 <div id="course-format-{{uniqid}}">
     <h2 class="accesshide">{{{title}}}</h2>
     {{{completionhelp}}}
-    <ul class="{{format}} format-learningjourney-sectionlist" data-for="course_sectionlist">
+    <ul class="{{format}} format-learningjourney-sectionlist {{#ljsectionlayoutgrid}}lj-layout-grid{{/ljsectionlayoutgrid}}{{^ljsectionlayoutgrid}}lj-layout-list{{/ljsectionlayoutgrid}}" data-for="course_sectionlist">
         {{#initialsection}}
             {{$ core_courseformat/local/content/section }}
                 {{> format_learningjourney/local/content/section }}

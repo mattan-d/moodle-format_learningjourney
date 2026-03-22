@@ -1,12 +1,13 @@
 /**
- * Learning journey: section grid (view mode) and list reset.
+ * Learning journey: section layout (grid vs list) and unavailable teaser.
  *
  * @package    format_learningjourney
  * @copyright  2025
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-.course-content ul.format-learningjourney-sectionlist.learningjourney[data-for="course_sectionlist"] {
+/* —— Grid layout (up to 3 columns) —— */
+.course-content ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] {
     display: grid;
     grid-template-columns: 1fr;
     gap: 1rem;
@@ -16,32 +17,39 @@
 }
 
 @media (min-width: 576px) {
-    .course-content ul.format-learningjourney-sectionlist.learningjourney[data-for="course_sectionlist"] {
+    .course-content ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
 
 @media (min-width: 992px) {
-    .course-content ul.format-learningjourney-sectionlist.learningjourney[data-for="course_sectionlist"] {
+    .course-content ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] {
         grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 }
 
-/* General section (topic 0): full width above the grid of topics. */
-.course-content ul.format-learningjourney-sectionlist.learningjourney[data-for="course_sectionlist"] > li.section[data-sectionid="0"] {
+.course-content ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section[data-sectionid="0"] {
     grid-column: 1 / -1;
 }
 
-/* Editing: single column so drag-and-drop and controls stay usable. */
-body.editing .course-content ul.format-learningjourney-sectionlist.learningjourney[data-for="course_sectionlist"] {
+/* —— List layout (full width, one section per row) —— */
+.course-content ul.format-learningjourney-sectionlist.lj-layout-list.learningjourney[data-for="course_sectionlist"] {
+    display: block;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Editing: single column so drag-and-drop and controls stay usable */
+body.editing .course-content ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] {
     display: block;
 }
 
-body.editing .course-content ul.format-learningjourney-sectionlist.learningjourney[data-for="course_sectionlist"] > li.section {
+body.editing .course-content ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section {
     grid-column: auto;
 }
 
-body.editing .course-content ul.format-learningjourney-sectionlist.learningjourney[data-for="course_sectionlist"] > li.section + li.section {
+body.editing .course-content ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section + li.section {
     margin-top: 0.5rem;
 }
 

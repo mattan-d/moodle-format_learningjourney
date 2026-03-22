@@ -38,6 +38,12 @@ class format_learningjourney extends course_format_base {
     /** @var string File area for optional section banner/cover image ({@see format_learningjourney_pluginfile()}). */
     public const FILEAREA_SECTION_IMAGE = 'sectionimage';
 
+    /** @var int Course page: one section per row (full width). */
+    public const SECTION_LAYOUT_LIST = 0;
+
+    /** @var int Course page: responsive grid up to three sections per row. */
+    public const SECTION_LAYOUT_GRID = 1;
+
     /**
      * File manager options for {@link self::FILEAREA_SECTION_IMAGE}.
      *
@@ -121,10 +127,25 @@ class format_learningjourney extends course_format_base {
     }
 
     /**
-     * Section listing follows core visibility (hidden sections, etc.). Schedule locking is enforced
-     * via {@see self::section_get_available_hook()} (uservisible) and teaser output on the course page.
+     * Keep schedule-locked sections in the course outline for students (title + image teaser).
+     *
+     * Core {@see course_format_base::is_section_visible()} hides sections when !uservisible and
+     * {@see $section->availableinfo} is empty — our hook clears availableinfo, so we must list
+     * date-locked sections explicitly before falling back to core rules.
      */
     public function is_section_visible(section_info $section): bool {
+        if ($section->is_orphan()) {
+            return parent::is_section_visible($section);
+        }
+        global $USER;
+        if (
+            (int) $section->section !== 0
+            && $section->visible
+            && !$this->user_bypasses_section_schedule((int) ($USER->id ?? 0))
+            && !$this->is_section_within_schedule($section)
+        ) {
+            return true;
+        }
         return parent::is_section_visible($section);
     }
 
@@ -304,6 +325,10 @@ class format_learningjourney extends course_format_base {
                     'default' => $courseconfig->coursedisplay,
                     'type' => PARAM_INT,
                 ],
+                'sectionlayout' => [
+                    'default' => self::SECTION_LAYOUT_GRID,
+                    'type' => PARAM_INT,
+                ],
             ];
         }
         if ($foreditform && !isset($courseformatoptions['coursedisplay']['label'])) {
@@ -331,6 +356,18 @@ class format_learningjourney extends course_format_base {
                     ],
                     'help' => 'coursedisplay',
                     'help_component' => 'moodle',
+                ],
+                'sectionlayout' => [
+                    'label' => new lang_string('sectionlayout', 'format_learningjourney'),
+                    'element_type' => 'select',
+                    'element_attributes' => [
+                        [
+                            self::SECTION_LAYOUT_LIST => new lang_string('sectionlayout_list', 'format_learningjourney'),
+                            self::SECTION_LAYOUT_GRID => new lang_string('sectionlayout_grid', 'format_learningjourney'),
+                        ],
+                    ],
+                    'help' => 'sectionlayout',
+                    'help_component' => 'format_learningjourney',
                 ],
             ];
             $courseformatoptions = array_merge_recursive($courseformatoptions, $courseformatoptionsedit);
