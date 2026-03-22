@@ -134,7 +134,7 @@ class format_learningjourney extends course_format_base {
      * date-locked sections explicitly before falling back to core rules.
      */
     public function is_section_visible(section_info $section): bool {
-        if ($section->is_orphan()) {
+        if ($this->section_is_orphan($section)) {
             return parent::is_section_visible($section);
         }
         global $USER;
@@ -147,6 +147,27 @@ class format_learningjourney extends course_format_base {
             return true;
         }
         return parent::is_section_visible($section);
+    }
+
+    /**
+     * Whether the section is orphaned (beyond last section, or delegated plugin missing).
+     *
+     * {@see section_info::is_orphan()} exists from newer Moodle; older sites need the same rules.
+     */
+    protected function section_is_orphan(section_info $section): bool {
+        if (method_exists($section, 'is_orphan')) {
+            return $section->is_orphan();
+        }
+        $courseformat = course_get_format($section->modinfo->get_course());
+        if ((int) $section->section > $courseformat->get_last_section_number()) {
+            return true;
+        }
+        if (method_exists($section, 'is_delegated') && $section->is_delegated()) {
+            if (method_exists($section, 'get_component_instance') && !$section->get_component_instance()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
