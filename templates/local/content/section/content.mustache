@@ -70,6 +70,7 @@
         {{/displayonesection}}
     {{/controlmenu}}
     {{#header}}
+        {{^ljcardview}}
         {{#headerdisplaymultipage}}
             {{^displayonesection}}
                 {{^controlmenu}}
@@ -91,6 +92,7 @@
                 {{/controlmenu}}
             {{/displayonesection}}
         {{/headerdisplaymultipage}}
+        {{/ljcardview}}
     {{/header}}
 </div>
 {{#hasljdates}}
@@ -98,6 +100,15 @@
     {{ljrangeline}}
 </div>
 {{/hasljdates}}
+{{#ljcardview}}
+{{#ljhasgotourl}}
+<div class="lj-card-goto" data-for="learningjourney_goto">
+    <a href="{{{ljgotourl}}}" class="btn d-flex align-items-center justify-content-center">
+        {{ljgotolabel}}
+    </a>
+</div>
+{{/ljhasgotourl}}
+{{/ljcardview}}
 {{#hassectionimage}}
 <div class="section-learningjourney-image mb-2 px-2" data-for="learningjourney_image">
     <img src="{{{sectionimageurl}}}" alt="{{sectionimagealt}}" class="img-fluid rounded border w-100" style="max-height: 220px; object-fit: cover;"/>

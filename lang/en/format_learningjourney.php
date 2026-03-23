@@ -45,6 +45,7 @@ $string['ljcountdownavailable1'] = 'In 1 day';
 $string['ljcountdownclosing'] = 'Closes in {$a} days';
 $string['ljcountdownclosing1'] = 'Closes in 1 day';
 $string['ljcountdownopen'] = 'Open now';
+$string['ljopensection'] = 'Open section';
 $string['sectionimage'] = 'Section image';
 $string['sectionimage_help'] = 'Optional image shown at the top of this section on the course page. One image file only.';
 $string['sectioncontentlocked'] = 'This section’s activities are not available in the current period. The title, schedule and image are shown as a preview.';

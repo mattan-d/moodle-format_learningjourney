@@ -45,6 +45,7 @@ $string['ljcountdownavailable1'] = 'בעוד יום';
 $string['ljcountdownclosing'] = 'נסגר בעוד {$a} ימים';
 $string['ljcountdownclosing1'] = 'נסגר בעוד יום';
 $string['ljcountdownopen'] = 'זמין עכשיו';
+$string['ljopensection'] = 'ליחידה';
 $string['sectionimage'] = 'תמונת יחידה';
 $string['sectionimage_help'] = 'תמונה אופציונלית שתוצג בראש היחידה בעמוד הקורס. ניתן לצרף קובץ תמונה אחד בלבד.';
 $string['sectioncontentlocked'] = 'היחידה עדיין לא זמינה. ניתן לראות את הכותרת והתמונה; הפעילויות יופיעו כשתיפתח.';

@@ -180,7 +180,7 @@
     background: linear-gradient(180deg, rgba(2, 6, 23, 0.08) 8%, rgba(2, 6, 23, 0.45) 62%, rgba(2, 6, 23, 0.78) 100%);
 }
 
-.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view .section_goto {
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view .lj-card-goto {
     position: absolute;
     left: 1.1rem;
     right: 1.1rem;
@@ -189,7 +189,7 @@
     display: block !important;
 }
 
-.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view .section_goto .btn {
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view .lj-card-goto .btn {
     width: 100%;
     min-height: 2.7rem;
     border: 0;
