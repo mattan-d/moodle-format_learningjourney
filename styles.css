@@ -16,6 +16,10 @@
     padding: 0;
 }
 
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section[data-sectionid="0"] {
+    grid-column: 1 / -1;
+}
+
 @media (min-width: 576px) {
     .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] {
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -131,4 +135,12 @@
 
 .format-learningjourney-mode-view .course-section.main.lj-section-unavailable .course-section-header {
     opacity: 0.92;
+}
+
+/* Page content width for learning journey format. */
+.format-learningjourney-mode-view,
+.format-learningjourney-mode-editing {
+    max-width: 830px;
+    margin-left: auto;
+    margin-right: auto;
 }
