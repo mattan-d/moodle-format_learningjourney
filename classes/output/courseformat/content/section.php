@@ -92,6 +92,42 @@ class section extends section_base {
             return;
         }
         $dateformat = get_string('strftimedatetimeshort', 'langconfig');
+        if (!empty($data->ljcardview)) {
+            $now = time();
+            if ($start > 0 && $now < $start) {
+                $daysuntilstart = max(1, (int) ceil(($start - $now) / DAYSECS));
+                $data->hasljdates = true;
+                $data->ljrangeline = ($daysuntilstart === 1)
+                    ? get_string('ljcountdownavailable1', 'format_learningjourney')
+                    : get_string('ljcountdownavailable', 'format_learningjourney', $daysuntilstart);
+                return;
+            }
+            if ($end > 0 && $now <= $end) {
+                $daysuntilend = max(1, (int) ceil(($end - $now) / DAYSECS));
+                $data->hasljdates = true;
+                $data->ljrangeline = ($daysuntilend === 1)
+                    ? get_string('ljcountdownclosing1', 'format_learningjourney')
+                    : get_string('ljcountdownclosing', 'format_learningjourney', $daysuntilend);
+                return;
+            }
+            if ($start > 0 && $now >= $start && $end <= 0) {
+                $data->hasljdates = true;
+                $data->ljrangeline = get_string('ljcountdownopen', 'format_learningjourney');
+                return;
+            }
+            $startlabel = ($start > 0) ? userdate($start, $dateformat) : '';
+            $endlabel = ($end > 0) ? userdate($end, $dateformat) : '';
+            if ($startlabel !== '' && $endlabel !== '') {
+                $data->hasljdates = true;
+                $data->ljrangeline = $startlabel . ' - ' . $endlabel;
+                return;
+            }
+            if ($startlabel !== '' || $endlabel !== '') {
+                $data->hasljdates = true;
+                $data->ljrangeline = ($startlabel !== '') ? $startlabel : $endlabel;
+                return;
+            }
+        }
         $parts = [];
         if ($start > 0) {
             $parts[] = get_string('ljdisplayfrom', 'format_learningjourney', userdate($start, $dateformat));

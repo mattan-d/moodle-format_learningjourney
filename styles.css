@@ -52,7 +52,7 @@
     transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
     --lj-card-button-height: 2.7rem;
     --lj-card-bottom-gap: 1rem;
-    --lj-card-meta-height: 3rem;
+    --lj-card-meta-height: 3.1rem;
 }
 
 .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view > .section-item:hover {
@@ -68,6 +68,8 @@
     height: 100%;
     margin: 0 !important;
     padding: 0 !important;
+    z-index: 0;
+    background: #0f172a;
 }
 
 .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view .section-learningjourney-image img {
@@ -75,22 +77,27 @@
     width: 100%;
     height: 100%;
     max-height: none !important;
+    min-width: 100%;
+    min-height: 100%;
     border: 0 !important;
     border-radius: 1.4rem;
     object-fit: cover;
+    object-position: center;
+    transform: scale(1.04);
+    opacity: 0.72;
 }
 
 .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view .course-section-header {
     position: absolute;
     left: 1.1rem;
     right: 1.1rem;
-    top: 42%;
-    bottom: calc(var(--lj-card-bottom-gap) + var(--lj-card-button-height) + var(--lj-card-meta-height) + 1.6rem);
+    top: 28%;
+    bottom: calc(var(--lj-card-bottom-gap) + var(--lj-card-button-height) + var(--lj-card-meta-height) + 2.2rem);
     z-index: 2;
     margin: 0;
     padding: 0;
     color: #fff;
-    justify-content: flex-start;
+    justify-content: center;
     text-align: center;
     transform: none;
     background: none;
@@ -101,7 +108,7 @@
 .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view .course-section-header .sectionname > span {
     color: #fff;
     font-weight: 800;
-    font-size: clamp(1.2rem, 1.8vw, 2rem);
+    font-size: clamp(1.12rem, 1.55vw, 1.75rem);
     line-height: 1.25;
     text-shadow: 0 3px 18px rgba(2, 6, 23, 0.7);
     display: -webkit-box;
@@ -135,11 +142,32 @@
 }
 
 .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view .section-learningjourney-dates {
-    bottom: calc(var(--lj-card-bottom-gap) + var(--lj-card-button-height) + 0.8rem);
+    bottom: calc(var(--lj-card-bottom-gap) + var(--lj-card-button-height) + 0.9rem);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+}
+
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view .section-learningjourney-dates::before {
+    content: "";
+    width: 0.95rem;
+    height: 0.95rem;
+    display: inline-block;
+    background-color: rgba(255, 255, 255, 0.9);
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M12 7v5l3 2'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M12 7v5l3 2'/%3E%3C/svg%3E");
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    opacity: 0.9;
 }
 
 .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view .section-learningjourney-locked {
-    bottom: calc(var(--lj-card-bottom-gap) + var(--lj-card-button-height) + 0.8rem);
+    bottom: calc(var(--lj-card-bottom-gap) + var(--lj-card-button-height) + 0.9rem);
 }
 
 .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view > .section-item::after {
