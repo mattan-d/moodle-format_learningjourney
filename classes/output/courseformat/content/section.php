@@ -43,6 +43,7 @@ class section extends section_base {
 
         $format = $this->format;
         $data = parent::export_for_template($output);
+        $data->ljcardview = $this->format->is_showing_all_sections();
         if ($this->format->is_showing_all_sections() && !format_learningjourney::section_info_is_delegated($this->section)) {
             $addsectionclass = $format->get_output_classname('content\\addsection');
             $addsection = new $addsectionclass($format);
