@@ -20,7 +20,7 @@
     Same as core course format content, but section partials resolve to this format so section
     images and dates render. Core template: core_courseformat/local/content.
 }}
-<div id="course-format-{{uniqid}}">
+<div id="course-format-{{uniqid}}" class="{{#ljisediting}}format-learningjourney-mode-editing{{/ljisediting}}{{^ljisediting}}format-learningjourney-mode-view{{/ljisediting}}">
     <h2 class="accesshide">{{{title}}}</h2>
     {{{completionhelp}}}
     <ul class="{{format}} format-learningjourney-sectionlist {{#ljsectionlayoutgrid}}lj-layout-grid{{/ljsectionlayoutgrid}}{{^ljsectionlayoutgrid}}lj-layout-list{{/ljsectionlayoutgrid}}" data-for="course_sectionlist">

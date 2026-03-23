@@ -7,7 +7,7 @@
  */
 
 /* —— Grid layout (up to 3 columns) —— */
-.course-content ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] {
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] {
     display: grid;
     grid-template-columns: 1fr;
     gap: 1rem;
@@ -17,23 +17,23 @@
 }
 
 @media (min-width: 576px) {
-    .course-content ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] {
+    .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
 
 @media (min-width: 992px) {
-    .course-content ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] {
+    .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] {
         grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 }
 
 /* Grid cards: section tiles with full-bleed image and title overlay */
-.course-content ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section {
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section {
     margin: 0;
 }
 
-.course-content ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section > .section-item {
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section > .section-item {
     position: relative;
     min-height: 360px;
     border-radius: 0.75rem;
@@ -44,20 +44,20 @@
     transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
 }
 
-.course-content ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section > .section-item:hover {
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section > .section-item:hover {
     transform: translateY(-2px);
     border-color: rgba(15, 23, 42, 0.14);
     box-shadow: 0 14px 30px rgba(15, 23, 42, 0.14);
 }
 
-.course-content ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section .section-learningjourney-image {
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section .section-learningjourney-image {
     position: absolute;
     inset: 0;
     margin: 0;
     padding: 0;
 }
 
-.course-content ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section .section-learningjourney-image img {
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section .section-learningjourney-image img {
     width: 100%;
     height: 100%;
     max-height: none !important;
@@ -66,7 +66,7 @@
     object-fit: cover;
 }
 
-.course-content ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section .course-section-header {
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section .course-section-header {
     position: absolute;
     inset: auto 0 0 0;
     z-index: 2;
@@ -74,18 +74,23 @@
     padding: 1rem 1rem 1.1rem;
     color: #fff;
     align-items: flex-end;
-    background: linear-gradient(180deg, rgba(15, 23, 42, 0) 0%, rgba(15, 23, 42, 0.58) 62%, rgba(15, 23, 42, 0.76) 100%);
+    background: linear-gradient(180deg, rgba(15, 23, 42, 0) 0%, rgba(15, 23, 42, 0.36) 62%, rgba(15, 23, 42, 0.58) 100%);
 }
 
-.course-content ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section .course-section-header a,
-.course-content ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section .course-section-header .sectionname > span {
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section .course-section-header .sectionname > a,
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section .course-section-header .sectionname > span {
     color: #fff;
     font-weight: 600;
-    text-shadow: 0 1px 2px rgba(15, 23, 42, 0.55);
+    text-shadow: none;
 }
 
-.course-content ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section .section-learningjourney-dates,
-.course-content ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section .section-learningjourney-locked {
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section .course-section-header .section_action_menu .dropdown-toggle,
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section .course-section-header .section_action_menu .menu-action {
+    color: inherit;
+}
+
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section .section-learningjourney-dates,
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section .section-learningjourney-locked {
     position: absolute;
     left: 1rem;
     right: 1rem;
@@ -94,57 +99,36 @@
     margin: 0;
 }
 
-.course-content ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section .section-learningjourney-dates {
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section .section-learningjourney-dates {
     bottom: 4.4rem;
 }
 
-.course-content ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section .section-learningjourney-locked {
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section .section-learningjourney-locked {
     bottom: 2.9rem;
 }
 
 /* In card mode show the tile only; details remain available on the section page */
-.course-content ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section .content,
-.course-content ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section [data-for="sectionbadges"],
-.course-content ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section [data-region="sectionbadges"],
-.course-content ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section [data-for="sectioninfo"],
-.course-content ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section [data-for="learningjourney_emptycollapse"] {
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section .content,
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section [data-for="sectionbadges"],
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section [data-region="sectionbadges"],
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section [data-for="sectioninfo"],
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section [data-for="learningjourney_emptycollapse"] {
     display: none !important;
 }
 
 /* —— List layout (full width, one section per row) —— */
-.course-content ul.format-learningjourney-sectionlist.lj-layout-list.learningjourney[data-for="course_sectionlist"] {
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-list.learningjourney[data-for="course_sectionlist"] {
     display: block;
     list-style: none;
     margin: 0;
     padding: 0;
 }
 
-/* Editing: single column so drag-and-drop and controls stay usable */
-body.editing .course-content ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] {
-    display: block;
-}
-
-body.editing .course-content ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section {
-    grid-column: auto;
-}
-
-body.editing .course-content ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section + li.section {
-    margin-top: 0.5rem;
-}
-
-body.editing .course-content ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section > .section-item,
-body.editing .course-content ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section .section-learningjourney-image,
-body.editing .course-content ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section .course-section-header,
-body.editing .course-content ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section .section-learningjourney-dates,
-body.editing .course-content ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section .section-learningjourney-locked {
-    position: static;
-}
-
 /* Unavailable sections: teaser (title + image) only — subtle “off” treatment */
-.course-content .course-section.main.lj-section-unavailable > .section-item {
+.format-learningjourney-mode-view .course-section.main.lj-section-unavailable > .section-item {
     background-color: rgba(0, 0, 0, 0.04);
 }
 
-.course-content .course-section.main.lj-section-unavailable .course-section-header {
+.format-learningjourney-mode-view .course-section.main.lj-section-unavailable .course-section-header {
     opacity: 0.92;
 }

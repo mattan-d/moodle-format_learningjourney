@@ -51,6 +51,7 @@ class content extends content_base {
         $opts = $format->get_format_options();
         $layout = (int) ($opts['sectionlayout'] ?? \format_learningjourney::SECTION_LAYOUT_GRID);
         $data->ljsectionlayoutgrid = ($layout === \format_learningjourney::SECTION_LAYOUT_GRID);
+        $data->ljisediting = $PAGE->user_is_editing();
 
         return $data;
     }
