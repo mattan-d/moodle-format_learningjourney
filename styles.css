@@ -254,10 +254,3 @@
     opacity: 0.92;
 }
 
-/* Page content width for learning journey format. */
-.format-learningjourney-mode-view,
-.format-learningjourney-mode-editing {
-    max-width: 830px;
-    margin-left: auto;
-    margin-right: auto;
-}

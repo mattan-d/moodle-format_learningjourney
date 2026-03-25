@@ -378,6 +378,10 @@ class format_learningjourney extends course_format_base {
                     'default' => '',
                     'type' => PARAM_TEXT,
                 ],
+                'tjshowbutton' => [
+                    'default' => 1,
+                    'type' => PARAM_INT,
+                ],
             ];
         }
         if ($foreditform && !isset($sectionformatoptions['tjstart']['label'])) {
@@ -400,6 +404,12 @@ class format_learningjourney extends course_format_base {
                     'label' => new lang_string('tjbuttonlabel', 'format_learningjourney'),
                     'element_type' => 'text',
                     'help' => 'tjbuttonlabel',
+                    'help_component' => 'format_learningjourney',
+                ],
+                'tjshowbutton' => [
+                    'label' => new lang_string('tjshowbutton', 'format_learningjourney'),
+                    'element_type' => 'checkbox',
+                    'help' => 'tjshowbutton',
                     'help_component' => 'format_learningjourney',
                 ],
             ];
@@ -427,6 +437,10 @@ class format_learningjourney extends course_format_base {
                 ],
                 'gridcolumns' => [
                     'default' => self::GRID_COLUMNS_DEFAULT,
+                    'type' => PARAM_INT,
+                ],
+                'showsection0' => [
+                    'default' => 1,
                     'type' => PARAM_INT,
                 ],
             ];
@@ -484,6 +498,12 @@ class format_learningjourney extends course_format_base {
                     'help' => 'gridcolumns',
                     'help_component' => 'format_learningjourney',
                 ],
+                'showsection0' => [
+                    'label' => new lang_string('showsection0', 'format_learningjourney'),
+                    'element_type' => 'checkbox',
+                    'help' => 'showsection0',
+                    'help_component' => 'format_learningjourney',
+                ],
             ];
             $courseformatoptions = array_merge_recursive($courseformatoptions, $courseformatoptionsedit);
         }
@@ -508,6 +528,11 @@ class format_learningjourney extends course_format_base {
 
     public function update_course_format_options($data, $oldcourse = null) {
         $data = (array) $data;
+        // Checkbox values may be omitted from form submission when unchecked.
+        // For those options, absence means "0" rather than "keep old value".
+        if (!array_key_exists('showsection0', $data)) {
+            $data['showsection0'] = 0;
+        }
         if ($oldcourse !== null) {
             $oldcourse = (array) $oldcourse;
             $options = $this->course_format_options();

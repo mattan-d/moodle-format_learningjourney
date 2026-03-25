@@ -59,6 +59,21 @@ class content extends content_base {
             $gridcols = 6;
         }
         $data->ljgridcols = $gridcols;
+        $data->ljshowsection0 = ((int) ($opts['showsection0'] ?? 1) === 1);
+        if (!$data->ljshowsection0) {
+            unset($data->initialsection);
+            if (!empty($data->sections) && is_array($data->sections)) {
+                $data->sections = array_values(array_filter($data->sections, static function($section): bool {
+                    $num = null;
+                    if (is_object($section) && isset($section->num)) {
+                        $num = (int) $section->num;
+                    } else if (is_array($section) && array_key_exists('num', $section)) {
+                        $num = (int) $section['num'];
+                    }
+                    return $num !== 0;
+                }));
+            }
+        }
 
         return $data;
     }
