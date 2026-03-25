@@ -32,6 +32,9 @@
     data-sectionname="{{sectionname}}"
     {{#isstealth}} data-orphan="true" {{/isstealth}}
 >
+    {{#ljcardclick}}
+        <a class="lj-card-link" href="{{{ljcardurl}}}" aria-label="{{sectionname}}"></a>
+    {{/ljcardclick}}
     <div class="section-item">
         {{$ core_courseformat/local/content/section/content }}
             {{> format_learningjourney/local/content/section/content }}
