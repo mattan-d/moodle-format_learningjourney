@@ -158,7 +158,7 @@
 }
 
 /* Single-section page: show activities/resources as cards instead of plain list. */
-.format-learningjourney-mode-view .course-section .content ul.section[data-for="cmlist"] {
+.format-learningjourney-mode-view .course-section .content ul.section[data-for="cmitem"] {
     display: grid !important;
     grid-template-columns: 1fr;
     gap: 0.9rem;
@@ -168,24 +168,24 @@
 }
 
 @media (min-width: 768px) {
-    .format-learningjourney-mode-view .course-section .content ul.section[data-for="cmlist"] {
+    .format-learningjourney-mode-view .course-section .content ul.section[data-for="cmitem"] {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
 
 @media (min-width: 992px) {
-    .format-learningjourney-mode-view .course-section .content ul.section[data-for="cmlist"] {
+    .format-learningjourney-mode-view .course-section .content ul.section[data-for="cmitem"] {
         grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 }
 
 @media (min-width: 1200px) {
-    .format-learningjourney-mode-view .course-section .content ul.section[data-for="cmlist"] {
+    .format-learningjourney-mode-view .course-section .content ul.section[data-for="cmitem"] {
         grid-template-columns: repeat(4, minmax(0, 1fr));
     }
 }
 
-.format-learningjourney-mode-view .course-section .content ul.section[data-for="cmlist"] > li.activity.activity-wrapper {
+.format-learningjourney-mode-view .course-section .content ul.section[data-for="cmitem"] > li.activity.activity-wrapper {
     margin: 0;
     border: 1px solid rgba(15, 23, 42, 0.12);
     border-radius: 0.9rem;
@@ -195,14 +195,14 @@
     transition: transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease;
 }
 
-.format-learningjourney-mode-view .course-section .content ul.section[data-for="cmlist"] > li.activity.activity-wrapper:hover {
+.format-learningjourney-mode-view .course-section .content ul.section[data-for="cmitem"] > li.activity.activity-wrapper:hover {
     transform: translateY(-1px);
     border-color: rgba(15, 23, 42, 0.2);
     box-shadow: 0 10px 18px rgba(15, 23, 42, 0.12);
 }
 
-.format-learningjourney-mode-view .course-section .content ul.section[data-for="cmlist"] > li.activity.activity-wrapper > div,
-.format-learningjourney-mode-view .course-section .content ul.section[data-for="cmlist"] > li.activity.activity-wrapper .activity-grid {
+.format-learningjourney-mode-view .course-section .content ul.section[data-for="cmitem"] > li.activity.activity-wrapper > div,
+.format-learningjourney-mode-view .course-section .content ul.section[data-for="cmitem"] > li.activity.activity-wrapper .activity-grid {
     padding: 0.8rem 0.95rem;
 }
 
