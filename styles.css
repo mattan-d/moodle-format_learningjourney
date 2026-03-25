@@ -157,8 +157,8 @@
     display: none !important;
 }
 
-/* Single-section page: show activities/resources as cards instead of plain list. */
-.format-learningjourney-mode-view .course-section .content ul.section[data-for="cmitem"] {
+/* Activity cards: Moodle may render ul with data-for="cmitem" or data-for="cmlist". */
+.format-learningjourney-mode-view .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) {
     display: grid !important;
     grid-template-columns: 1fr;
     gap: 0.9rem;
@@ -168,24 +168,24 @@
 }
 
 @media (min-width: 768px) {
-    .format-learningjourney-mode-view .course-section .content ul.section[data-for="cmitem"] {
+    .format-learningjourney-mode-view .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
 
 @media (min-width: 992px) {
-    .format-learningjourney-mode-view .course-section .content ul.section[data-for="cmitem"] {
+    .format-learningjourney-mode-view .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) {
         grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 }
 
 @media (min-width: 1200px) {
-    .format-learningjourney-mode-view .course-section .content ul.section[data-for="cmitem"] {
+    .format-learningjourney-mode-view .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) {
         grid-template-columns: repeat(4, minmax(0, 1fr));
     }
 }
 
-.format-learningjourney-mode-view .course-section .content ul.section[data-for="cmitem"] > li.activity.activity-wrapper {
+.format-learningjourney-mode-view .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) > li.activity.activity-wrapper {
     margin: 0;
     border: 1px solid rgba(15, 23, 42, 0.12);
     border-radius: 0.9rem;
@@ -195,18 +195,18 @@
     transition: transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease;
 }
 
-.format-learningjourney-mode-view .course-section .content ul.section[data-for="cmitem"] > li.activity.activity-wrapper:hover {
+.format-learningjourney-mode-view .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) > li.activity.activity-wrapper:hover {
     transform: translateY(-1px);
     border-color: rgba(15, 23, 42, 0.2);
     box-shadow: 0 10px 18px rgba(15, 23, 42, 0.12);
 }
 
-.format-learningjourney-mode-view .course-section .content ul.section[data-for="cmitem"] > li.activity.activity-wrapper .activity-item {
+.format-learningjourney-mode-view .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) > li.activity.activity-wrapper .activity-item {
     padding: 0.85rem 0.95rem;
     min-height: 150px;
 }
 
-.format-learningjourney-mode-view .course-section .content ul.section[data-for="cmitem"] > li.activity.activity-wrapper .activity-grid {
+.format-learningjourney-mode-view .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) > li.activity.activity-wrapper .activity-grid {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -214,30 +214,30 @@
     gap: 0.45rem;
 }
 
-.format-learningjourney-mode-view .course-section .content ul.section[data-for="cmitem"] > li.activity.activity-wrapper .activity-icon.activityiconcontainer {
+.format-learningjourney-mode-view .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) > li.activity.activity-wrapper .activity-icon.activityiconcontainer {
     align-self: center !important;
     margin: 0 0 0.4rem !important;
 }
 
-.format-learningjourney-mode-view .course-section .content ul.section[data-for="cmitem"] > li.activity.activity-wrapper .activity-name-area {
+.format-learningjourney-mode-view .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) > li.activity.activity-wrapper .activity-name-area {
     margin: 0 !important;
     width: 100%;
 }
 
-.format-learningjourney-mode-view .course-section .content ul.section[data-for="cmitem"] > li.activity.activity-wrapper .activitytitle {
+.format-learningjourney-mode-view .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) > li.activity.activity-wrapper .activitytitle {
     align-self: center !important;
 }
 
-.format-learningjourney-mode-view .course-section .content ul.section[data-for="cmitem"] > li.activity.activity-wrapper .activityname {
+.format-learningjourney-mode-view .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) > li.activity.activity-wrapper .activityname {
     width: 100%;
 }
 
-.format-learningjourney-mode-view .course-section .content ul.section[data-for="cmitem"] > li.activity.activity-wrapper .activityname a {
+.format-learningjourney-mode-view .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) > li.activity.activity-wrapper .activityname a {
     font-weight: 600;
 }
 
-.format-learningjourney-mode-view .course-section .content ul.section[data-for="cmitem"] > li.activity.activity-wrapper .activity-dates,
-.format-learningjourney-mode-view .course-section .content ul.section[data-for="cmitem"] > li.activity.activity-wrapper .activity-afterlink {
+.format-learningjourney-mode-view .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) > li.activity.activity-wrapper .activity-dates,
+.format-learningjourney-mode-view .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) > li.activity.activity-wrapper .activity-afterlink {
     width: 100%;
     justify-content: center;
     text-align: center;
@@ -428,31 +428,19 @@
     box-shadow: none;
 }
 
-/* Support both Moodle render variants: data-for="cmitem" and data-for="cmlist". */
-.format-learningjourney-mode-view .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) {
-    display: grid !important;
-    grid-template-columns: 1fr;
-    gap: 0.9rem;
-    list-style: none;
-    margin: 0;
-    padding: 0;
+/* Editing mode (e.g. course/view.php): hide card CTA and section image so teachers focus on structure. */
+.format-learningjourney-mode-editing .lj-card-goto,
+.format-learningjourney-mode-editing .section-learningjourney-image {
+    display: none !important;
 }
 
-@media (min-width: 768px) {
-    .format-learningjourney-mode-view .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
+/* Section banner image: rounded corners like section cards (list layout, single section). */
+.format-learningjourney-mode-view .section-learningjourney-image {
+    border-radius: 1.4rem;
+    overflow: hidden;
 }
 
-@media (min-width: 992px) {
-    .format-learningjourney-mode-view .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-}
-
-@media (min-width: 1200px) {
-    .format-learningjourney-mode-view .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-    }
+.format-learningjourney-mode-view .section-learningjourney-image img {
+    border-radius: 1.4rem;
 }
 
