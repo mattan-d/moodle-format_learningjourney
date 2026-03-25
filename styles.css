@@ -201,9 +201,48 @@
     box-shadow: 0 10px 18px rgba(15, 23, 42, 0.12);
 }
 
-.format-learningjourney-mode-view .course-section .content ul.section[data-for="cmitem"] > li.activity.activity-wrapper > div,
+.format-learningjourney-mode-view .course-section .content ul.section[data-for="cmitem"] > li.activity.activity-wrapper .activity-item {
+    padding: 0.85rem 0.95rem;
+    min-height: 150px;
+}
+
 .format-learningjourney-mode-view .course-section .content ul.section[data-for="cmitem"] > li.activity.activity-wrapper .activity-grid {
-    padding: 0.8rem 0.95rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.45rem;
+}
+
+.format-learningjourney-mode-view .course-section .content ul.section[data-for="cmitem"] > li.activity.activity-wrapper .activity-icon.activityiconcontainer {
+    align-self: center !important;
+    margin: 0 0 0.4rem !important;
+}
+
+.format-learningjourney-mode-view .course-section .content ul.section[data-for="cmitem"] > li.activity.activity-wrapper .activity-name-area {
+    margin: 0 !important;
+    width: 100%;
+}
+
+.format-learningjourney-mode-view .course-section .content ul.section[data-for="cmitem"] > li.activity.activity-wrapper .activitytitle {
+    align-self: center !important;
+}
+
+.format-learningjourney-mode-view .course-section .content ul.section[data-for="cmitem"] > li.activity.activity-wrapper .activityname {
+    width: 100%;
+}
+
+.format-learningjourney-mode-view .course-section .content ul.section[data-for="cmitem"] > li.activity.activity-wrapper .activityname a {
+    font-weight: 600;
+}
+
+.format-learningjourney-mode-view .course-section .content ul.section[data-for="cmitem"] > li.activity.activity-wrapper .activity-dates,
+.format-learningjourney-mode-view .course-section .content ul.section[data-for="cmitem"] > li.activity.activity-wrapper .activity-afterlink {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    font-size: 0.85rem;
+    opacity: 0.85;
 }
 
 .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view .section-learningjourney-image {
@@ -379,5 +418,21 @@
 
 .format-learningjourney-mode-view .course-section.main.lj-section-unavailable .course-section-header {
     opacity: 0.92;
+}
+
+/* Main section image (single section view): full width, no frame. */
+.format-learningjourney-mode-view .single-section .section-learningjourney-image {
+    padding: 0 !important;
+    margin: 0 0 0.75rem !important;
+}
+
+.format-learningjourney-mode-view .single-section .section-learningjourney-image img {
+    width: 100% !important;
+    max-width: 100%;
+    max-height: none !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    object-fit: cover;
 }
 
