@@ -29,6 +29,7 @@ $string['section0name'] = 'General';
 $string['newsection'] = 'New section';
 $string['sectionoutline'] = 'Section outline';
 $string['showfromothers'] = 'Show from others';
+$string['sectionactionnotsupported'] = 'Section action is not supported';
 $string['sectionlayout'] = 'Section layout';
 $string['sectionlayout_list'] = 'Single column (full width)';
 $string['sectionlayout_grid'] = 'Grid (up to three sections per row on large screens)';

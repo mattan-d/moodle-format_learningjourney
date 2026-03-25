@@ -420,3 +420,31 @@
     opacity: 0.92;
 }
 
+/* Support both Moodle render variants: data-for="cmitem" and data-for="cmlist". */
+.format-learningjourney-mode-view .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) {
+    display: grid !important;
+    grid-template-columns: 1fr;
+    gap: 0.9rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+@media (min-width: 768px) {
+    .format-learningjourney-mode-view .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 992px) {
+    .format-learningjourney-mode-view .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 1200px) {
+    .format-learningjourney-mode-view .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+

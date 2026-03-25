@@ -29,6 +29,7 @@ $string['section0name'] = 'כללי';
 $string['newsection'] = 'יחידה חדשה';
 $string['sectionoutline'] = 'מתווה יחידות';
 $string['showfromothers'] = 'הצג מאחרים';
+$string['sectionactionnotsupported'] = 'הפעולה על היחידה אינה נתמכת';
 $string['sectionlayout'] = 'פריסת יחידות';
 $string['sectionlayout_list'] = 'עמודה אחת (רוחב מלא)';
 $string['sectionlayout_grid'] = 'רשת (עד שלוש יחידות בשורה במסכים גדולים)';
