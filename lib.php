@@ -382,6 +382,10 @@ class format_learningjourney extends course_format_base {
                     'default' => 1,
                     'type' => PARAM_INT,
                 ],
+                'tjisheader' => [
+                    'default' => 0,
+                    'type' => PARAM_INT,
+                ],
             ];
         }
         if ($foreditform && !isset($sectionformatoptions['tjstart']['label'])) {
@@ -410,6 +414,12 @@ class format_learningjourney extends course_format_base {
                     'label' => new lang_string('tjshowbutton', 'format_learningjourney'),
                     'element_type' => 'checkbox',
                     'help' => 'tjshowbutton',
+                    'help_component' => 'format_learningjourney',
+                ],
+                'tjisheader' => [
+                    'label' => new lang_string('tjisheader', 'format_learningjourney'),
+                    'element_type' => 'checkbox',
+                    'help' => 'tjisheader',
                     'help_component' => 'format_learningjourney',
                 ],
             ];

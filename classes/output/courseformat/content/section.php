@@ -44,13 +44,27 @@ class section extends section_base {
         $format = $this->format;
         $data = parent::export_for_template($output);
         $data->ljcardview = $this->format->is_showing_all_sections();
+        $data->ljisheader = ((int) ($this->section->tjisheader ?? 0) === 1);
         if (!empty($data->ljcardview)) {
             $showbutton = (int) ($this->section->tjshowbutton ?? 1);
             $data->ljhasgotourl = ($showbutton === 1);
+            $data->ljcardclick = false;
+            $data->ljcardurl = null;
+            if (!$data->ljisheader && !$data->ljhasgotourl) {
+                $data->ljcardclick = true;
+                $data->ljcardurl = $format->get_view_url((int) $this->section->section, ['navigation' => true])->out(false);
+            }
             if ($data->ljhasgotourl) {
                 $data->ljgotourl = $format->get_view_url((int) $this->section->section, ['navigation' => true])->out(false);
                 $label = trim((string) ($this->section->tjbuttonlabel ?? ''));
                 $data->ljgotolabel = ($label !== '') ? $label : get_string('ljbuttondefault', 'format_learningjourney');
+            }
+            if ($data->ljisheader) {
+                // Header units are visual separators: title only.
+                $data->ljhasgotourl = false;
+                $data->hasljdates = false;
+                $data->ljcardclick = false;
+                $data->ljcardurl = null;
             }
         }
         if ($this->format->is_showing_all_sections() && !format_learningjourney::section_info_is_delegated($this->section)) {
