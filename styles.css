@@ -420,19 +420,3 @@
     opacity: 0.92;
 }
 
-/* Main section image (single section view): full width, no frame. */
-.format-learningjourney-mode-view .single-section .section-learningjourney-image {
-    padding: 0 !important;
-    margin: 0 0 0.75rem !important;
-}
-
-.format-learningjourney-mode-view .single-section .section-learningjourney-image img {
-    width: 100% !important;
-    max-width: 100%;
-    max-height: none !important;
-    border: 0 !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-    object-fit: cover;
-}
-
