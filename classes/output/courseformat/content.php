@@ -52,6 +52,13 @@ class content extends content_base {
         $layout = (int) ($opts['sectionlayout'] ?? \format_learningjourney::SECTION_LAYOUT_GRID);
         $data->ljsectionlayoutgrid = ($layout === \format_learningjourney::SECTION_LAYOUT_GRID);
         $data->ljisediting = $PAGE->user_is_editing();
+        $gridcols = (int) ($opts['gridcolumns'] ?? \format_learningjourney::GRID_COLUMNS_DEFAULT);
+        if ($gridcols < 2) {
+            $gridcols = 2;
+        } else if ($gridcols > 6) {
+            $gridcols = 6;
+        }
+        $data->ljgridcols = $gridcols;
 
         return $data;
     }

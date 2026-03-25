@@ -47,7 +47,8 @@ class section extends section_base {
         if (!empty($data->ljcardview)) {
             $data->ljhasgotourl = true;
             $data->ljgotourl = $format->get_view_url((int) $this->section->section, ['navigation' => true])->out(false);
-            $data->ljgotolabel = get_string('ljopensection', 'format_learningjourney');
+            $label = trim((string) ($this->section->tjbuttonlabel ?? ''));
+            $data->ljgotolabel = ($label !== '') ? $label : get_string('ljbuttondefault', 'format_learningjourney');
         }
         if ($this->format->is_showing_all_sections() && !format_learningjourney::section_info_is_delegated($this->section)) {
             $addsectionclass = $format->get_output_classname('content\\addsection');

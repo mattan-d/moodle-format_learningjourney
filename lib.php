@@ -44,6 +44,9 @@ class format_learningjourney extends course_format_base {
     /** @var int Course page: responsive grid up to three sections per row. */
     public const SECTION_LAYOUT_GRID = 1;
 
+    /** @var int Default number of columns for grid view. */
+    public const GRID_COLUMNS_DEFAULT = 3;
+
     /**
      * File manager options for {@link self::FILEAREA_SECTION_IMAGE}.
      *
@@ -371,6 +374,10 @@ class format_learningjourney extends course_format_base {
                     'default' => 0,
                     'type' => PARAM_INT,
                 ],
+                'tjbuttonlabel' => [
+                    'default' => '',
+                    'type' => PARAM_TEXT,
+                ],
             ];
         }
         if ($foreditform && !isset($sectionformatoptions['tjstart']['label'])) {
@@ -388,6 +395,12 @@ class format_learningjourney extends course_format_base {
                     'help' => 'tjend',
                     'help_component' => 'format_learningjourney',
                     'element_attributes' => [['optional' => true]],
+                ],
+                'tjbuttonlabel' => [
+                    'label' => new lang_string('tjbuttonlabel', 'format_learningjourney'),
+                    'element_type' => 'text',
+                    'help' => 'tjbuttonlabel',
+                    'help_component' => 'format_learningjourney',
                 ],
             ];
             $sectionformatoptions = array_merge_recursive($sectionformatoptions, $sectionformatoptionsedit);
@@ -410,6 +423,10 @@ class format_learningjourney extends course_format_base {
                 ],
                 'sectionlayout' => [
                     'default' => self::SECTION_LAYOUT_GRID,
+                    'type' => PARAM_INT,
+                ],
+                'gridcolumns' => [
+                    'default' => self::GRID_COLUMNS_DEFAULT,
                     'type' => PARAM_INT,
                 ],
             ];
@@ -450,6 +467,21 @@ class format_learningjourney extends course_format_base {
                         ],
                     ],
                     'help' => 'sectionlayout',
+                    'help_component' => 'format_learningjourney',
+                ],
+                'gridcolumns' => [
+                    'label' => new lang_string('gridcolumns', 'format_learningjourney'),
+                    'element_type' => 'select',
+                    'element_attributes' => [
+                        [
+                            2 => new lang_string('gridcolumns_2', 'format_learningjourney'),
+                            3 => new lang_string('gridcolumns_3', 'format_learningjourney'),
+                            4 => new lang_string('gridcolumns_4', 'format_learningjourney'),
+                            5 => new lang_string('gridcolumns_5', 'format_learningjourney'),
+                            6 => new lang_string('gridcolumns_6', 'format_learningjourney'),
+                        ],
+                    ],
+                    'help' => 'gridcolumns',
                     'help_component' => 'format_learningjourney',
                 ],
             ];

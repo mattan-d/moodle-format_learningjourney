@@ -32,6 +32,24 @@
     }
 }
 
+@media (min-width: 992px) {
+    .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.lj-grid-cols-2.learningjourney[data-for="course_sectionlist"] {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.lj-grid-cols-3.learningjourney[data-for="course_sectionlist"] {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.lj-grid-cols-4.learningjourney[data-for="course_sectionlist"] {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+    .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.lj-grid-cols-5.learningjourney[data-for="course_sectionlist"] {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+    .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.lj-grid-cols-6.learningjourney[data-for="course_sectionlist"] {
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+}
+
 /* Grid cards: section tiles with full-bleed image and title overlay */
 .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view {
     margin: 0;
@@ -191,13 +209,23 @@
 
 .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view .lj-card-goto .btn {
     width: 100%;
-    min-height: 2.7rem;
-    border: 0;
+    min-height: 2.25rem;
+    border: 1px solid rgba(255, 255, 255, 0.28);
     border-radius: 999px;
-    background: #fff;
-    box-shadow: 0 6px 16px rgba(2, 6, 23, 0.24);
-    color: #0f172a;
-    font-weight: 700;
+    background: rgba(255, 255, 255, 0.18);
+    box-shadow: 0 10px 24px rgba(2, 6, 23, 0.24);
+    color: rgba(255, 255, 255, 0.92);
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 0.01em;
+    backdrop-filter: blur(6px);
+    transition: background 140ms ease, border-color 140ms ease, transform 140ms ease;
+}
+
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view .lj-card-goto .btn:hover {
+    background: rgba(255, 255, 255, 0.24);
+    border-color: rgba(255, 255, 255, 0.40);
+    transform: translateY(-1px);
 }
 
 /* In card mode show the tile only; details remain available on the section page */
