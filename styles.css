@@ -158,8 +158,8 @@
 }
 
 /* Single-section page: show activities/resources as cards instead of plain list. */
-.format-learningjourney-sectionlist .content ul.section[data-for="cmlist"] {
-    display: grid;
+.format-learningjourney-mode-view .course-section .content ul.section[data-for="cmlist"] {
+    display: grid !important;
     grid-template-columns: 1fr;
     gap: 0.9rem;
     list-style: none;
@@ -168,24 +168,24 @@
 }
 
 @media (min-width: 768px) {
-    .format-learningjourney-sectionlist .content ul.section[data-for="cmlist"] {
+    .format-learningjourney-mode-view .course-section .content ul.section[data-for="cmlist"] {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
 
 @media (min-width: 992px) {
-    .format-learningjourney-sectionlist .content ul.section[data-for="cmlist"] {
+    .format-learningjourney-mode-view .course-section .content ul.section[data-for="cmlist"] {
         grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 }
 
 @media (min-width: 1200px) {
-    .format-learningjourney-sectionlist .content ul.section[data-for="cmlist"] {
+    .format-learningjourney-mode-view .course-section .content ul.section[data-for="cmlist"] {
         grid-template-columns: repeat(4, minmax(0, 1fr));
     }
 }
 
-.format-learningjourney-sectionlist .content ul.section[data-for="cmlist"] > li.activity.activity-wrapper {
+.format-learningjourney-mode-view .course-section .content ul.section[data-for="cmlist"] > li.activity.activity-wrapper {
     margin: 0;
     border: 1px solid rgba(15, 23, 42, 0.12);
     border-radius: 0.9rem;
@@ -195,30 +195,15 @@
     transition: transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease;
 }
 
-.format-learningjourney-sectionlist .content ul.section[data-for="cmlist"] > li.activity.activity-wrapper:hover {
+.format-learningjourney-mode-view .course-section .content ul.section[data-for="cmlist"] > li.activity.activity-wrapper:hover {
     transform: translateY(-1px);
     border-color: rgba(15, 23, 42, 0.2);
     box-shadow: 0 10px 18px rgba(15, 23, 42, 0.12);
 }
 
-.format-learningjourney-sectionlist .content ul.section[data-for="cmlist"] > li.activity.activity-wrapper > div,
-.format-learningjourney-sectionlist .content ul.section[data-for="cmlist"] > li.activity.activity-wrapper .activity-grid {
+.format-learningjourney-mode-view .course-section .content ul.section[data-for="cmlist"] > li.activity.activity-wrapper > div,
+.format-learningjourney-mode-view .course-section .content ul.section[data-for="cmlist"] > li.activity.activity-wrapper .activity-grid {
     padding: 0.8rem 0.95rem;
-}
-
-/* Single-section view: section image should be full-width, no frame. */
-.format-learningjourney-mode-view .single-section .section-learningjourney-image {
-    margin: 0 !important;
-    padding: 0 !important;
-}
-
-.format-learningjourney-mode-view .single-section .section-learningjourney-image img {
-    display: block;
-    width: 100%;
-    max-height: none !important;
-    border: 0 !important;
-    border-radius: 0 !important;
-    object-fit: cover;
 }
 
 .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view .section-learningjourney-image {
