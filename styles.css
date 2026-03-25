@@ -420,6 +420,14 @@
     opacity: 0.92;
 }
 
+/* Remove theme side indicator line on sections. */
+.format-learningjourney-mode-view .course-section,
+.format-learningjourney-mode-editing .course-section {
+    border-inline-start: 0 !important;
+    border-left: 0 !important;
+    box-shadow: none;
+}
+
 /* Support both Moodle render variants: data-for="cmitem" and data-for="cmlist". */
 .format-learningjourney-mode-view .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) {
     display: grid !important;
