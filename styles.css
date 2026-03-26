@@ -202,6 +202,7 @@
 }
 
 .format-learningjourney-mode-view .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) > li.activity.activity-wrapper .activity-item {
+    border: 0 !important;
     padding: 0.85rem 0.95rem;
     min-height: 150px;
 }
