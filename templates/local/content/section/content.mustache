@@ -42,6 +42,13 @@
         {{/restrictionlock}}
     {{/singleheader}}
     <div data-region="sectionbadges" class="sectionbadges d-flex align-items-center">
+        {{#ljisediting}}
+            {{#ljisheader}}
+                <span class="badge bg-info text-white ms-2" title="{{#str}}tjisheader, format_learningjourney{{/str}}">
+                    {{#str}}tjisheader, format_learningjourney{{/str}}
+                </span>
+            {{/ljisheader}}
+        {{/ljisediting}}
         {{$ core_courseformat/local/content/section/badges }}
             {{> core_courseformat/local/content/section/badges }}
         {{/ core_courseformat/local/content/section/badges }}
