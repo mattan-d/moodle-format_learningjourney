@@ -590,6 +590,9 @@ class format_learningjourney extends course_format_base {
 
     public function section_action($section, $action, $sr) {
         global $PAGE;
+        if ($action === 'add') {
+            return parent::section_action($section, $action, $sr);
+        }
         if ($section->section && ($action === 'setmarker' || $action === 'removemarker')) {
             require_capability('moodle/course:setcurrentsection', context_course::instance($this->courseid));
             course_set_marker($this->courseid, ($action === 'setmarker') ? $section->section : 0);
