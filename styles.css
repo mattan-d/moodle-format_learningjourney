@@ -365,6 +365,11 @@
     background: linear-gradient(180deg, rgba(2, 6, 23, 0.08) 8%, rgba(2, 6, 23, 0.45) 62%, rgba(2, 6, 23, 0.78) 100%);
 }
 
+/* Today falls inside the section schedule (user TZ): show banner image without darkening overlay. */
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view.lj-schedule-today > .section-item::after {
+    display: none;
+}
+
 .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view .lj-card-goto {
     position: absolute;
     left: 1.1rem;

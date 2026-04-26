@@ -43,6 +43,7 @@ class section extends section_base {
 
         $format = $this->format;
         $data = parent::export_for_template($output);
+        $data->ljscheduleincludestoday = $this->format->is_section_within_schedule($this->section);
         $data->ljcardview = $this->format->is_showing_all_sections();
         $data->ljisheader = ((int) ($this->section->tjisheader ?? 0) === 1);
         if (!empty($data->ljcardview)) {
