@@ -79,7 +79,8 @@
 
 .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view > .section-item {
     position: relative;
-    min-height: 430px;
+    min-height: auto;
+    aspect-ratio: 1 / 1;
     border-radius: 1.4rem;
     overflow: hidden;
     padding: 0 !important;
@@ -102,6 +103,7 @@
 /* Header unit: full width, softer visual, title-only presentation. */
 .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view.lj-header-unit > .section-item {
     min-height: 110px;
+    aspect-ratio: auto;
     box-shadow: none;
 }
 
