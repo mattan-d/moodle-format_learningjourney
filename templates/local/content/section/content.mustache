@@ -19,6 +19,24 @@
 
     Core section inner content plus learning journey availability dates under the header.
 }}
+{{#displayonesection}}
+<div class="lj-section-single-header d-flex flex-wrap align-items-center gap-2 gap-md-3 mb-2 w-100" data-for="section_single_header">
+    {{#ljbacktocourseurl}}
+    <a href="{{{ljbacktocourseurl}}}"
+       class="btn btn-icon icon-no-margin lj-back-to-course text-body border-0 bg-transparent shadow-none"
+       title="{{#str}} ljbacktocourse, format_learningjourney {{/str}}">
+        <span class="dir-rtl-hide" aria-hidden="true">{{#pix}}i/arrow-left, moodle{{/pix}}</span>
+        <span class="dir-ltr-hide" aria-hidden="true">{{#pix}}i/arrow-right, moodle{{/pix}}</span>
+        <span class="sr-only">{{#str}} ljbacktocourse, format_learningjourney {{/str}}</span>
+    </a>
+    {{/ljbacktocourseurl}}
+    {{#hassectionimage}}
+    <div class="lj-section-image-banner flex-shrink-0" data-for="learningjourney_image">
+        <img src="{{{sectionimageurl}}}" alt="{{sectionimagealt}}" class="lj-section-image-banner__img"/>
+    </div>
+    {{/hassectionimage}}
+    <div class="flex-grow-1 min-w-0 lj-section-single-header-main">
+{{/displayonesection}}
 <div class="course-section-header d-flex"
      data-for="section_title"
      data-id="{{id}}"
@@ -102,6 +120,10 @@
         {{/ljcardview}}
     {{/header}}
 </div>
+{{#displayonesection}}
+    </div>
+</div>
+{{/displayonesection}}
 {{#hasljdates}}
 <div class="section-learningjourney-dates text-muted small ms-1 mb-2" data-for="learningjourney_dates">
     {{ljrangeline}}
@@ -116,11 +138,13 @@
 </div>
 {{/ljhasgotourl}}
 {{/ljcardview}}
+{{^displayonesection}}
 {{#hassectionimage}}
 <div class="section-learningjourney-image mb-2" data-for="learningjourney_image">
     <img src="{{{sectionimageurl}}}" alt="{{sectionimagealt}}" class="img-fluid w-100" style="max-height: 220px; object-fit: cover;"/>
 </div>
 {{/hassectionimage}}
+{{/displayonesection}}
 {{#ljcontentdisabled}}
 <div class="section-learningjourney-locked text-muted small px-2 mb-2" data-for="learningjourney_locked" role="status">
     {{#str}} sectioncontentlocked, format_learningjourney {{/str}}

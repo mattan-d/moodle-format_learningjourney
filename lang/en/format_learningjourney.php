@@ -67,4 +67,5 @@ $string['ljbuttondefault'] = 'Click here';
 $string['sectionimage'] = 'Section image';
 $string['sectionimage_help'] = 'Optional image shown at the top of this section on the course page. One image file only.';
 $string['sectioncontentlocked'] = 'This section’s activities are not available in the current period. The title, schedule and image are shown as a preview.';
+$string['ljbacktocourse'] = 'Back to course main page';
 $string['privacy:metadata'] = 'The Learning journey course format plugin does not store personal data. Optional section images are stored as files in the course context.';
