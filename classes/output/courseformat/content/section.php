@@ -38,12 +38,34 @@ class section extends section_base {
         return 'format_learningjourney/local/content/section';
     }
 
+    /**
+     * True when this section is rendered alone (?section=n). Matches core header logic (sectionnum),
+     * because {@see displayonesection} in older exports compares {@see get_sectionid()} which may stay
+     * unset when the format only stores the displayed section number (Moodle 4.4+).
+     */
+    protected function is_displayed_as_single_section_page(): bool {
+        $format = $this->format;
+        if ($format->is_showing_all_sections()) {
+            return false;
+        }
+        if (is_callable([$format, 'get_sectionnum'])) {
+            $num = $format->get_sectionnum();
+            return $num !== null && (int) $num === (int) $this->section->section;
+        }
+        if (is_callable([$format, 'get_sectionid'])) {
+            $id = $format->get_sectionid();
+            return $id !== null && (int) $id === (int) $this->section->id;
+        }
+        return false;
+    }
+
     public function export_for_template(renderer_base $output): stdClass {
         global $PAGE;
 
         $format = $this->format;
         $data = parent::export_for_template($output);
-        if (!empty($data->displayonesection)) {
+        $data->ljsinglesectionpage = $this->is_displayed_as_single_section_page();
+        if (!empty($data->ljsinglesectionpage)) {
             $data->ljbacktocourseurl = $format->get_view_url(0)->out(false);
         }
         $data->ljscheduleincludestoday = $this->format->is_section_within_schedule($this->section);

@@ -456,33 +456,42 @@
 .format-learningjourney-mode-view .lj-section-single-header .lj-back-to-course {
     flex-shrink: 0;
     border-radius: 0.5rem;
-    opacity: 0.85;
-    transition: opacity 120ms ease, background-color 120ms ease;
+    transition: background-color 120ms ease;
+    color: inherit;
 }
 
 .format-learningjourney-mode-view .lj-section-single-header .lj-back-to-course:hover,
 .format-learningjourney-mode-view .lj-section-single-header .lj-back-to-course:focus {
-    opacity: 1;
     background-color: rgba(0, 0, 0, 0.06);
 }
 
 .format-learningjourney-mode-view .lj-section-single-header .lj-back-to-course .icon {
-    width: 1.25rem;
-    height: 1.25rem;
+    width: 1.35rem;
+    height: 1.35rem;
+    opacity: 1;
 }
 
-.format-learningjourney-mode-view .lj-section-image-banner {
+.format-learningjourney-mode-view .lj-section-single-header .lj-section-image-banner {
+    flex-shrink: 0;
+    box-sizing: border-box;
     width: 150px;
+    min-width: 150px;
+    max-width: 150px;
     height: 150px;
+    min-height: 150px;
+    max-height: 150px;
     border-radius: 1rem;
     overflow: hidden;
     background: #f1f5f9;
 }
 
-.format-learningjourney-mode-view .lj-section-image-banner__img {
+.format-learningjourney-mode-view .lj-section-single-header .lj-section-image-banner__img {
     display: block;
-    width: 100%;
-    height: 100%;
+    box-sizing: border-box;
+    width: 150px;
+    height: 150px;
+    max-width: 150px;
+    max-height: 150px;
     aspect-ratio: 1 / 1;
     object-fit: cover;
     border-radius: 1rem;
