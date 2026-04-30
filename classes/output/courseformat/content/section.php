@@ -43,14 +43,14 @@ class section extends section_base {
 
         $format = $this->format;
         $data = parent::export_for_template($output);
-        $data->ljsinglesectionpage = !empty($data->displayonesection);
-        if (!empty($data->ljsinglesectionpage)) {
+        $data->ljcardview = $this->format->is_showing_all_sections();
+        $data->ljsinglesectionpage = empty($data->ljcardview);
+        if ($data->ljsinglesectionpage) {
             $data->ljbacktocourseurl = (new \moodle_url('/course/view.php', [
                 'id' => $format->get_courseid(),
             ]))->out(false);
         }
         $data->ljscheduleincludestoday = $this->format->is_section_within_schedule($this->section);
-        $data->ljcardview = $this->format->is_showing_all_sections();
         $data->ljisheader = ((int) ($this->section->tjisheader ?? 0) === 1);
         if (!empty($data->ljcardview)) {
             $showbutton = (int) ($this->section->tjshowbutton ?? 1);
