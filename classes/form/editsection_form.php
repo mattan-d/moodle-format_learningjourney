@@ -87,6 +87,11 @@ class editsection_form extends \editsection_form {
 
     public function validation($data, $files) {
         $errors = parent::validation($data, $files);
+        $course = $this->_customdata['course'];
+        $formaterrors = course_get_format($course)->edit_form_validation($data, $files, $errors);
+        if (is_array($formaterrors) && $formaterrors !== []) {
+            $errors = array_merge($errors, $formaterrors);
+        }
         $start = $this->optional_datetime_to_timestamp($data['tjstart'] ?? null);
         $end = $this->optional_datetime_to_timestamp($data['tjend'] ?? null);
         if ($start && $end && $start > $end) {

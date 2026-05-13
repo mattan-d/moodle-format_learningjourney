@@ -63,6 +63,16 @@ class section extends section_base {
             }
             if ($data->ljhasgotourl) {
                 $data->ljgotourl = $format->get_view_url((int) $this->section->section, ['navigation' => true])->out(false);
+                $cmid = (int) ($this->section->tjbuttoncmid ?? 0);
+                if ($cmid > 0) {
+                    $modinfo = $format->get_modinfo();
+                    if (isset($modinfo->cms[$cmid])) {
+                        $cm = $modinfo->cms[$cmid];
+                        if ($cm->uservisible && $cm->url) {
+                            $data->ljgotourl = $cm->url->out(false);
+                        }
+                    }
+                }
                 $label = trim((string) ($this->section->tjbuttonlabel ?? ''));
                 $data->ljgotolabel = ($label !== '') ? $label : get_string('ljbuttondefault', 'format_learningjourney');
             }

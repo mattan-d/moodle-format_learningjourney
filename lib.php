@@ -363,32 +363,48 @@ class format_learningjourney extends course_format_base {
     }
 
     public function section_format_options($foreditform = false) {
-        static $sectionformatoptions = false;
-        if ($sectionformatoptions === false) {
-            $sectionformatoptions = [
-                'tjstart' => [
-                    'default' => 0,
-                    'type' => PARAM_INT,
-                ],
-                'tjend' => [
-                    'default' => 0,
-                    'type' => PARAM_INT,
-                ],
-                'tjbuttonlabel' => [
-                    'default' => '',
-                    'type' => PARAM_TEXT,
-                ],
-                'tjshowbutton' => [
-                    'default' => 1,
-                    'type' => PARAM_INT,
-                ],
-                'tjisheader' => [
-                    'default' => 0,
-                    'type' => PARAM_INT,
-                ],
+        $sectionformatoptions = [
+            'tjstart' => [
+                'default' => 0,
+                'type' => PARAM_INT,
+            ],
+            'tjend' => [
+                'default' => 0,
+                'type' => PARAM_INT,
+            ],
+            'tjbuttonlabel' => [
+                'default' => '',
+                'type' => PARAM_TEXT,
+            ],
+            'tjbuttoncmid' => [
+                'default' => 0,
+                'type' => PARAM_INT,
+            ],
+            'tjshowbutton' => [
+                'default' => 1,
+                'type' => PARAM_INT,
+            ],
+            'tjisheader' => [
+                'default' => 0,
+                'type' => PARAM_INT,
+            ],
+        ];
+        if ($foreditform) {
+            $activitychoices = [
+                0 => get_string('tjbuttonlinknone', 'format_learningjourney'),
             ];
-        }
-        if ($foreditform && !isset($sectionformatoptions['tjstart']['label'])) {
+            if ($this->get_courseid()) {
+                $modinfo = get_fast_modinfo($this->get_course());
+                foreach ($modinfo->cms as $cm) {
+                    if (!empty($cm->deletioninprogress)) {
+                        continue;
+                    }
+                    if (!$cm->url) {
+                        continue;
+                    }
+                    $activitychoices[$cm->id] = shorten_text($cm->get_formatted_name(), 100);
+                }
+            }
             $sectionformatoptionsedit = [
                 'tjstart' => [
                     'label' => new lang_string('tjstart', 'format_learningjourney'),
@@ -410,6 +426,13 @@ class format_learningjourney extends course_format_base {
                     'help' => 'tjbuttonlabel',
                     'help_component' => 'format_learningjourney',
                 ],
+                'tjbuttoncmid' => [
+                    'label' => new lang_string('tjbuttonlink', 'format_learningjourney'),
+                    'element_type' => 'select',
+                    'element_attributes' => [$activitychoices],
+                    'help' => 'tjbuttonlink',
+                    'help_component' => 'format_learningjourney',
+                ],
                 'tjshowbutton' => [
                     'label' => new lang_string('tjshowbutton', 'format_learningjourney'),
                     'element_type' => 'checkbox',
@@ -426,6 +449,18 @@ class format_learningjourney extends course_format_base {
             $sectionformatoptions = array_merge_recursive($sectionformatoptions, $sectionformatoptionsedit);
         }
         return $sectionformatoptions;
+    }
+
+    public function edit_form_validation($data, $files, $errors) {
+        $validationerrors = parent::edit_form_validation($data, $files, $errors);
+        $cmid = (int) ($data['tjbuttoncmid'] ?? 0);
+        if ($cmid > 0 && !empty($data['course'])) {
+            $modinfo = get_fast_modinfo((int) $data['course']);
+            if (!isset($modinfo->cms[$cmid])) {
+                $validationerrors['tjbuttoncmid'] = get_string('invalidactivity', 'format_learningjourney');
+            }
+        }
+        return $validationerrors;
     }
 
     public function course_format_options($foreditform = false) {
