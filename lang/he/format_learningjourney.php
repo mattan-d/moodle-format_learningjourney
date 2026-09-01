@@ -25,6 +25,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'מסלול למידה';
+$string['sectionname'] = 'יחידה';
 $string['section0name'] = 'כללי';
 $string['newsection'] = 'יחידה חדשה';
 $string['sectionoutline'] = 'מתווה יחידות';
@@ -43,6 +44,13 @@ $string['gridcolumns_5'] = '5';
 $string['gridcolumns_6'] = '6';
 $string['showsection0'] = 'הצג יחידת מבוא (יחידה 0)';
 $string['showsection0_help'] = 'אם מסומן, יחידת המבוא (יחידה 0) תוצג בראש עמוד הקורס.';
+$string['contentonly'] = 'תוכן בלבד (ללא כותרת ותחתית של Moodle)';
+$string['contentonly_help'] = 'אם מסומן, עמוד הקורס, דפי יחידה ודפי פעילויות יוצגו ללא כותרת האתר, תפריט הניווט והפוטר — רק התוכן. תפריט המבורגר מספק ניווט ואפשרויות קורס. במצב עריכה מוחזרת תצוגת Moodle המלאה.';
+$string['contentonlymenu'] = 'פתיחת תפריט הקורס';
+$string['contentonlycoursemenu'] = 'תפריט הקורס';
+$string['contentonlyoptions'] = 'אפשרויות הקורס';
+$string['darkmode'] = 'מצב כהה (Dark mode)';
+$string['darkmode_help'] = 'אם מסומן (זמין רק עם «תוכן בלבד»), הקורס יוצג ברקע כהה וטקסט בהיר. חל על עמוד הקורס, דפי יחידה ודפי פעילויות במצב תוכן בלבד.';
 $string['tjbuttonlabel'] = 'טקסט כפתור בכרטיס';
 $string['tjbuttonlabel_help'] = 'אופציונלי. יוצג על כפתור הכרטיס בתצוגת הכרטיסים. אם ריק, יוצג "לחצו כאן". ניתן להגדיר למטה קישור לפעילות ספציפית במקום פתיחת היחידה.';
 $string['tjbuttonlink'] = 'קישור כפתור בכרטיס';

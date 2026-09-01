@@ -21,15 +21,6 @@
 }}
 {{#ljsinglesectionpage}}
 <div class="lj-section-single-header d-flex flex-wrap align-items-center gap-2 gap-md-3 mb-2 w-100" data-for="section_single_header">
-    {{#ljbacktocourseurl}}
-    <a href="{{{ljbacktocourseurl}}}"
-       class="btn btn-icon icon-no-margin lj-back-to-course text-body border-0 bg-transparent shadow-none"
-       title="{{#str}} ljbacktocourse, format_learningjourney {{/str}}">
-        <span class="dir-rtl-hide" aria-hidden="true">{{#pix}}i/arrow-left, moodle{{/pix}}</span>
-        <span class="dir-ltr-hide" aria-hidden="true">{{#pix}}i/arrow-right, moodle{{/pix}}</span>
-        <span class="sr-only">{{#str}} ljbacktocourse, format_learningjourney {{/str}}</span>
-    </a>
-    {{/ljbacktocourseurl}}
     {{#hassectionimage}}
     <div class="lj-section-image-banner flex-shrink-0" data-for="learningjourney_image">
         <img src="{{{sectionimageurl}}}" alt="{{sectionimagealt}}" class="lj-section-image-banner__img"/>
@@ -154,7 +145,7 @@
 {{^ljcontentdisabled}}
 <div id="coursecontentcollapseid{{id}}"
      class="content {{^iscoursedisplaymultipage}}{{^sitehome}}{{^displayonesection}}course-content-item-content collapse {{^contentcollapsed}}show{{/contentcollapsed}}{{/displayonesection}}{{/sitehome}}{{/iscoursedisplaymultipage}}">
-    <div class="{{#hasavailability}}description{{/hasavailability}} my-3" data-for="sectioninfo">
+    <div class="{{#hasavailability}}description{{/hasavailability}}" data-for="sectioninfo">
         {{#isstealth}}
         <div class="alert alert-warning">
             {{#str}} orphansectionwarning, core_courseformat {{/str}}

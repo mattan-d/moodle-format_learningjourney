@@ -50,6 +50,7 @@ $renderer = $PAGE->get_renderer('format_learningjourney');
 if (!is_null($displaysection)) {
     $format->set_display_section((int) $displaysection);
 }
+
 $outputclass = $format->get_output_classname('content');
 $widget = new $outputclass($format);
 echo $renderer->render($widget);

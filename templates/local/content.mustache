@@ -38,10 +38,10 @@
         {{/sections}}
     </ul>
     {{#hasnavigation}}
-    <div class="single-section">
+    <div class="single-section lj-single-section">
         {{#sectionnavigation}}
             {{$ core_courseformat/local/content/sectionnavigation }}
-                {{> core_courseformat/local/content/sectionnavigation }}
+                {{> format_learningjourney/local/content/sectionnavigation }}
             {{/ core_courseformat/local/content/sectionnavigation }}
         {{/sectionnavigation}}
         <ul class="{{format}}">
@@ -53,7 +53,7 @@
         </ul>
         {{#sectionselector}}
             {{$ core_courseformat/local/content/sectionselector }}
-                {{> core_courseformat/local/content/sectionselector }}
+                {{> format_learningjourney/local/content/sectionselector }}
             {{/ core_courseformat/local/content/sectionselector }}
         {{/sectionselector}}
     </div>

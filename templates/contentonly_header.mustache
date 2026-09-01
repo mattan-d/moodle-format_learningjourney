@@ -1,0 +1,73 @@
+{{!
+    @template format_learningjourney/contentonly_header
+
+    Sticky header for content-only course display (no Moodle chrome).
+}}
+<header class="lj-contentonly-header" data-region="lj-contentonly-header">
+    <button type="button"
+            class="lj-contentonly-hamburger btn btn-icon"
+            data-action="lj-menu-toggle"
+            aria-expanded="false"
+            aria-controls="lj-contentonly-menu"
+            title="{{menulabel}}"
+            aria-label="{{menulabel}}">
+        {{{hamburgericon}}}
+    </button>
+    <a class="lj-contentonly-brand" href="{{{homeurl}}}" title="{{sitename}}">
+        {{#haslogo}}
+            <img class="lj-contentonly-logo" src="{{{logourl}}}" alt="{{sitename}}"/>
+        {{/haslogo}}
+        {{^haslogo}}
+            <span class="lj-contentonly-sitename">{{sitename}}</span>
+        {{/haslogo}}
+    </a>
+    <a class="lj-contentonly-coursetitle" href="{{{courseurl}}}">{{coursename}}</a>
+    {{#editurl}}
+        <a class="btn btn-sm btn-primary lj-contentonly-edit" href="{{{editurl}}}">{{editlabel}}</a>
+    {{/editurl}}
+    {{^editurl}}
+        <span class="lj-contentonly-edit-spacer" aria-hidden="true"></span>
+    {{/editurl}}
+</header>
+<div class="lj-contentonly-backdrop" data-region="lj-contentonly-backdrop" data-action="lj-menu-close" hidden></div>
+<nav id="lj-contentonly-menu"
+     class="lj-contentonly-menu"
+     data-region="lj-contentonly-menu"
+     aria-label="{{coursemenulabel}}"
+     hidden>
+    <div class="lj-contentonly-menu__head">
+        <span class="lj-contentonly-menu__title">{{coursemenulabel}}</span>
+        <button type="button"
+                class="btn btn-icon"
+                data-action="lj-menu-close"
+                title="{{closelabel}}"
+                aria-label="{{closelabel}}">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <ul class="lj-contentonly-menu__list list-unstyled mb-0">
+        <li>
+            <a href="{{{courseurl}}}" class="lj-contentonly-menu__link">{{coursename}}</a>
+        </li>
+        {{#hassections}}
+            <li class="lj-contentonly-menu__heading" role="presentation">{{sectionslabel}}</li>
+            {{#sections}}
+                <li>
+                    <a href="{{{url}}}"
+                       class="lj-contentonly-menu__link{{#active}} is-active{{/active}}"
+                       {{#active}}aria-current="page"{{/active}}>{{name}}</a>
+                </li>
+            {{/sections}}
+        {{/hassections}}
+        {{#hasoptions}}
+            <li class="lj-contentonly-menu__heading" role="presentation">{{optionslabel}}</li>
+            {{#options}}
+                <li>
+                    <a href="{{{url}}}"
+                       class="lj-contentonly-menu__link{{#active}} is-active{{/active}}"
+                       {{#active}}aria-current="page"{{/active}}>{{name}}</a>
+                </li>
+            {{/options}}
+        {{/hasoptions}}
+    </ul>
+</nav>

@@ -36,18 +36,28 @@ class content extends content_base {
     protected $hasaddsection = true;
 
     public function get_template_name(\renderer_base $renderer): string {
+        global $PAGE;
+        if ($PAGE->user_is_editing()) {
+            return parent::get_template_name($renderer);
+        }
         return 'format_learningjourney/local/content';
     }
 
     public function export_for_template(renderer_base $output) {
         global $PAGE;
         $format = $this->format;
+        $data = parent::export_for_template($output);
+
+        // Editing: use core Moodle course layout without learning journey view styling.
+        if ($PAGE->user_is_editing()) {
+            return $data;
+        }
+
         $PAGE->requires->js_call_amd('format_learningjourney/mutations', 'init');
         $PAGE->requires->js_call_amd('format_learningjourney/section', 'init');
         if ($PAGE->theme->usescourseindex && $format->uses_course_index()) {
             $PAGE->requires->js_call_amd('format_learningjourney/courseindex_section_images', 'init');
         }
-        $data = parent::export_for_template($output);
         $opts = $format->get_format_options();
         $layout = (int) ($opts['sectionlayout'] ?? \format_learningjourney::SECTION_LAYOUT_GRID);
         $data->ljsectionlayoutgrid = ($layout === \format_learningjourney::SECTION_LAYOUT_GRID);
@@ -72,6 +82,19 @@ class content extends content_base {
                     }
                     return $num !== 0;
                 }));
+            }
+        }
+
+        // Always expose prev/next on single-section pages (Boost hides them when course index is on).
+        if (!empty($data->hasnavigation) && empty($data->sectionnavigation)) {
+            $singlesectionnum = $format->get_sectionnum();
+            if ($singlesectionnum !== null) {
+                $sectionnavigationclass = $format->get_output_classname('content\\sectionnavigation');
+                $sectionselectorclass = $format->get_output_classname('content\\sectionselector');
+                $sectionnavigation = new $sectionnavigationclass($format, (int) $singlesectionnum);
+                $data->sectionnavigation = $sectionnavigation->export_for_template($output);
+                $sectionselector = new $sectionselectorclass($format, $sectionnavigation);
+                $data->sectionselector = $sectionselector->export_for_template($output);
             }
         }
 

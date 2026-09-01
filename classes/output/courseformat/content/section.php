@@ -45,11 +45,6 @@ class section extends section_base {
         $data = parent::export_for_template($output);
         $data->ljcardview = $this->format->is_showing_all_sections();
         $data->ljsinglesectionpage = empty($data->ljcardview);
-        if ($data->ljsinglesectionpage) {
-            $data->ljbacktocourseurl = (new \moodle_url('/course/view.php', [
-                'id' => $format->get_courseid(),
-            ]))->out(false);
-        }
         $data->ljscheduleincludestoday = $this->format->is_section_within_schedule($this->section);
         $data->ljisheader = ((int) ($this->section->tjisheader ?? 0) === 1);
         if (!empty($data->ljcardview)) {

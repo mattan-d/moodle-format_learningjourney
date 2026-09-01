@@ -488,6 +488,14 @@ class format_learningjourney extends course_format_base {
                     'default' => 1,
                     'type' => PARAM_INT,
                 ],
+                'contentonly' => [
+                    'default' => 0,
+                    'type' => PARAM_INT,
+                ],
+                'darkmode' => [
+                    'default' => 0,
+                    'type' => PARAM_INT,
+                ],
             ];
         }
         if ($foreditform && !isset($courseformatoptions['coursedisplay']['label'])) {
@@ -549,24 +557,57 @@ class format_learningjourney extends course_format_base {
                     'help' => 'showsection0',
                     'help_component' => 'format_learningjourney',
                 ],
+                'contentonly' => [
+                    'label' => new lang_string('contentonly', 'format_learningjourney'),
+                    'element_type' => 'checkbox',
+                    'help' => 'contentonly',
+                    'help_component' => 'format_learningjourney',
+                ],
+                'darkmode' => [
+                    'label' => new lang_string('darkmode', 'format_learningjourney'),
+                    'element_type' => 'checkbox',
+                    'help' => 'darkmode',
+                    'help_component' => 'format_learningjourney',
+                ],
             ];
             $courseformatoptions = array_merge_recursive($courseformatoptions, $courseformatoptionsedit);
         }
         return $courseformatoptions;
     }
 
+    /**
+     * Whether the course page should render without Moodle chrome (header/footer/nav).
+     */
+    public function is_content_only_view(): bool {
+        $opts = $this->get_format_options();
+        return !empty($opts['contentonly']);
+    }
+
+    /**
+     * Whether dark mode is enabled for content-only course display.
+     */
+    public function is_dark_mode(): bool {
+        $opts = $this->get_format_options();
+        return !empty($opts['contentonly']) && !empty($opts['darkmode']);
+    }
+
     public function create_edit_form_elements(&$mform, $forsection = false) {
         global $COURSE;
         $elements = parent::create_edit_form_elements($mform, $forsection);
-        if (!$forsection && (empty($COURSE->id) || $COURSE->id == SITEID)) {
-            $courseconfig = get_config('moodlecourse');
-            $max = (int) $courseconfig->maxsections;
-            $element = $mform->addElement('select', 'numsections', get_string('numberweeks'), range(0, $max ?: 52));
-            $mform->setType('numsections', PARAM_INT);
-            if (is_null($mform->getElementValue('numsections'))) {
-                $mform->setDefault('numsections', $courseconfig->numsections);
+        if (!$forsection) {
+            if ($mform->elementExists('darkmode') && $mform->elementExists('contentonly')) {
+                $mform->disabledIf('darkmode', 'contentonly', 'notchecked');
             }
-            array_unshift($elements, $element);
+            if ((empty($COURSE->id) || $COURSE->id == SITEID)) {
+                $courseconfig = get_config('moodlecourse');
+                $max = (int) $courseconfig->maxsections;
+                $element = $mform->addElement('select', 'numsections', get_string('numberweeks'), range(0, $max ?: 52));
+                $mform->setType('numsections', PARAM_INT);
+                if (is_null($mform->getElementValue('numsections'))) {
+                    $mform->setDefault('numsections', $courseconfig->numsections);
+                }
+                array_unshift($elements, $element);
+            }
         }
         return $elements;
     }
@@ -577,6 +618,16 @@ class format_learningjourney extends course_format_base {
         // For those options, absence means "0" rather than "keep old value".
         if (!array_key_exists('showsection0', $data)) {
             $data['showsection0'] = 0;
+        }
+        if (!array_key_exists('contentonly', $data)) {
+            $data['contentonly'] = 0;
+        }
+        if (!array_key_exists('darkmode', $data)) {
+            $data['darkmode'] = 0;
+        }
+        // Dark mode only applies together with content-only.
+        if (empty($data['contentonly'])) {
+            $data['darkmode'] = 0;
         }
         if ($oldcourse !== null) {
             $oldcourse = (array) $oldcourse;
@@ -666,16 +717,187 @@ class format_learningjourney extends course_format_base {
 }
 
 /**
+ * Whether the current page is a learner-facing page of a learningjourney course.
+ *
+ * Covers the course home, single-section pages, and activity (incourse) pages.
+ */
+function format_learningjourney_is_learner_facing_page(): bool {
+    global $PAGE;
+
+    $pagetype = (string) ($PAGE->pagetype ?? '');
+    if ($pagetype === 'course-view-learningjourney'
+            || $pagetype === 'course-view-section-learningjourney') {
+        return true;
+    }
+
+    $course = $PAGE->course ?? null;
+    if (!$course || empty($course->id) || (int) $course->id === SITEID) {
+        return false;
+    }
+    if (($course->format ?? '') !== 'learningjourney') {
+        return false;
+    }
+
+    // Activity pages and other in-course module layouts.
+    return ($PAGE->pagelayout ?? '') === 'incourse';
+}
+
+/**
+ * Whether content-only (no Moodle header/footer) should apply on this request.
+ */
+function format_learningjourney_should_apply_content_only(): bool {
+    global $PAGE;
+
+    if (!format_learningjourney_is_learner_facing_page()) {
+        return false;
+    }
+    if ($PAGE->user_is_editing()) {
+        return false;
+    }
+
+    $format = course_get_format($PAGE->course);
+    return ($format instanceof format_learningjourney) && $format->is_content_only_view();
+}
+
+/**
+ * Compact header for content-only pages: hamburger course menu + optional edit control.
+ */
+function format_learningjourney_content_only_editbar_html(): string {
+    global $PAGE, $OUTPUT, $SITE;
+
+    if (!format_learningjourney_should_apply_content_only()) {
+        return '';
+    }
+
+    $PAGE->requires->js_call_amd('format_learningjourney/contentonly', 'init');
+
+    $course = $PAGE->course;
+    $format = course_get_format($course);
+    $courseurl = new moodle_url('/course/view.php', ['id' => $course->id]);
+
+    $menusections = [];
+    $modinfo = get_fast_modinfo($course);
+    $showsection0 = ((int) ($format->get_format_options()['showsection0'] ?? 1) === 1);
+    foreach ($modinfo->get_section_info_all() as $sectioninfo) {
+        if ((int) $sectioninfo->section === 0 && !$showsection0) {
+            continue;
+        }
+        if (!$format->is_section_visible($sectioninfo)) {
+            continue;
+        }
+        $url = $format->get_view_url($sectioninfo, ['navigation' => true]);
+        $menusections[] = [
+            'name' => $format->get_section_name($sectioninfo),
+            'url' => $url->out(false),
+            'active' => $PAGE->url->compare($url, URL_MATCH_EXACT),
+        ];
+    }
+
+    $menuoptions = [];
+    try {
+        $secondary = $PAGE->secondarynav;
+        if ($secondary) {
+            foreach ($secondary->children as $node) {
+                if (!$node->display || !$node->has_action()) {
+                    continue;
+                }
+                $action = $node->action;
+                if (!($action instanceof moodle_url)) {
+                    continue;
+                }
+                // Skip pure course-home duplicates; sections cover navigation.
+                if ($action->compare($courseurl, URL_MATCH_BASE)) {
+                    $params = $action->params();
+                    unset($params['id']);
+                    if ($params === []) {
+                        continue;
+                    }
+                }
+                $menuoptions[] = [
+                    'name' => is_string($node->text) ? $node->text : $node->get_content(),
+                    'url' => $action->out(false),
+                    'active' => !empty($node->isactive),
+                ];
+            }
+        }
+    } catch (Throwable $e) {
+        // Secondary nav may not initialise on every pagetype; sections menu is enough.
+        debugging($e->getMessage(), DEBUG_DEVELOPER);
+    }
+
+    $editurl = null;
+    if ($PAGE->user_allowed_editing()) {
+        $editurl = (new moodle_url($PAGE->url, ['edit' => 1, 'sesskey' => sesskey()]))->out(false);
+    }
+
+    $logourl = $OUTPUT->get_compact_logo_url(null, 100);
+    if (!$logourl) {
+        $logourl = $OUTPUT->get_logo_url(null, 100);
+    }
+    $sitename = format_string($SITE->fullname, true, [
+        'context' => context_course::instance(SITEID),
+    ]);
+
+    return $OUTPUT->render_from_template('format_learningjourney/contentonly_header', [
+        'coursename' => format_string($course->fullname, true, ['context' => context_course::instance($course->id)]),
+        'courseurl' => $courseurl->out(false),
+        'homeurl' => (new moodle_url('/'))->out(false),
+        'sitename' => $sitename,
+        'haslogo' => !empty($logourl),
+        'logourl' => $logourl ? $logourl->out(false) : null,
+        'menulabel' => get_string('contentonlymenu', 'format_learningjourney'),
+        'coursemenulabel' => get_string('contentonlycoursemenu', 'format_learningjourney'),
+        'sectionslabel' => get_string('sections'),
+        'optionslabel' => get_string('contentonlyoptions', 'format_learningjourney'),
+        'closelabel' => get_string('closebuttontitle'),
+        'hassections' => $menusections !== [],
+        'sections' => $menusections,
+        'hasoptions' => $menuoptions !== [],
+        'options' => $menuoptions,
+        'editurl' => $editurl,
+        'editlabel' => get_string('turneditingon'),
+        'hamburgericon' => $OUTPUT->pix_icon('i/menubars', get_string('contentonlymenu', 'format_learningjourney')),
+    ]);
+}
+
+/**
  * Register stylesheet before HTTP headers. Course format rendering runs after {@see $OUTPUT->header()}.
  */
 function format_learningjourney_before_http_headers(): void {
     global $PAGE;
 
-    if (($PAGE->pagetype ?? '') !== 'course-view-learningjourney') {
+    if (!format_learningjourney_is_learner_facing_page()) {
         return;
     }
 
-    $PAGE->requires->css(new moodle_url('/course/format/learningjourney/styles.css'));
+    $pagetype = (string) ($PAGE->pagetype ?? '');
+    $isformatview = ($pagetype === 'course-view-learningjourney'
+        || $pagetype === 'course-view-section-learningjourney');
+
+    // Format CSS applies to learner view only; editing uses standard Moodle chrome.
+    if (!$PAGE->user_is_editing() && ($isformatview || format_learningjourney_should_apply_content_only())) {
+        $PAGE->requires->css(new moodle_url('/course/format/learningjourney/styles.css'));
+    }
+
+    // Content-only: drop Moodle header/footer/nav via the embedded layout.
+    // Keep the full course layout while editing so teachers can manage the course.
+    if (format_learningjourney_should_apply_content_only()) {
+        $PAGE->set_pagelayout('embedded');
+        $PAGE->add_body_class('lj-content-only');
+        $format = course_get_format($PAGE->course);
+        if ($format instanceof format_learningjourney && $format->is_dark_mode()) {
+            $PAGE->add_body_class('lj-dark-mode');
+        }
+    }
+}
+
+/**
+ * Inject the content-only edit bar at the top of the body (course, section, activities).
+ *
+ * @return string
+ */
+function format_learningjourney_before_standard_top_of_body_html(): string {
+    return format_learningjourney_content_only_editbar_html();
 }
 
 /**

@@ -25,6 +25,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Learning journey';
+$string['sectionname'] = 'Section';
 $string['section0name'] = 'General';
 $string['newsection'] = 'New section';
 $string['sectionoutline'] = 'Section outline';
@@ -43,6 +44,13 @@ $string['gridcolumns_5'] = '5';
 $string['gridcolumns_6'] = '6';
 $string['showsection0'] = 'Show introduction section (section 0)';
 $string['showsection0_help'] = 'If enabled, section 0 is shown at the top of the course page.';
+$string['contentonly'] = 'Content only (no Moodle header/footer)';
+$string['contentonly_help'] = 'If enabled, the course home, section pages and activities are shown without the site header, navigation drawer and footer—only the content. A hamburger menu provides course navigation and options. Full Moodle chrome is restored while editing is on.';
+$string['contentonlymenu'] = 'Open course menu';
+$string['contentonlycoursemenu'] = 'Course menu';
+$string['contentonlyoptions'] = 'Course options';
+$string['darkmode'] = 'Dark mode';
+$string['darkmode_help'] = 'If enabled (only available with “Content only”), the course is shown with a dark background and light text. Applies on the course home, section pages and activities while content-only mode is active.';
 $string['tjbuttonlabel'] = 'Card button text';
 $string['tjbuttonlabel_help'] = 'Optional. Shown on the card button in card view. If empty, defaults to "Click here". You can optionally set the button link below to open a specific activity instead of this section.';
 $string['tjbuttonlink'] = 'Card button link';

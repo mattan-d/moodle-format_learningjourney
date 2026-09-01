@@ -1,0 +1,57 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template format_learningjourney/local/content/sectionnavigation
+
+    Modern previous/next section navigation for single-section pages.
+}}
+<nav class="lj-section-nav lj-section-nav--top" aria-label="{{#str}} sectionoutline, format_learningjourney {{/str}}">
+    <div class="lj-section-nav__grid">
+        <div class="lj-section-nav__slot lj-section-nav__slot--prev">
+            {{#hasprevious}}
+            <a href="{{{previousurl}}}"
+               class="lj-section-nav__card{{#previoushidden}} is-dimmed{{/previoushidden}}"
+               title="{{#str}} previoussection {{/str}}: {{previousname}}">
+                <span class="lj-section-nav__chevron" aria-hidden="true">
+                    <span class="dir-rtl-hide">{{#pix}}i/arrow-left, moodle{{/pix}}</span>
+                    <span class="dir-ltr-hide">{{#pix}}i/arrow-right, moodle{{/pix}}</span>
+                </span>
+                <span class="lj-section-nav__copy">
+                    <span class="lj-section-nav__eyebrow">{{#str}} previoussection {{/str}}</span>
+                    <span class="lj-section-nav__name">{{previousname}}</span>
+                </span>
+            </a>
+            {{/hasprevious}}
+        </div>
+        <div class="lj-section-nav__slot lj-section-nav__slot--next">
+            {{#hasnext}}
+            <a href="{{{nexturl}}}"
+               class="lj-section-nav__card lj-section-nav__card--next{{#nexthidden}} is-dimmed{{/nexthidden}}"
+               title="{{#str}} nextsection {{/str}}: {{nextname}}">
+                <span class="lj-section-nav__copy">
+                    <span class="lj-section-nav__eyebrow">{{#str}} nextsection {{/str}}</span>
+                    <span class="lj-section-nav__name">{{nextname}}</span>
+                </span>
+                <span class="lj-section-nav__chevron" aria-hidden="true">
+                    <span class="dir-rtl-hide">{{#pix}}i/arrow-right, moodle{{/pix}}</span>
+                    <span class="dir-ltr-hide">{{#pix}}i/arrow-left, moodle{{/pix}}</span>
+                </span>
+            </a>
+            {{/hasnext}}
+        </div>
+    </div>
+</nav>
