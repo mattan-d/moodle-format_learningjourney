@@ -87,7 +87,12 @@ class content extends content_base {
 
         // Always expose prev/next on single-section pages (Boost hides them when course index is on).
         if (!empty($data->hasnavigation) && empty($data->sectionnavigation)) {
-            $singlesectionnum = $format->get_sectionnum();
+            $singlesectionnum = null;
+            if ($format instanceof \format_learningjourney) {
+                $singlesectionnum = $format->get_display_sectionnum();
+            } else if (is_callable([$format, 'get_sectionnum'])) {
+                $singlesectionnum = $format->get_sectionnum();
+            }
             if ($singlesectionnum !== null) {
                 $sectionnavigationclass = $format->get_output_classname('content\\sectionnavigation');
                 $sectionselectorclass = $format->get_output_classname('content\\sectionselector');

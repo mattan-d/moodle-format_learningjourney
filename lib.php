@@ -250,19 +250,36 @@ class format_learningjourney extends course_format_base {
     }
 
     /**
+     * Current single-section number, or null when showing all sections.
+     *
+     * Moodle 4.4+ has {@see course_format_base::get_sectionnum()}; older versions use
+     * get_sectionid() / get_section_number() instead.
+     */
+    public function get_display_sectionnum(): ?int {
+        $parent = get_parent_class($this);
+        if ($parent && method_exists($parent, 'get_sectionnum')) {
+            return parent::get_sectionnum();
+        }
+        if ($parent && method_exists($parent, 'get_sectionid')) {
+            $sectionid = parent::get_sectionid();
+            if ($sectionid === null) {
+                return null;
+            }
+            $section = $this->get_modinfo()->get_section_info_by_id((int) $sectionid, IGNORE_MISSING);
+            return $section ? (int) $section->section : null;
+        }
+        if ($parent && method_exists($parent, 'get_section_number')) {
+            $num = (int) parent::get_section_number();
+            return $num === 0 ? null : $num;
+        }
+        return null;
+    }
+
+    /**
      * True when the main course page lists all sections (not a single-section view).
      */
     public function is_showing_all_sections(): bool {
-        if (is_callable([$this, 'get_sectionnum'])) {
-            return $this->get_sectionnum() === null;
-        }
-        if (is_callable([$this, 'get_sectionid'])) {
-            return $this->get_sectionid() === null;
-        }
-        if (is_callable([$this, 'get_section_number'])) {
-            return $this->get_section_number() === 0;
-        }
-        return true;
+        return $this->get_display_sectionnum() === null;
     }
 
     public function get_section_name($section) {
