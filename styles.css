@@ -160,6 +160,7 @@
 }
 
 /* Activity cards: Moodle may render ul with data-for="cmitem" or data-for="cmlist". */
+.format-learningjourney-mode-view .course-section .content ul.section,
 .format-learningjourney-mode-view .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) {
     display: grid !important;
     grid-template-columns: 1fr;
@@ -170,24 +171,28 @@
 }
 
 @media (min-width: 768px) {
+    .format-learningjourney-mode-view .course-section .content ul.section,
     .format-learningjourney-mode-view .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
 
 @media (min-width: 992px) {
+    .format-learningjourney-mode-view .course-section .content ul.section,
     .format-learningjourney-mode-view .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) {
         grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 }
 
 @media (min-width: 1200px) {
+    .format-learningjourney-mode-view .course-section .content ul.section,
     .format-learningjourney-mode-view .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) {
         grid-template-columns: repeat(4, minmax(0, 1fr));
     }
 }
 
-.format-learningjourney-mode-view .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) > li.activity.activity-wrapper {
+.format-learningjourney-mode-view .course-section .content ul.section > li.activity,
+.format-learningjourney-mode-view .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) > li.activity {
     margin: 0;
     border: 1px solid rgba(15, 23, 42, 0.12);
     border-radius: 0.9rem;
@@ -197,50 +202,68 @@
     transition: transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease;
 }
 
-.format-learningjourney-mode-view .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) > li.activity.activity-wrapper:hover {
+.format-learningjourney-mode-view .course-section .content ul.section > li.activity:hover,
+.format-learningjourney-mode-view .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) > li.activity:hover {
     transform: translateY(-1px);
     border-color: rgba(15, 23, 42, 0.2);
     box-shadow: 0 10px 18px rgba(15, 23, 42, 0.12);
 }
 
-.format-learningjourney-mode-view .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) > li.activity.activity-wrapper .activity-item {
+.format-learningjourney-mode-view .course-section .content ul.section > li.activity .activity-item,
+.format-learningjourney-mode-view .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) > li.activity .activity-item {
     border: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
     padding: 0.85rem 0.95rem;
     min-height: 150px;
 }
 
-.format-learningjourney-mode-view .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) > li.activity.activity-wrapper .activity-grid {
-    display: flex;
+.format-learningjourney-mode-view .course-section .content ul.section > li.activity .activity-grid,
+.format-learningjourney-mode-view .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) > li.activity .activity-grid {
+    display: flex !important;
     flex-direction: column;
     align-items: center;
     text-align: center;
     gap: 0.45rem;
 }
 
-.format-learningjourney-mode-view .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) > li.activity.activity-wrapper .activity-icon.activityiconcontainer {
+.format-learningjourney-mode-view .course-section .content ul.section > li.activity .activity-icon,
+.format-learningjourney-mode-view .course-section .content ul.section > li.activity .activityiconcontainer,
+.format-learningjourney-mode-view .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) > li.activity .activity-icon.activityiconcontainer {
     align-self: center !important;
     margin: 0 0 0.4rem !important;
+    width: 3rem !important;
+    height: 3rem !important;
+    min-width: 3rem !important;
+    max-width: 3rem !important;
+    flex: 0 0 auto !important;
 }
 
-.format-learningjourney-mode-view .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) > li.activity.activity-wrapper .activity-name-area {
+.format-learningjourney-mode-view .course-section .content ul.section > li.activity .activity-name-area,
+.format-learningjourney-mode-view .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) > li.activity .activity-name-area {
     margin: 0 !important;
     width: 100%;
 }
 
-.format-learningjourney-mode-view .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) > li.activity.activity-wrapper .activitytitle {
+.format-learningjourney-mode-view .course-section .content ul.section > li.activity .activitytitle,
+.format-learningjourney-mode-view .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) > li.activity .activitytitle {
     align-self: center !important;
 }
 
-.format-learningjourney-mode-view .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) > li.activity.activity-wrapper .activityname {
+.format-learningjourney-mode-view .course-section .content ul.section > li.activity .activityname,
+.format-learningjourney-mode-view .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) > li.activity .activityname {
     width: 100%;
 }
 
-.format-learningjourney-mode-view .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) > li.activity.activity-wrapper .activityname a {
+.format-learningjourney-mode-view .course-section .content ul.section > li.activity .activityname a,
+.format-learningjourney-mode-view .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) > li.activity .activityname a {
     font-weight: 600;
 }
 
-.format-learningjourney-mode-view .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) > li.activity.activity-wrapper .activity-dates,
-.format-learningjourney-mode-view .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) > li.activity.activity-wrapper .activity-afterlink {
+.format-learningjourney-mode-view .course-section .content ul.section > li.activity .activity-dates,
+.format-learningjourney-mode-view .course-section .content ul.section > li.activity .activity-afterlink,
+.format-learningjourney-mode-view .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) > li.activity .activity-dates,
+.format-learningjourney-mode-view .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) > li.activity .activity-afterlink {
     width: 100%;
     justify-content: center;
     text-align: center;
@@ -708,6 +731,16 @@
 .format-learningjourney-mode-view .lj-single-section .course-section .content {
     margin: 0;
     padding: 0;
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+}
+
+.format-learningjourney-mode-view .lj-single-section .course-section,
+.format-learningjourney-mode-view .lj-single-section .course-section.main {
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
 }
 
 .format-learningjourney-mode-view .lj-single-section .course-section .content > [data-for="sectioninfo"] {
@@ -724,17 +757,23 @@
     margin: 0 0 1rem;
 }
 
+/* Activity list: prefer Moodle data-for attrs, fall back to plain ul.section. */
+.format-learningjourney-mode-view .lj-single-section .course-section .content ul.section,
 .format-learningjourney-mode-view .lj-single-section .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) {
     display: grid !important;
     grid-template-columns: 1fr;
     gap: 1rem;
-    margin: 0;
-    padding: 0;
+    margin: 0 !important;
+    padding: 0 !important;
     width: 100%;
+    list-style: none;
     box-sizing: border-box;
+    background: transparent !important;
+    border: 0 !important;
 }
 
 @media (min-width: 768px) {
+    .format-learningjourney-mode-view .lj-single-section .course-section .content ul.section,
     .format-learningjourney-mode-view .lj-single-section .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 1.25rem;
@@ -742,46 +781,104 @@
 }
 
 @media (min-width: 992px) {
+    .format-learningjourney-mode-view .lj-single-section .course-section .content ul.section,
     .format-learningjourney-mode-view .lj-single-section .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) {
         grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 }
 
-@media (min-width: 1200px) {
-    .format-learningjourney-mode-view .lj-single-section .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-    }
-}
-
-.format-learningjourney-mode-view .lj-single-section .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) > li.activity,
-.format-learningjourney-mode-view .lj-single-section .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) > li.activity.activity-wrapper {
+.format-learningjourney-mode-view .lj-single-section .course-section .content ul.section > li.activity {
+    display: flex !important;
+    flex-direction: column;
     margin: 0 !important;
     padding: 0 !important;
     width: auto;
     max-width: none;
+    min-width: 0;
+    border: 1px solid rgba(15, 23, 42, 0.12);
+    border-radius: 1rem;
+    background: #fff;
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.08);
+    overflow: hidden;
 }
 
-.format-learningjourney-mode-view .lj-single-section .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) > li.activity.activity-wrapper .activity-item {
+.format-learningjourney-mode-view .lj-single-section .course-section .content ul.section > li.activity .activity-item,
+.format-learningjourney-mode-view .lj-single-section .course-section .content ul.section > li.activity > div {
+    flex: 1 1 auto;
     margin: 0 !important;
-    padding: 1rem 1rem 0.85rem !important;
+    border: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+.format-learningjourney-mode-view .lj-single-section .course-section .content ul.section > li.activity .activity-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.65rem;
+    padding: 1.1rem 1rem 1rem !important;
     min-height: 0 !important;
-    height: auto;
+    height: 100%;
+    text-align: center;
     box-sizing: border-box;
 }
 
-.format-learningjourney-mode-view .lj-single-section .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) > li.activity.activity-wrapper .activity-grid {
-    justify-content: flex-start;
+.format-learningjourney-mode-view .lj-single-section .course-section .content ul.section > li.activity .activity-grid {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
     gap: 0.5rem;
+    width: 100%;
 }
 
-.format-learningjourney-mode-view .lj-single-section .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) > li.activity.activity-wrapper .activity-icon.activityiconcontainer {
-    margin: 0 0 0.25rem !important;
+.format-learningjourney-mode-view .lj-single-section .course-section .content ul.section > li.activity .activity-icon,
+.format-learningjourney-mode-view .lj-single-section .course-section .content ul.section > li.activity .activityiconcontainer {
+    align-self: center !important;
+    margin: 0 !important;
+    width: 3rem !important;
+    height: 3rem !important;
+    min-width: 3rem !important;
+    max-width: 3rem !important;
+    flex: 0 0 auto !important;
+    border-radius: 0.75rem;
 }
 
-.format-learningjourney-mode-view .lj-single-section .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) > li.activity.activity-wrapper .activity-basis,
-.format-learningjourney-mode-view .lj-single-section .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) > li.activity.activity-wrapper .activity-instance {
-    margin-top: 0 !important;
-    padding-top: 0 !important;
+.format-learningjourney-mode-view .lj-single-section .course-section .content ul.section > li.activity .activity-name-area,
+.format-learningjourney-mode-view .lj-single-section .course-section .content ul.section > li.activity .activitytitle,
+.format-learningjourney-mode-view .lj-single-section .course-section .content ul.section > li.activity .activityname {
+    width: 100%;
+    margin: 0 !important;
+    text-align: center;
+}
+
+.format-learningjourney-mode-view .lj-single-section .course-section .content ul.section > li.activity .activityname a {
+    font-weight: 600;
+    color: inherit;
+}
+
+.format-learningjourney-mode-view .lj-single-section .course-section .content ul.section > li.activity .activity-completion,
+.format-learningjourney-mode-view .lj-single-section .course-section .content ul.section > li.activity .activity-information,
+.format-learningjourney-mode-view .lj-single-section .course-section .content ul.section > li.activity .activity-actions,
+.format-learningjourney-mode-view .lj-single-section .course-section .content ul.section > li.activity [data-region="activity-information"] {
+    position: static !important;
+    inset: auto !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    width: 100%;
+    margin-top: auto;
+    padding-top: 0.35rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.format-learningjourney-mode-view .lj-single-section .course-section .content ul.section > li.activity .activity-altcontent,
+.format-learningjourney-mode-view .lj-single-section .course-section .content ul.section > li.activity .activity-instance {
+    width: 100%;
+    text-align: center;
 }
 
 .format-learningjourney-mode-view .lj-single-section .lj-section-nav--top {
@@ -1038,14 +1135,14 @@ body.lj-content-only .lj-single-section .lj-section-nav__grid {
     }
 }
 
-body.lj-content-only .lj-single-section .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) > li.activity.activity-wrapper {
+body.lj-content-only .lj-single-section .course-section .content ul.section > li.activity {
     width: 100% !important;
     margin-left: 0 !important;
     margin-right: 0 !important;
 }
 
-body.lj-content-only .lj-single-section .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) > li.activity.activity-wrapper .activity-item,
-body.lj-content-only .lj-single-section .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) > li.activity.activity-wrapper .activity-basis {
+body.lj-content-only .lj-single-section .course-section .content ul.section > li.activity .activity-item,
+body.lj-content-only .lj-single-section .course-section .content ul.section > li.activity .activity-basis {
     margin-left: 0 !important;
     margin-right: 0 !important;
     padding-left: 1rem !important;
@@ -1093,8 +1190,12 @@ body.lj-content-only.lj-dark-mode {
 
 body.lj-content-only.lj-dark-mode #page,
 body.lj-content-only.lj-dark-mode .embedded-main,
-body.lj-content-only.lj-dark-mode .course-content {
-    background: transparent;
+body.lj-content-only.lj-dark-mode .course-content,
+body.lj-content-only.lj-dark-mode #region-main,
+body.lj-content-only.lj-dark-mode #region-main-box,
+body.lj-content-only.lj-dark-mode #page-content,
+body.lj-content-only.lj-dark-mode .main-inner {
+    background: transparent !important;
     color: #e2e8f0;
 }
 
@@ -1251,18 +1352,67 @@ body.lj-content-only.lj-dark-mode .format-learningjourney-mode-view ul.format-le
     opacity: 0.35;
 }
 
-body.lj-content-only.lj-dark-mode .format-learningjourney-mode-view .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) > li.activity.activity-wrapper {
-    background: #1e293b;
-    border-color: rgba(148, 163, 184, 0.16);
+body.lj-content-only.lj-dark-mode .format-learningjourney-mode-view .course-section .content ul.section > li.activity,
+body.lj-content-only.lj-dark-mode .format-learningjourney-mode-view .course-section .content ul.section:is([data-for="cmitem"], [data-for="cmlist"]) > li.activity {
+    background: #1e293b !important;
+    border-color: rgba(148, 163, 184, 0.16) !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.28);
 }
 
 body.lj-content-only.lj-dark-mode .format-learningjourney-mode-view .course-section.main.lj-section-unavailable > .section-item {
     background-color: rgba(148, 163, 184, 0.08) !important;
 }
 
-body.lj-content-only.lj-dark-mode .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-list.learningjourney[data-for="course_sectionlist"] > li.section > .section-item,
-body.lj-content-only.lj-dark-mode .format-learningjourney-mode-view .course-section.main > .section-item {
+/* Course home list cards keep a dark surface; single-section must stay frameless. */
+body.lj-content-only.lj-dark-mode .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-list.learningjourney[data-for="course_sectionlist"] > li.section > .section-item {
     background-color: #1e293b !important;
     color: #e2e8f0;
+    border-color: rgba(148, 163, 184, 0.16) !important;
+}
+
+body.lj-content-only.lj-dark-mode .format-learningjourney-mode-view .lj-single-section .course-section.main > .section-item,
+body.lj-content-only.lj-dark-mode .format-learningjourney-mode-view .lj-single-section .course-section > .section-item,
+body.lj-content-only.lj-dark-mode .format-learningjourney-mode-view .lj-single-section .course-section,
+body.lj-content-only.lj-dark-mode .format-learningjourney-mode-view .lj-single-section .course-section .content,
+body.lj-content-only.lj-dark-mode .format-learningjourney-mode-view .lj-single-section > ul {
+    background: transparent !important;
+    background-color: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    outline: 0 !important;
+}
+
+/* Kill theme white shells that frame the section (Boost / custom themes). */
+body.lj-content-only.lj-dark-mode #region-main,
+body.lj-content-only.lj-dark-mode #region-main-box,
+body.lj-content-only.lj-dark-mode #page-content,
+body.lj-content-only.lj-dark-mode .main-inner,
+body.lj-content-only.lj-dark-mode .card,
+body.lj-content-only.lj-dark-mode .card-body,
+body.lj-content-only.lj-dark-mode .course-content > ul,
+body.lj-content-only.lj-dark-mode .course-content ul.topics,
+body.lj-content-only.lj-dark-mode .course-content ul.weeks,
+body.lj-content-only.lj-dark-mode .course-content ul.learningjourney {
+    background: transparent !important;
+    background-color: transparent !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+}
+
+body.lj-content-only.lj-dark-mode .format-learningjourney-mode-view .course-section.main,
+body.lj-content-only.lj-dark-mode .format-learningjourney-mode-view .course-section.main > .section-item {
+    border: 0 !important;
+    box-shadow: none !important;
+}
+
+body.lj-content-only.lj-dark-mode .format-learningjourney-mode-view .lj-single-section .course-section .content ul.section > li.activity .activity-item,
+body.lj-content-only.lj-dark-mode .format-learningjourney-mode-view .lj-single-section .course-section .content ul.section > li.activity .btn,
+body.lj-content-only.lj-dark-mode .format-learningjourney-mode-view .lj-single-section .course-section .content ul.section > li.activity .btn-outline-secondary {
+    color: #e2e8f0;
+}
+
+body.lj-content-only.lj-dark-mode .format-learningjourney-mode-view .lj-single-section .course-section .content ul.section > li.activity .btn-outline-secondary {
+    border-color: rgba(148, 163, 184, 0.35);
+    background: transparent;
 }
 
