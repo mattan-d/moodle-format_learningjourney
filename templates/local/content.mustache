@@ -38,7 +38,12 @@
         {{/sections}}
     </ul>
     {{#hasnavigation}}
-    <div class="single-section lj-single-section">
+    <div class="single-section lj-single-section{{#ljhassectioncover}} lj-single-section--has-cover{{/ljhassectioncover}}">
+        {{#ljhassectioncover}}
+        <div class="lj-section-cover" data-for="learningjourney_cover">
+            <img src="{{{ljsectioncoverurl}}}" alt="{{ljsectioncoveralt}}" class="lj-section-cover__img"/>
+        </div>
+        {{/ljhassectioncover}}
         {{#sectionnavigation}}
             {{$ core_courseformat/local/content/sectionnavigation }}
                 {{> format_learningjourney/local/content/sectionnavigation }}

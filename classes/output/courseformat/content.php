@@ -103,6 +103,16 @@ class content extends content_base {
             }
         }
 
+        // Full-bleed section cover under the top menu (rendered once at page level).
+        $data->ljhassectioncover = false;
+        if (!empty($data->singlesection) && is_object($data->singlesection)
+                && !empty($data->singlesection->hassectionimage)) {
+            $data->ljhassectioncover = true;
+            $data->ljsectioncoverurl = $data->singlesection->sectionimageurl;
+            $data->ljsectioncoveralt = $data->singlesection->sectionimagealt ?? '';
+            $data->singlesection->ljcoveratsite = true;
+        }
+
         return $data;
     }
 }

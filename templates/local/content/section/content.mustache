@@ -20,13 +20,15 @@
     Core section inner content plus learning journey availability dates under the header.
 }}
 {{#ljsinglesectionpage}}
-<div class="lj-section-single-header d-flex flex-wrap align-items-center gap-2 gap-md-3 mb-2 w-100" data-for="section_single_header">
+<div class="lj-section-single-header mb-2 w-100" data-for="section_single_header">
     {{#hassectionimage}}
-    <div class="lj-section-image-banner flex-shrink-0" data-for="learningjourney_image">
-        <img src="{{{sectionimageurl}}}" alt="{{sectionimagealt}}" class="lj-section-image-banner__img"/>
+    {{^ljcoveratsite}}
+    <div class="lj-section-cover lj-section-cover--inline" data-for="learningjourney_image">
+        <img src="{{{sectionimageurl}}}" alt="{{sectionimagealt}}" class="lj-section-cover__img"/>
     </div>
+    {{/ljcoveratsite}}
     {{/hassectionimage}}
-    <div class="flex-grow-1 min-w-0 lj-section-single-header-main">
+    <div class="lj-section-single-header-main">
 {{/ljsinglesectionpage}}
 <div class="course-section-header d-flex"
      data-for="section_title"
