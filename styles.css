@@ -1231,6 +1231,29 @@ body.lj-content-only.lj-dark-mode .main-inner {
     color: #e2e8f0;
 }
 
+/* Activity pages (SCORM, etc.): Boost paints .activity-header with gray-100. */
+body.lj-content-only.lj-dark-mode .activity-header,
+body.lj-content-only.lj-dark-mode.path-mod .activity-header,
+body.lj-content-only.lj-dark-mode.path-mod .activity-header:not(:empty),
+body.lj-content-only.lj-dark-mode [data-for="page-activity-header"] {
+    background-color: #1e293b !important;
+    background-image: none !important;
+    color: #e2e8f0 !important;
+    border-color: rgba(148, 163, 184, 0.2) !important;
+}
+
+body.lj-content-only.lj-dark-mode .activity-header a:not(.btn),
+body.lj-content-only.lj-dark-mode .activity-header .page-header-headings,
+body.lj-content-only.lj-dark-mode .activity-header h1,
+body.lj-content-only.lj-dark-mode .activity-header h2,
+body.lj-content-only.lj-dark-mode .activity-header .activity-information,
+body.lj-content-only.lj-dark-mode .activity-header .activity-description,
+body.lj-content-only.lj-dark-mode .activity-header .completion-info,
+body.lj-content-only.lj-dark-mode .activity-header .activity-dates {
+    color: #e2e8f0 !important;
+    border-color: rgba(148, 163, 184, 0.2) !important;
+}
+
 body.lj-content-only.lj-dark-mode a:not(.btn):not(.lj-section-nav__card) {
     color: #93c5fd;
 }
