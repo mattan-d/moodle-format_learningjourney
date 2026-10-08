@@ -1346,11 +1346,113 @@ body.lj-content-only.lj-dark-mode .lj-section-nav__jump .jumpmenu select {
 }
 
 body.lj-content-only.lj-dark-mode .btn-primary {
-    color: #fff;
+    background-color: #2563eb !important;
+    border-color: #2563eb !important;
+    color: #fff !important;
 }
 
 body.lj-content-only.lj-dark-mode .lj-section-cover {
     background: #0b1220;
+}
+
+/* Light Bootstrap / theme buttons stay white-on-white in dark mode — force readable surfaces. */
+body.lj-content-only.lj-dark-mode .btn:not(.btn-primary):not(.btn-success):not(.btn-danger):not(.btn-warning):not(.btn-info),
+body.lj-content-only.lj-dark-mode .btn-secondary,
+body.lj-content-only.lj-dark-mode .btn-light,
+body.lj-content-only.lj-dark-mode .btn-outline-secondary,
+body.lj-content-only.lj-dark-mode .btn-outline-primary,
+body.lj-content-only.lj-dark-mode .btn-outline-light,
+body.lj-content-only.lj-dark-mode .btn-outline-dark,
+body.lj-content-only.lj-dark-mode button.btn[data-action="toggle-manual-completion"],
+body.lj-content-only.lj-dark-mode .activity-completion button,
+body.lj-content-only.lj-dark-mode [data-region="activity-information"] .btn,
+body.lj-content-only.lj-dark-mode .togglecompletion .btn {
+    background-color: #1e293b !important;
+    background-image: none !important;
+    border-color: rgba(148, 163, 184, 0.4) !important;
+    color: #f1f5f9 !important;
+    box-shadow: none !important;
+}
+
+body.lj-content-only.lj-dark-mode .btn:not(.btn-primary):not(.btn-success):not(.btn-danger):not(.btn-warning):not(.btn-info):hover,
+body.lj-content-only.lj-dark-mode .btn:not(.btn-primary):not(.btn-success):not(.btn-danger):not(.btn-warning):not(.btn-info):focus,
+body.lj-content-only.lj-dark-mode .btn-secondary:hover,
+body.lj-content-only.lj-dark-mode .btn-outline-secondary:hover,
+body.lj-content-only.lj-dark-mode button.btn[data-action="toggle-manual-completion"]:hover,
+body.lj-content-only.lj-dark-mode .activity-completion button:hover,
+body.lj-content-only.lj-dark-mode [data-region="activity-information"] .btn:hover {
+    background-color: #334155 !important;
+    border-color: rgba(148, 163, 184, 0.55) !important;
+    color: #fff !important;
+}
+
+body.lj-content-only.lj-dark-mode .btn-success,
+body.lj-content-only.lj-dark-mode .btn.btn-success {
+    background-color: #15803d !important;
+    border-color: #15803d !important;
+    color: #fff !important;
+}
+
+body.lj-content-only.lj-dark-mode .badge:not(.bg-warning):not(.bg-success):not(.bg-danger):not(.bg-info):not(.bg-primary),
+body.lj-content-only.lj-dark-mode .badge-secondary,
+body.lj-content-only.lj-dark-mode .bg-light,
+body.lj-content-only.lj-dark-mode .bg-white,
+body.lj-content-only.lj-dark-mode .activity-dates,
+body.lj-content-only.lj-dark-mode .activity-afterlink,
+body.lj-content-only.lj-dark-mode .dropdown-menu {
+    background-color: #1e293b !important;
+    background-image: none !important;
+    color: #e2e8f0 !important;
+    border-color: rgba(148, 163, 184, 0.28) !important;
+}
+
+/* Restriction / availability notices (e.g. "available only to group…"). */
+body.lj-content-only.lj-dark-mode .availabilityinfo,
+body.lj-content-only.lj-dark-mode [data-region="availabilityinfo"],
+body.lj-content-only.lj-dark-mode .section_availability .availabilityinfo,
+body.lj-content-only.lj-dark-mode .activity-availability,
+body.lj-content-only.lj-dark-mode .activity-availability .availabilityinfo,
+body.lj-content-only.lj-dark-mode .description .availabilityinfo,
+body.lj-content-only.lj-dark-mode [data-for="sectioninfo"].description {
+    background-color: #1e293b !important;
+    background-image: none !important;
+    color: #e2e8f0 !important;
+    border: 1px solid rgba(148, 163, 184, 0.28);
+}
+
+body.lj-content-only.lj-dark-mode .availabilityinfo a,
+body.lj-content-only.lj-dark-mode [data-region="availabilityinfo"] a,
+body.lj-content-only.lj-dark-mode .availabilityinfo strong,
+body.lj-content-only.lj-dark-mode [data-region="availabilityinfo"] strong,
+body.lj-content-only.lj-dark-mode .availabilityinfo li,
+body.lj-content-only.lj-dark-mode .availabilityinfo .icon {
+    color: #f1f5f9 !important;
+}
+
+body.lj-content-only.lj-dark-mode .availabilityinfo .badge.bg-warning,
+body.lj-content-only.lj-dark-mode .badge.bg-warning {
+    background-color: #fbbf24 !important;
+    color: #111827 !important;
+}
+
+body.lj-content-only.lj-dark-mode .dropdown-item {
+    color: #e2e8f0 !important;
+}
+
+body.lj-content-only.lj-dark-mode .dropdown-item:hover,
+body.lj-content-only.lj-dark-mode .dropdown-item:focus {
+    background-color: #334155 !important;
+    color: #fff !important;
+}
+
+body.lj-content-only.lj-dark-mode .form-control,
+body.lj-content-only.lj-dark-mode .custom-select,
+body.lj-content-only.lj-dark-mode select,
+body.lj-content-only.lj-dark-mode input[type="text"],
+body.lj-content-only.lj-dark-mode input[type="search"] {
+    background-color: #1e293b !important;
+    border-color: rgba(148, 163, 184, 0.28) !important;
+    color: #e2e8f0 !important;
 }
 
 /* Learning-unit / header cards: replace white surfaces in dark mode. */
@@ -1441,14 +1543,15 @@ body.format-learningjourney.lj-content-only.lj-dark-mode .course-content li.cour
     box-shadow: none !important;
 }
 
-body.lj-content-only.lj-dark-mode .format-learningjourney-mode-view .lj-single-section .course-section .content ul.section > li.activity .activity-item,
-body.lj-content-only.lj-dark-mode .format-learningjourney-mode-view .lj-single-section .course-section .content ul.section > li.activity .btn,
-body.lj-content-only.lj-dark-mode .format-learningjourney-mode-view .lj-single-section .course-section .content ul.section > li.activity .btn-outline-secondary {
+body.lj-content-only.lj-dark-mode .format-learningjourney-mode-view .lj-single-section .course-section .content ul.section > li.activity .activity-item {
     color: #e2e8f0;
 }
 
-body.lj-content-only.lj-dark-mode .format-learningjourney-mode-view .lj-single-section .course-section .content ul.section > li.activity .btn-outline-secondary {
-    border-color: rgba(148, 163, 184, 0.35);
-    background: transparent;
+body.lj-content-only.lj-dark-mode .format-learningjourney-mode-view .lj-single-section .course-section .content ul.section > li.activity .btn,
+body.lj-content-only.lj-dark-mode .format-learningjourney-mode-view .lj-single-section .course-section .content ul.section > li.activity .btn-outline-secondary,
+body.lj-content-only.lj-dark-mode .format-learningjourney-mode-view .lj-single-section .course-section .content ul.section > li.activity button[data-action="toggle-manual-completion"] {
+    background-color: #1e293b !important;
+    border-color: rgba(148, 163, 184, 0.4) !important;
+    color: #f1f5f9 !important;
 }
 
