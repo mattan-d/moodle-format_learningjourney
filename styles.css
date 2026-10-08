@@ -1416,10 +1416,9 @@ body.lj-content-only.lj-dark-mode .btn.btn-success {
     color: #fff !important;
 }
 
-body.lj-content-only.lj-dark-mode .badge:not(.bg-warning):not(.bg-success):not(.bg-danger):not(.bg-info):not(.bg-primary),
 body.lj-content-only.lj-dark-mode .badge-secondary,
-body.lj-content-only.lj-dark-mode .bg-light,
-body.lj-content-only.lj-dark-mode .bg-white,
+body.lj-content-only.lj-dark-mode .bg-light:not(.badge),
+body.lj-content-only.lj-dark-mode .bg-white:not(.badge),
 body.lj-content-only.lj-dark-mode .activity-dates,
 body.lj-content-only.lj-dark-mode .activity-afterlink,
 body.lj-content-only.lj-dark-mode .dropdown-menu {
@@ -1427,6 +1426,38 @@ body.lj-content-only.lj-dark-mode .dropdown-menu {
     background-image: none !important;
     color: #e2e8f0 !important;
     border-color: rgba(148, 163, 184, 0.28) !important;
+}
+
+/* Completion condition pills use .badge.bg-light.text-dark — force light text on slate. */
+body.lj-content-only.lj-dark-mode .badge.bg-light,
+body.lj-content-only.lj-dark-mode .badge.text-dark,
+body.lj-content-only.lj-dark-mode .badge.bg-light.text-dark,
+body.lj-content-only.lj-dark-mode .automatic-completion-conditions .badge,
+body.lj-content-only.lj-dark-mode .completion-info .badge,
+body.lj-content-only.lj-dark-mode .activity-header .badge:not(.alert-success):not(.alert-danger):not(.bg-warning) {
+    background-color: #334155 !important;
+    background-image: none !important;
+    color: #f8fafc !important;
+    border-color: rgba(148, 163, 184, 0.35) !important;
+}
+
+body.lj-content-only.lj-dark-mode .badge.bg-light.text-dark *,
+body.lj-content-only.lj-dark-mode .badge.text-dark *,
+body.lj-content-only.lj-dark-mode .automatic-completion-conditions .badge *,
+body.lj-content-only.lj-dark-mode .completion-info .badge * {
+    color: #f8fafc !important;
+}
+
+body.lj-content-only.lj-dark-mode .badge.alert-success,
+body.lj-content-only.lj-dark-mode .automatic-completion-conditions .badge.alert-success {
+    background-color: #166534 !important;
+    color: #ecfdf5 !important;
+}
+
+body.lj-content-only.lj-dark-mode .badge.alert-danger,
+body.lj-content-only.lj-dark-mode .automatic-completion-conditions .badge.alert-danger {
+    background-color: #991b1b !important;
+    color: #fef2f2 !important;
 }
 
 /* Restriction / availability notices (e.g. "available only to group…"). */
