@@ -24,6 +24,6 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2025050141;
+$plugin->version   = 2025050142;
 $plugin->requires  = 2022100100;
 $plugin->component = 'format_learningjourney';

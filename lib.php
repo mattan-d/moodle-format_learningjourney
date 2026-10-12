@@ -847,10 +847,8 @@ function format_learningjourney_content_only_editbar_html(): string {
         $editurl = (new moodle_url($PAGE->url, ['edit' => 1, 'sesskey' => sesskey()]))->out(false);
     }
 
-    $logourl = $OUTPUT->get_compact_logo_url(null, 100);
-    if (!$logourl) {
-        $logourl = $OUTPUT->get_logo_url(null, 100);
-    }
+    // Always use the format-bundled Bezeq mark in the content-only header.
+    $logourl = $OUTPUT->image_url('bezeq_logo', 'format_learningjourney');
     $sitename = format_string($SITE->fullname, true, [
         'context' => context_course::instance(SITEID),
     ]);
@@ -860,8 +858,8 @@ function format_learningjourney_content_only_editbar_html(): string {
         'courseurl' => $courseurl->out(false),
         'homeurl' => (new moodle_url('/'))->out(false),
         'sitename' => $sitename,
-        'haslogo' => !empty($logourl),
-        'logourl' => $logourl ? $logourl->out(false) : null,
+        'haslogo' => true,
+        'logourl' => $logourl->out(false),
         'menulabel' => get_string('contentonlymenu', 'format_learningjourney'),
         'coursemenulabel' => get_string('contentonlycoursemenu', 'format_learningjourney'),
         'sectionslabel' => get_string('sections'),
