@@ -1865,3 +1865,108 @@ body.lj-content-only.lj-dark-mode .format-learningjourney-mode-view .lj-single-s
     color: #f1f5f9 !important;
 }
 
+body.lj-content-only.lj-dark-mode .lj-contentonly-footer__btn.is-active {
+    background: rgba(148, 163, 184, 0.16);
+    color: #f8fafc;
+}
+
+/* —— Portal pages (personal / messages / contact) —— */
+body.lj-content-only .lj-portal-shell {
+    max-width: 42rem;
+    margin: 0 auto;
+    padding: 1rem 0 1.5rem;
+}
+
+body.lj-content-only .lj-portal-messages {
+    max-width: none;
+}
+
+body.lj-content-only .lj-portal-heading {
+    margin: 0 0 1rem;
+    font-weight: 700;
+}
+
+body.lj-content-only .lj-portal-card {
+    padding: 1.25rem;
+    border: 1px solid rgba(15, 23, 42, 0.1);
+    border-radius: 1rem;
+    background: #fff;
+}
+
+body.lj-content-only .lj-portal-card__identity {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}
+
+body.lj-content-only .lj-portal-card__avatar {
+    width: 4.5rem;
+    height: 4.5rem;
+    border-radius: 999px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+body.lj-content-only .lj-portal-card__name {
+    font-size: 1.15rem;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+body.lj-content-only .lj-portal-card__email {
+    margin-top: 0.2rem;
+    color: #64748b;
+    word-break: break-word;
+}
+
+body.lj-content-only .lj-portal-card__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+}
+
+body.lj-content-only .lj-portal-contact__form .mform {
+    margin: 0;
+}
+
+body.lj-content-only .lj-portal-messages .message-app,
+body.lj-content-only .lj-portal-messages [data-region="message-index-container"],
+body.lj-content-only .lj-portal-messages .message-index {
+    min-height: min(70vh, 36rem);
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+body.lj-content-only.lj-dark-mode .lj-portal-card {
+    background: #1e293b;
+    border-color: rgba(148, 163, 184, 0.2);
+}
+
+body.lj-content-only.lj-dark-mode .lj-portal-card__email {
+    color: #94a3b8;
+}
+
+body.lj-content-only.lj-dark-mode .lj-portal-contact__form .mform,
+body.lj-content-only.lj-dark-mode .lj-portal-contact__form .form-control,
+body.lj-content-only.lj-dark-mode .lj-portal-contact__form textarea,
+body.lj-content-only.lj-dark-mode .lj-portal-contact__form input[type="text"],
+body.lj-content-only.lj-dark-mode .lj-portal-contact__form input[type="email"] {
+    color: #e2e8f0;
+}
+
+body.lj-content-only.lj-dark-mode .lj-portal-contact__form .form-control,
+body.lj-content-only.lj-dark-mode .lj-portal-contact__form textarea,
+body.lj-content-only.lj-dark-mode .lj-portal-contact__form input[type="text"],
+body.lj-content-only.lj-dark-mode .lj-portal-contact__form input[type="email"] {
+    background-color: #0f172a;
+    border-color: rgba(148, 163, 184, 0.28);
+}
+
+body.lj-content-only.lj-dark-mode .lj-portal-messages .message-app,
+body.lj-content-only.lj-dark-mode .lj-portal-messages [data-region="message-index-container"],
+body.lj-content-only.lj-dark-mode .lj-portal-messages .message-index {
+    background: #111827;
+    border: 1px solid rgba(148, 163, 184, 0.18);
+}
+
