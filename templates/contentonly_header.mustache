@@ -74,9 +74,10 @@
 <footer class="lj-contentonly-footer" data-region="lj-contentonly-footer">
     <nav class="lj-contentonly-footer__nav" aria-label="{{footerlabel}}">
         {{#footeritems}}
-        <a class="lj-contentonly-footer__btn"
+        <a class="lj-contentonly-footer__btn{{#active}} is-active{{/active}}"
            href="{{{url}}}"
-           title="{{label}}">
+           title="{{label}}"
+           {{#active}}aria-current="page"{{/active}}>
             <span class="lj-contentonly-footer__icon" aria-hidden="true">{{{icon}}}</span>
             <span class="lj-contentonly-footer__label">{{label}}</span>
         </a>
