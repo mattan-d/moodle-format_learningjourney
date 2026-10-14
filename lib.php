@@ -734,9 +734,22 @@ class format_learningjourney extends course_format_base {
 }
 
 /**
+ * Whether the current page is a course-scoped portal page (personal / messages / contact).
+ */
+function format_learningjourney_is_portal_page(): bool {
+    global $PAGE;
+
+    $pagetype = (string) ($PAGE->pagetype ?? '');
+    return $pagetype === 'format-learningjourney-personal'
+        || $pagetype === 'format-learningjourney-messages'
+        || $pagetype === 'format-learningjourney-contact';
+}
+
+/**
  * Whether the current page is a learner-facing page of a learningjourney course.
  *
- * Covers the course home, single-section pages, and activity (incourse) pages.
+ * Covers the course home, single-section pages, activity (incourse) pages,
+ * and custom content-only portal pages (personal / messages / contact).
  */
 function format_learningjourney_is_learner_facing_page(): bool {
     global $PAGE;
@@ -755,8 +768,69 @@ function format_learningjourney_is_learner_facing_page(): bool {
         return false;
     }
 
+    if (format_learningjourney_is_portal_page()) {
+        return true;
+    }
+
     // Activity pages and other in-course module layouts.
     return ($PAGE->pagelayout ?? '') === 'incourse';
+}
+
+/**
+ * Portal page keys used by the content-only footer (except home).
+ *
+ * @return string[]
+ */
+function format_learningjourney_portal_page_keys(): array {
+    return ['personal', 'messages', 'contact'];
+}
+
+/**
+ * URL for a course-scoped portal page that keeps content-only / dark mode chrome.
+ *
+ * @param int $courseid
+ * @param string $page One of {@see format_learningjourney_portal_page_keys()}.
+ * @return moodle_url
+ */
+function format_learningjourney_portal_url(int $courseid, string $page): moodle_url {
+    if (!in_array($page, format_learningjourney_portal_page_keys(), true)) {
+        throw new coding_exception('Unknown learning journey portal page: ' . $page);
+    }
+    return new moodle_url('/course/format/learningjourney/' . $page . '.php', ['id' => $courseid]);
+}
+
+/**
+ * Bootstrap a course-scoped portal page so content-only / dark mode can apply.
+ *
+ * @param string $page One of {@see format_learningjourney_portal_page_keys()}.
+ * @param string $titlestring Lang string id in format_learningjourney.
+ * @return stdClass Course record.
+ */
+function format_learningjourney_setup_portal_page(string $page, string $titlestring): stdClass {
+    global $PAGE;
+
+    $courseid = required_param('id', PARAM_INT);
+    $course = get_course($courseid);
+    require_login($course);
+
+    if (($course->format ?? '') !== 'learningjourney') {
+        throw new moodle_exception('invalidcourseformat', 'error');
+    }
+
+    $url = format_learningjourney_portal_url((int) $course->id, $page);
+    $title = get_string($titlestring, 'format_learningjourney');
+
+    $PAGE->set_url($url);
+    $PAGE->set_context(context_course::instance($course->id));
+    // Start as incourse so content-only detection treats this as a learner page;
+    // before_http_headers may switch to embedded when content-only is enabled.
+    $PAGE->set_pagelayout('incourse');
+    $PAGE->set_title($title);
+    $PAGE->set_heading($title);
+    $PAGE->add_body_class('lj-portal-page');
+    $PAGE->add_body_class('lj-portal-' . $page);
+
+    return $course;
 }
 
 /**
@@ -854,6 +928,42 @@ function format_learningjourney_content_only_editbar_html(): string {
     ]);
 
     $portalurl = new moodle_url('/local/learningjourneylogin/');
+    $profileurl = format_learningjourney_portal_url((int) $course->id, 'personal');
+    $messagesurl = format_learningjourney_portal_url((int) $course->id, 'messages');
+    $contacturl = format_learningjourney_portal_url((int) $course->id, 'contact');
+
+    $footerhome = get_string('contentonlyfooterhome', 'format_learningjourney');
+    $footerpersonal = get_string('contentonlyfooterpersonal', 'format_learningjourney');
+    $footermessages = get_string('contentonlyfootermessages', 'format_learningjourney');
+    $footercontact = get_string('contentonlyfootercontact', 'format_learningjourney');
+
+    $currentpagetype = (string) ($PAGE->pagetype ?? '');
+    $footeritems = [
+        [
+            'label' => $footerhome,
+            'url' => $portalurl->out(false),
+            'icon' => $OUTPUT->pix_icon('i/home', $footerhome),
+            'active' => false,
+        ],
+        [
+            'label' => $footerpersonal,
+            'url' => $profileurl->out(false),
+            'icon' => $OUTPUT->pix_icon('i/user', $footerpersonal),
+            'active' => $currentpagetype === 'format-learningjourney-personal',
+        ],
+        [
+            'label' => $footermessages,
+            'url' => $messagesurl->out(false),
+            'icon' => $OUTPUT->pix_icon('t/messages', $footermessages),
+            'active' => $currentpagetype === 'format-learningjourney-messages',
+        ],
+        [
+            'label' => $footercontact,
+            'url' => $contacturl->out(false),
+            'icon' => $OUTPUT->pix_icon('t/email', $footercontact),
+            'active' => $currentpagetype === 'format-learningjourney-contact',
+        ],
+    ];
 
     return $OUTPUT->render_from_template('format_learningjourney/contentonly_header', [
         'coursename' => format_string($course->fullname, true, ['context' => context_course::instance($course->id)]),
@@ -869,8 +979,7 @@ function format_learningjourney_content_only_editbar_html(): string {
         'optionslabel' => get_string('contentonlyoptions', 'format_learningjourney'),
         'closelabel' => get_string('closebuttontitle'),
         'footerlabel' => get_string('contentonlyfooter', 'format_learningjourney'),
-        'footerhomelabel' => get_string('contentonlyfooterhome', 'format_learningjourney'),
-        'footerhomeicon' => $OUTPUT->pix_icon('i/home', get_string('contentonlyfooterhome', 'format_learningjourney')),
+        'footeritems' => $footeritems,
         'hassections' => $menusections !== [],
         'sections' => $menusections,
         'hasoptions' => $menuoptions !== [],

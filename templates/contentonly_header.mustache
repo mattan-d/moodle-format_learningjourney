@@ -73,11 +73,13 @@
 </nav>
 <footer class="lj-contentonly-footer" data-region="lj-contentonly-footer">
     <nav class="lj-contentonly-footer__nav" aria-label="{{footerlabel}}">
+        {{#footeritems}}
         <a class="lj-contentonly-footer__btn"
-           href="{{{portalurl}}}"
-           title="{{footerhomelabel}}">
-            <span class="lj-contentonly-footer__icon" aria-hidden="true">{{{footerhomeicon}}}</span>
-            <span class="lj-contentonly-footer__label">{{footerhomelabel}}</span>
+           href="{{{url}}}"
+           title="{{label}}">
+            <span class="lj-contentonly-footer__icon" aria-hidden="true">{{{icon}}}</span>
+            <span class="lj-contentonly-footer__label">{{label}}</span>
         </a>
+        {{/footeritems}}
     </nav>
 </footer>
