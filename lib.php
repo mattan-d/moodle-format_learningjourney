@@ -740,16 +740,22 @@ function format_learningjourney_is_portal_page(): bool {
     global $PAGE;
 
     $pagetype = (string) ($PAGE->pagetype ?? '');
-    return $pagetype === 'format-learningjourney-personal'
-        || $pagetype === 'format-learningjourney-messages'
-        || $pagetype === 'format-learningjourney-contact';
+    // Explicit set_pagetype() values, or Moodle's default from script path.
+    return in_array($pagetype, [
+        'format-learningjourney-personal',
+        'format-learningjourney-messages',
+        'format-learningjourney-contact',
+        'course-format-learningjourney-personal',
+        'course-format-learningjourney-messages',
+        'course-format-learningjourney-contact',
+    ], true);
 }
 
 /**
  * Whether the current page is a learner-facing page of a learningjourney course.
  *
- * Covers the course home, single-section pages, activity (incourse) pages,
- * and custom content-only portal pages (personal / messages / contact).
+ * Covers the course home, single-section pages, activity pages, and portal pages.
+ * After content-only switches the layout to embedded, layout alone is no longer enough.
  */
 function format_learningjourney_is_learner_facing_page(): bool {
     global $PAGE;
@@ -772,8 +778,17 @@ function format_learningjourney_is_learner_facing_page(): bool {
         return true;
     }
 
-    // Activity pages and other in-course module layouts.
-    return ($PAGE->pagelayout ?? '') === 'incourse';
+    $pagelayout = (string) ($PAGE->pagelayout ?? '');
+    // Activity / in-course pages. Content-only may already have switched layout to embedded.
+    if ($pagelayout === 'incourse') {
+        return true;
+    }
+    if ($pagelayout === 'embedded' && (!empty($PAGE->cm) || !empty($PAGE->context)
+            && (int) $PAGE->context->contextlevel === CONTEXT_MODULE)) {
+        return true;
+    }
+
+    return false;
 }
 
 /**
@@ -822,6 +837,7 @@ function format_learningjourney_setup_portal_page(string $page, string $titlestr
 
     $PAGE->set_url($url);
     $PAGE->set_context(context_course::instance($course->id));
+    $PAGE->set_pagetype('format-learningjourney-' . $page);
     // Start as incourse so content-only detection treats this as a learner page;
     // before_http_headers may switch to embedded when content-only is enabled.
     $PAGE->set_pagelayout('incourse');
@@ -835,19 +851,27 @@ function format_learningjourney_setup_portal_page(string $page, string $titlestr
 
 /**
  * Whether content-only (no Moodle header/footer) should apply on this request.
+ *
+ * Result is cached for the request: before_http_headers may switch pagelayout to
+ * embedded, and later top-of-body injection must still see the same answer.
  */
 function format_learningjourney_should_apply_content_only(): bool {
     global $PAGE;
+    static $cached = null;
+
+    if ($cached !== null) {
+        return $cached;
+    }
 
     if (!format_learningjourney_is_learner_facing_page()) {
-        return false;
+        return $cached = false;
     }
     if ($PAGE->user_is_editing()) {
-        return false;
+        return $cached = false;
     }
 
     $format = course_get_format($PAGE->course);
-    return ($format instanceof format_learningjourney) && $format->is_content_only_view();
+    return $cached = ($format instanceof format_learningjourney) && $format->is_content_only_view();
 }
 
 /**
