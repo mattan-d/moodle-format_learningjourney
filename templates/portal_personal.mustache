@@ -1,0 +1,24 @@
+{{!
+    @template format_learningjourney/portal_personal
+
+    Personal area card for content-only portal pages.
+}}
+<div class="lj-portal-shell lj-portal-personal">
+    <h1 class="lj-portal-heading h3">{{heading}}</h1>
+    <div class="lj-portal-card">
+        <div class="lj-portal-card__identity">
+            <img class="lj-portal-card__avatar" src="{{{avatarurl}}}" alt="{{fullname}}"/>
+            <div class="lj-portal-card__meta">
+                <div class="lj-portal-card__name">{{fullname}}</div>
+                {{#email}}
+                <div class="lj-portal-card__email">{{email}}</div>
+                {{/email}}
+            </div>
+        </div>
+        <div class="lj-portal-card__actions">
+            <a class="btn btn-primary" href="{{{courseurl}}}">{{courselabel}}</a>
+            <a class="btn btn-secondary" href="{{{coursesurl}}}">{{courseslabel}}</a>
+            <a class="btn btn-outline-secondary" href="{{{logouturl}}}">{{logoutlabel}}</a>
+        </div>
+    </div>
+</div>

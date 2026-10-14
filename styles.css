@@ -1122,6 +1122,11 @@ body.lj-content-only .lj-contentonly-footer__btn:focus {
     text-decoration: none;
 }
 
+body.lj-content-only .lj-contentonly-footer__btn.is-active {
+    background: rgba(15, 23, 42, 0.1);
+    color: #0f172a;
+}
+
 body.lj-content-only .lj-contentonly-footer__icon {
     display: inline-flex;
     align-items: center;
