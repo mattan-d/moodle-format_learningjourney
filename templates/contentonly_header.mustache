@@ -1,18 +1,20 @@
 {{!
     @template format_learningjourney/contentonly_header
 
-    Sticky header for content-only course display (no Moodle chrome).
+    Sticky header + fixed footer for content-only course display (no Moodle chrome).
 }}
 <header class="lj-contentonly-header" data-region="lj-contentonly-header">
-    <button type="button"
-            class="lj-contentonly-hamburger btn btn-icon"
-            data-action="lj-menu-toggle"
-            aria-expanded="false"
-            aria-controls="lj-contentonly-menu"
-            title="{{menulabel}}"
-            aria-label="{{menulabel}}">
-        {{{hamburgericon}}}
-    </button>
+    <div class="lj-contentonly-header__side lj-contentonly-header__side--start">
+        <button type="button"
+                class="lj-contentonly-hamburger btn btn-icon"
+                data-action="lj-menu-toggle"
+                aria-expanded="false"
+                aria-controls="lj-contentonly-menu"
+                title="{{menulabel}}"
+                aria-label="{{menulabel}}">
+            {{{hamburgericon}}}
+        </button>
+    </div>
     <a class="lj-contentonly-brand" href="{{{homeurl}}}" title="{{sitename}}">
         {{#haslogo}}
             <img class="lj-contentonly-logo" src="{{{logourl}}}" alt="{{sitename}}"/>
@@ -21,13 +23,11 @@
             <span class="lj-contentonly-sitename">{{sitename}}</span>
         {{/haslogo}}
     </a>
-    <a class="lj-contentonly-coursetitle" href="{{{courseurl}}}">{{coursename}}</a>
-    {{#editurl}}
-        <a class="btn btn-sm btn-primary lj-contentonly-edit" href="{{{editurl}}}">{{editlabel}}</a>
-    {{/editurl}}
-    {{^editurl}}
-        <span class="lj-contentonly-edit-spacer" aria-hidden="true"></span>
-    {{/editurl}}
+    <div class="lj-contentonly-header__side lj-contentonly-header__side--end">
+        {{#editurl}}
+            <a class="btn btn-sm btn-primary lj-contentonly-edit" href="{{{editurl}}}">{{editlabel}}</a>
+        {{/editurl}}
+    </div>
 </header>
 <div class="lj-contentonly-backdrop" data-region="lj-contentonly-backdrop" data-action="lj-menu-close" hidden></div>
 <nav id="lj-contentonly-menu"
@@ -71,3 +71,13 @@
         {{/hasoptions}}
     </ul>
 </nav>
+<footer class="lj-contentonly-footer" data-region="lj-contentonly-footer">
+    <nav class="lj-contentonly-footer__nav" aria-label="{{footerlabel}}">
+        <a class="lj-contentonly-footer__btn"
+           href="{{{portalurl}}}"
+           title="{{footerhomelabel}}">
+            <span class="lj-contentonly-footer__icon" aria-hidden="true">{{{footerhomeicon}}}</span>
+            <span class="lj-contentonly-footer__label">{{footerhomelabel}}</span>
+        </a>
+    </nav>
+</footer>

@@ -113,6 +113,39 @@ class content extends content_base {
             $data->singlesection->ljcoveratsite = true;
         }
 
+        // Course-home banner from course overview image (not on single-section pages).
+        $data->ljhascoursebanner = false;
+        if (empty($data->singlesection) && empty($data->hasnavigation)) {
+            $course = $format->get_course();
+            $courseimage = null;
+            if (function_exists('course_get_courseimage')) {
+                $courseimage = course_get_courseimage($course);
+            } else {
+                $courseinlist = new \core_course_list_element($course);
+                foreach ($courseinlist->get_course_overviewfiles() as $file) {
+                    if ($file->is_valid_image()) {
+                        $courseimage = $file;
+                        break;
+                    }
+                }
+            }
+            if ($courseimage) {
+                $data->ljhascoursebanner = true;
+                $data->ljcoursebannerurl = \moodle_url::make_pluginfile_url(
+                    $courseimage->get_contextid(),
+                    $courseimage->get_component(),
+                    $courseimage->get_filearea(),
+                    null,
+                    $courseimage->get_filepath(),
+                    $courseimage->get_filename()
+                )->out(false);
+                $data->ljcoursebanneralt = format_string($course->fullname, true, [
+                    'context' => \context_course::instance($course->id),
+                ]);
+                $data->ljcoursename = $data->ljcoursebanneralt;
+            }
+        }
+
         return $data;
     }
 }

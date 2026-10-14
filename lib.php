@@ -853,10 +853,13 @@ function format_learningjourney_content_only_editbar_html(): string {
         'context' => context_course::instance(SITEID),
     ]);
 
+    $portalurl = new moodle_url('/local/learningjourneylogin/');
+
     return $OUTPUT->render_from_template('format_learningjourney/contentonly_header', [
         'coursename' => format_string($course->fullname, true, ['context' => context_course::instance($course->id)]),
         'courseurl' => $courseurl->out(false),
-        'homeurl' => (new moodle_url('/'))->out(false),
+        'homeurl' => $portalurl->out(false),
+        'portalurl' => $portalurl->out(false),
         'sitename' => $sitename,
         'haslogo' => true,
         'logourl' => $logourl->out(false),
@@ -865,6 +868,9 @@ function format_learningjourney_content_only_editbar_html(): string {
         'sectionslabel' => get_string('sections'),
         'optionslabel' => get_string('contentonlyoptions', 'format_learningjourney'),
         'closelabel' => get_string('closebuttontitle'),
+        'footerlabel' => get_string('contentonlyfooter', 'format_learningjourney'),
+        'footerhomelabel' => get_string('contentonlyfooterhome', 'format_learningjourney'),
+        'footerhomeicon' => $OUTPUT->pix_icon('i/home', get_string('contentonlyfooterhome', 'format_learningjourney')),
         'hassections' => $menusections !== [],
         'sections' => $menusections,
         'hasoptions' => $menuoptions !== [],
