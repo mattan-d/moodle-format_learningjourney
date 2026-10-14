@@ -975,8 +975,8 @@
 body.lj-content-only {
     --lj-page-gutter: 1.5rem;
     --lj-content-gap: 1.15rem;
-    --lj-footer-height: 4.25rem;
-    padding-bottom: var(--lj-footer-height);
+    /* Footer bar + safe-area (iOS home indicator) + breathing room above the bar. */
+    --lj-footer-height: calc(5.75rem + env(safe-area-inset-bottom, 0px));
 }
 
 @media (min-width: 768px) {
@@ -1243,7 +1243,8 @@ body.lj-content-only #page {
 body.lj-content-only .embedded-main {
     margin: 0 !important;
     padding-inline: var(--lj-page-gutter) !important;
-    padding-block: 1.5rem 2.5rem !important;
+    /* Extra bottom space so the last unit cards clear the fixed footer on mobile. */
+    padding-block: 1.5rem var(--lj-footer-height) !important;
     width: 100% !important;
     max-width: 100% !important;
     box-sizing: border-box !important;
@@ -1253,6 +1254,7 @@ body.lj-content-only .embedded-main {
 body.lj-content-only:not(:has(.embedded-main)) .format-learningjourney-mode-view,
 body.lj-content-only:not(:has(.embedded-main)) .course-content {
     padding-inline: var(--lj-page-gutter) !important;
+    padding-bottom: var(--lj-footer-height) !important;
     box-sizing: border-box;
 }
 
@@ -1279,7 +1281,7 @@ body.lj-content-only .format-learningjourney-mode-view.lj-has-course-banner > .l
 
 @media (min-width: 768px) {
     body.lj-content-only .embedded-main {
-        padding-block: 1.75rem 2.75rem !important;
+        padding-block: 1.75rem var(--lj-footer-height) !important;
     }
 
     body.lj-content-only .format-learningjourney-mode-view .lj-single-section--has-cover > .lj-section-cover,
@@ -1291,7 +1293,7 @@ body.lj-content-only .format-learningjourney-mode-view.lj-has-course-banner > .l
 
 @media (min-width: 1200px) {
     body.lj-content-only .embedded-main {
-        padding-block: 2rem 3rem !important;
+        padding-block: 2rem var(--lj-footer-height) !important;
     }
 
     body.lj-content-only .format-learningjourney-mode-view .lj-single-section--has-cover > .lj-section-cover,
