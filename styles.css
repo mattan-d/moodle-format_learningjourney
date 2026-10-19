@@ -14,6 +14,8 @@
     list-style: none;
     margin: 0;
     padding: 0;
+    /* On mobile avoid stretching short cards — empty bottom looked too tall. */
+    align-items: start;
 }
 
 .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view[data-sectionid="0"] {
@@ -64,8 +66,20 @@
 
 .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view:not(.lj-header-unit) {
     display: flex;
-    align-self: stretch;
-    height: 100%;
+    align-self: start;
+    height: auto;
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] {
+        align-items: stretch;
+    }
+
+    .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view:not(.lj-header-unit) {
+        align-self: stretch;
+        height: 100%;
+    }
 }
 
 .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view .lj-card-link {
@@ -290,7 +304,8 @@
     order: -1;
     flex: 0 0 auto;
     width: 100%;
-    aspect-ratio: 16 / 10;
+    /* Mobile: taller image so the media dominates the tile. */
+    aspect-ratio: 1 / 1;
     height: auto;
     margin: 0 !important;
     padding: 0 !important;
@@ -299,6 +314,12 @@
     overflow: hidden;
     border: 0;
     border-radius: 0;
+}
+
+@media (min-width: 768px) {
+    .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view .section-learningjourney-image {
+        aspect-ratio: 16 / 10;
+    }
 }
 
 .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view .section-learningjourney-image img {
@@ -359,7 +380,7 @@
     display: flex;
     flex: 0 0 auto;
     margin: 0;
-    padding: 0.95rem 1rem 0.35rem;
+    padding: 0.7rem 0.75rem 0.2rem;
     color: #0f172a;
     justify-content: flex-start;
     align-items: flex-start;
@@ -408,7 +429,8 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
     word-break: break-word;
-    min-height: calc(var(--lj-card-title-lines) * var(--lj-card-title-size) * var(--lj-card-title-line-height));
+    /* Don't reserve empty 2nd line — it made mobile cards look bottom-heavy. */
+    min-height: 0;
 }
 
 /* Type pill under the title (e.g. יחידה). */
@@ -417,7 +439,7 @@
     align-self: flex-start;
     display: inline-flex;
     align-items: center;
-    margin: 0.15rem 1rem 0.35rem;
+    margin: 0.1rem 0.75rem 0.75rem;
     padding: 0.12rem 0.65rem;
     border-radius: 999px;
     background: #dbeafe;
@@ -429,19 +451,23 @@
 
 .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view .lj-card-summary {
     order: 3;
-    flex: 1 1 auto;
-    margin: 0 1rem 1rem;
+    flex: 0 0 auto;
+    margin: -0.35rem 0.75rem 0.75rem;
     padding: 0;
     color: #64748b;
-    font-size: 0.86rem;
+    font-size: 0.82rem;
     font-weight: 400;
-    line-height: 1.45;
+    line-height: 1.4;
     text-align: start;
     display: -webkit-box;
-    -webkit-line-clamp: 3;
-    line-clamp: 3;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+}
+
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view:has(.lj-card-summary) .lj-card-type {
+    margin-bottom: 0.35rem;
 }
 
 .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view .course-section-header .section_action_menu .dropdown-toggle,
@@ -456,14 +482,6 @@
     display: none !important;
 }
 
-/* Breathing room at the bottom when there is no summary. */
-.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view:not(.lj-header-unit) > .section-item:not(:has(.lj-card-summary))::after {
-    content: "";
-    order: 9;
-    display: block;
-    flex: 1 1 auto;
-    min-height: 1.25rem;
-}
 
 /* In card mode show the tile only; details remain available on the section page */
 .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view .content,
