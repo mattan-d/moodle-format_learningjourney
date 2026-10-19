@@ -130,12 +130,32 @@
     </a>
 </div>
 {{/ljhasgotourl}}
+{{#ljcardtypelabel}}
+<div class="lj-card-type" data-for="learningjourney_cardtype">{{ljcardtypelabel}}</div>
+{{/ljcardtypelabel}}
+{{#hasljcardsummary}}
+<p class="lj-card-summary" data-for="learningjourney_cardsummary">{{ljcardsummary}}</p>
+{{/hasljcardsummary}}
 {{/ljcardview}}
 {{^ljsinglesectionpage}}
 {{#hassectionimage}}
 <div class="section-learningjourney-image mb-2" data-for="learningjourney_image">
     <img src="{{{sectionimageurl}}}" alt="{{sectionimagealt}}" class="img-fluid w-100"/>
+    {{#ljcardview}}
+    {{#hasljstatusbadge}}
+    <span class="lj-card-status lj-card-status--{{ljstatusmod}}" data-for="learningjourney_status">{{ljstatuslabel}}</span>
+    {{/hasljstatusbadge}}
+    {{/ljcardview}}
 </div>
+{{/hassectionimage}}
+{{^hassectionimage}}
+{{#ljcardview}}
+{{#hasljstatusbadge}}
+<div class="section-learningjourney-image section-learningjourney-image--placeholder mb-2" data-for="learningjourney_image">
+    <span class="lj-card-status lj-card-status--{{ljstatusmod}}" data-for="learningjourney_status">{{ljstatuslabel}}</span>
+</div>
+{{/hasljstatusbadge}}
+{{/ljcardview}}
 {{/hassectionimage}}
 {{/ljsinglesectionpage}}
 {{#ljcontentdisabled}}

@@ -734,6 +734,42 @@ class format_learningjourney extends course_format_base {
 }
 
 /**
+ * True on the main course home (all sections), not a single section / activity / portal page.
+ */
+function format_learningjourney_is_course_home_page(): bool {
+    global $PAGE;
+
+    if (format_learningjourney_is_portal_page()) {
+        return false;
+    }
+
+    $pagetype = (string) ($PAGE->pagetype ?? '');
+    // Dedicated section page (/course/section.php).
+    if ($pagetype === 'course-section' || str_starts_with($pagetype, 'course-section-')) {
+        return false;
+    }
+    // Activity / module pages.
+    if (str_starts_with($pagetype, 'mod-')) {
+        return false;
+    }
+    // Single-section course view.
+    if ($pagetype === 'course-view-section-learningjourney') {
+        return false;
+    }
+
+    if ($pagetype === 'course-view-learningjourney') {
+        $format = course_get_format($PAGE->course);
+        if ($format instanceof format_learningjourney) {
+            return $format->is_showing_all_sections();
+        }
+        return true;
+    }
+
+    // Any other in-course page is treated as internal.
+    return false;
+}
+
+/**
  * Whether the current page is a course-scoped portal page (personal / messages / contact).
  */
 function format_learningjourney_is_portal_page(): bool {
@@ -956,7 +992,16 @@ function format_learningjourney_content_only_editbar_html(): string {
     $messagesurl = format_learningjourney_portal_url((int) $course->id, 'messages');
     $contacturl = format_learningjourney_portal_url((int) $course->id, 'contact');
 
-    $footerhome = get_string('contentonlyfooterhome', 'format_learningjourney');
+    // Course home → portal “home”. Internal pages (section / activity / portal) → course home.
+    $isoncoursehome = format_learningjourney_is_course_home_page();
+    if ($isoncoursehome) {
+        $footerfirstlabel = get_string('contentonlyfooterhome', 'format_learningjourney');
+        $footerfirsturl = $portalurl->out(false);
+    } else {
+        $footerfirstlabel = get_string('backtocourse', 'format_learningjourney');
+        $footerfirsturl = $courseurl->out(false);
+    }
+
     $footerpersonal = get_string('contentonlyfooterpersonal', 'format_learningjourney');
     $footermessages = get_string('contentonlyfootermessages', 'format_learningjourney');
     $footercontact = get_string('contentonlyfootercontact', 'format_learningjourney');
@@ -964,9 +1009,9 @@ function format_learningjourney_content_only_editbar_html(): string {
     $currentpagetype = (string) ($PAGE->pagetype ?? '');
     $footeritems = [
         [
-            'label' => $footerhome,
-            'url' => $portalurl->out(false),
-            'icon' => $OUTPUT->pix_icon('i/home', $footerhome),
+            'label' => $footerfirstlabel,
+            'url' => $footerfirsturl,
+            'icon' => $OUTPUT->pix_icon('i/home', $footerfirstlabel),
             'active' => false,
         ],
         [

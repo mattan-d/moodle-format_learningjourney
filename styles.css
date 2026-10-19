@@ -89,17 +89,23 @@
     height: 100%;
     min-height: 100%;
     aspect-ratio: auto;
-    border-radius: 1rem;
+    border-radius: 0.85rem;
     overflow: hidden;
-    padding: 0.65rem 0.65rem 0.85rem !important;
+    padding: 0 !important;
     margin: 0 !important;
-    border: 1px solid rgba(148, 163, 184, 0.18) !important;
+    border: 0 !important;
     background: #fff !important;
-    box-shadow: none;
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.1);
     --lj-card-title-lines: 2;
-    --lj-card-title-line-height: 1.35;
+    --lj-card-title-line-height: 1.3;
     --lj-card-title-size: 1.05rem;
-    --lj-card-footer-slot: 2.5rem;
+    --lj-card-footer-slot: 0.75rem;
+    transition: box-shadow 160ms ease, transform 160ms ease;
+}
+
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view:not(.lj-header-unit):hover > .section-item {
+    box-shadow: 0 8px 22px rgba(15, 23, 42, 0.14);
+    transform: translateY(-2px);
 }
 
 /* Header unit: full width, softer visual, title-only presentation. */
@@ -278,7 +284,7 @@
     opacity: 0.85;
 }
 
-/* Image band on top of the card (inset, no extra frame). */
+/* Full-bleed image on top of the card (Bezeq catalog style). */
 .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view .section-learningjourney-image {
     position: relative;
     order: -1;
@@ -289,10 +295,10 @@
     margin: 0 !important;
     padding: 0 !important;
     z-index: 0;
-    background: transparent;
+    background: linear-gradient(135deg, #cbd5e1 0%, #e2e8f0 100%);
     overflow: hidden;
     border: 0;
-    border-radius: 0.85rem;
+    border-radius: 0;
 }
 
 .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view .section-learningjourney-image img {
@@ -303,14 +309,45 @@
     min-width: 100%;
     min-height: 100%;
     border: 0 !important;
-    border-radius: 0.85rem;
+    border-radius: 0;
     object-fit: cover;
     object-position: center;
     transform: none;
     opacity: 1;
 }
 
-/* Title / meta band under the image — always reserve 2 title lines. */
+/* Status pill over the image (matches Bezeq “פתוח”). */
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view .lj-card-status {
+    position: absolute;
+    top: 0.7rem;
+    inset-inline-start: 0.7rem;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 1.55rem;
+    padding: 0.15rem 0.7rem;
+    border-radius: 999px;
+    background: #3b82f6;
+    color: #fff !important;
+    font-size: 0.78rem;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.01em;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.18);
+    pointer-events: none;
+}
+
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view .lj-card-status--soon {
+    background: #0ea5e9;
+}
+
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view .lj-card-status--closed,
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view .lj-card-status--locked {
+    background: #64748b;
+}
+
+/* Title / meta band under the image — RTL-friendly Bezeq layout. */
 .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view .course-section-header {
     position: relative;
     order: 1;
@@ -320,20 +357,17 @@
     bottom: auto;
     z-index: 1;
     display: flex;
-    flex: 1 1 auto;
+    flex: 0 0 auto;
     margin: 0;
-    padding: 0.9rem 0.35rem 0.55rem;
-    color: #1f2937;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+    padding: 0.95rem 1rem 0.35rem;
+    color: #0f172a;
+    justify-content: flex-start;
+    align-items: flex-start;
+    text-align: start;
     transform: none;
     background: transparent;
     overflow: hidden;
-    min-height: calc(
-        0.9rem + 0.55rem
-        + (var(--lj-card-title-lines) * var(--lj-card-title-size) * var(--lj-card-title-line-height))
-    );
+    min-height: 0;
     border: 0;
 }
 
@@ -344,15 +378,15 @@
 
 .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view:not(.lj-header-unit) .course-section-header > .d-flex {
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    align-items: stretch;
+    justify-content: flex-start;
     width: 100%;
 }
 
 .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view:not(.lj-header-unit) .course-section-header .sectionname {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
     width: 100%;
 }
 
@@ -362,11 +396,12 @@
 
 .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view .course-section-header .sectionname > a,
 .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view .course-section-header .sectionname > span {
-    color: #1f2937;
-    font-weight: 600;
+    color: #0f172a;
+    font-weight: 700;
     font-size: var(--lj-card-title-size);
     line-height: var(--lj-card-title-line-height);
     text-shadow: none;
+    text-align: start;
     display: -webkit-box;
     line-clamp: var(--lj-card-title-lines);
     -webkit-line-clamp: 2;
@@ -376,117 +411,58 @@
     min-height: calc(var(--lj-card-title-lines) * var(--lj-card-title-size) * var(--lj-card-title-line-height));
 }
 
+/* Type pill under the title (e.g. יחידה). */
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view .lj-card-type {
+    order: 2;
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    margin: 0.15rem 1rem 0.35rem;
+    padding: 0.12rem 0.65rem;
+    border-radius: 999px;
+    background: #dbeafe;
+    color: #1d4ed8;
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view .lj-card-summary {
+    order: 3;
+    flex: 1 1 auto;
+    margin: 0 1rem 1rem;
+    padding: 0;
+    color: #64748b;
+    font-size: 0.86rem;
+    font-weight: 400;
+    line-height: 1.45;
+    text-align: start;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
 .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view .course-section-header .section_action_menu .dropdown-toggle,
 .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view .course-section-header .section_action_menu .menu-action {
     color: inherit;
 }
 
+/* Dates / locked text replaced by status badge on Bezeq cards. */
 .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view .section-learningjourney-dates,
-.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view .section-learningjourney-locked {
-    position: relative;
-    order: 2;
-    left: auto;
-    right: auto;
-    bottom: auto;
-    z-index: 1;
-    color: #64748b !important;
-    margin: 0;
-    text-align: center;
-    font-size: 0.78rem;
-    line-height: 1.35;
-    border: 0;
-    border-radius: 0;
-    padding: 0 0.35rem 0.45rem;
-    background: transparent;
-    backdrop-filter: none;
-    min-height: 1.4rem;
-}
-
-.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view .section-learningjourney-dates {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.35rem;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view .section-learningjourney-dates::before {
-    content: "";
-    width: 0.85rem;
-    height: 0.85rem;
-    display: inline-block;
-    background-color: #64748b;
-    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M12 7v5l3 2'/%3E%3C/svg%3E");
-    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M12 7v5l3 2'/%3E%3C/svg%3E");
-    -webkit-mask-size: contain;
-    mask-size: contain;
-    -webkit-mask-repeat: no-repeat;
-    mask-repeat: no-repeat;
-    -webkit-mask-position: center;
-    mask-position: center;
-    opacity: 0.9;
-}
-
-/* Reserve a footer slot so cards with/without a button stay equal height. */
-.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view:not(.lj-header-unit) > .section-item:not(:has(.lj-card-goto))::after {
-    content: "";
-    order: 3;
-    display: block;
-    flex: 0 0 auto;
-    width: 100%;
-    min-height: var(--lj-card-footer-slot);
-    margin-top: auto;
-    padding: 0.15rem;
-    box-sizing: border-box;
-}
-
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view .section-learningjourney-locked,
 .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view .lj-card-goto {
-    position: relative;
-    order: 3;
-    left: auto;
-    right: auto;
-    bottom: auto;
-    z-index: 3;
-    display: block !important;
-    flex: 0 0 auto;
-    margin: auto 0 0;
-    padding: 0.15rem 0.15rem 0.15rem;
-    background: transparent;
-    min-height: var(--lj-card-footer-slot);
-    box-sizing: border-box;
+    display: none !important;
 }
 
-.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view .lj-card-goto .btn {
-    width: 100%;
-    min-height: 2.15rem;
-    border: 1px solid rgba(100, 116, 139, 0.35);
-    border-radius: 999px;
-    background: transparent;
-    box-shadow: none;
-    color: #1e293b;
-    font-weight: 600;
-    font-size: 0.88rem;
-    letter-spacing: 0.01em;
-    backdrop-filter: none;
-    transition: background 140ms ease, border-color 140ms ease;
-}
-
-.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view .lj-card-goto .btn:hover {
-    background: rgba(148, 163, 184, 0.1);
-    border-color: rgba(100, 116, 139, 0.5);
-    transform: none;
-}
-
-/* Cards without an image still keep a top media band. */
-.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view > .section-item:not(:has(.section-learningjourney-image))::before {
+/* Breathing room at the bottom when there is no summary. */
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view:not(.lj-header-unit) > .section-item:not(:has(.lj-card-summary))::after {
     content: "";
-    order: -1;
+    order: 9;
     display: block;
-    width: 100%;
-    aspect-ratio: 16 / 10;
-    border-radius: 0.85rem;
-    background: linear-gradient(135deg, #cbd5e1 0%, #e2e8f0 100%);
+    flex: 1 1 auto;
+    min-height: 1.25rem;
 }
 
 /* In card mode show the tile only; details remain available on the section page */
@@ -1738,19 +1714,20 @@ body.lj-content-only.lj-dark-mode input[type="search"] {
     color: #e2e8f0 !important;
 }
 
-/* Learning-unit cards: soft dark surface, minimal borders. */
+/* Learning-unit cards: dark surface matching Bezeq layout. */
 body.lj-content-only.lj-dark-mode .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view > .section-item {
     background: #1e293b !important;
-    border-color: rgba(148, 163, 184, 0.14) !important;
-    box-shadow: none;
+    border: 1px solid rgba(148, 163, 184, 0.14) !important;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
 }
 
-body.lj-content-only.lj-dark-mode .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view .course-section-header,
-body.lj-content-only.lj-dark-mode .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view .section-learningjourney-dates,
-body.lj-content-only.lj-dark-mode .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view .section-learningjourney-locked,
-body.lj-content-only.lj-dark-mode .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view .lj-card-goto {
+body.lj-content-only.lj-dark-mode .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view:not(.lj-header-unit):hover > .section-item {
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45);
+}
+
+body.lj-content-only.lj-dark-mode .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view .course-section-header {
     background: transparent !important;
-    color: #e2e8f0 !important;
+    color: #f8fafc !important;
 }
 
 body.lj-content-only.lj-dark-mode .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view .course-section-header .sectionname > a,
@@ -1758,18 +1735,26 @@ body.lj-content-only.lj-dark-mode .format-learningjourney-mode-view ul.format-le
     color: #f8fafc !important;
 }
 
-body.lj-content-only.lj-dark-mode .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view .lj-card-goto .btn {
-    background: transparent !important;
-    border-color: rgba(148, 163, 184, 0.28) !important;
-    color: #f1f5f9 !important;
+body.lj-content-only.lj-dark-mode .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view .lj-card-type {
+    background: rgba(59, 130, 246, 0.22);
+    color: #93c5fd;
+}
+
+body.lj-content-only.lj-dark-mode .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view .lj-card-summary {
+    color: #94a3b8;
 }
 
 body.lj-content-only.lj-dark-mode .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view .section-learningjourney-image {
-    background: transparent;
+    background: linear-gradient(135deg, #334155 0%, #1e293b 100%);
 }
 
-body.lj-content-only.lj-dark-mode .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view > .section-item:not(:has(.section-learningjourney-image))::before {
-    background: linear-gradient(135deg, #334155 0%, #1e293b 100%);
+body.lj-content-only.lj-dark-mode .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view .lj-card-status {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+
+/* Don't let global dark-mode link color paint card titles. */
+body.lj-content-only.lj-dark-mode .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view a:not(.btn) {
+    color: inherit;
 }
 
 body.lj-content-only.lj-dark-mode .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view.lj-header-unit > .section-item {

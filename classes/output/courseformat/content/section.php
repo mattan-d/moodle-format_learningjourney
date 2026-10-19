@@ -52,12 +52,13 @@ class section extends section_base {
             $data->ljhasgotourl = ($showbutton === 1);
             $data->ljcardclick = false;
             $data->ljcardurl = null;
+            $sectionurl = $format->get_view_url((int) $this->section->section, ['navigation' => true])->out(false);
             if (!$data->ljisheader && !$data->ljhasgotourl) {
                 $data->ljcardclick = true;
-                $data->ljcardurl = $format->get_view_url((int) $this->section->section, ['navigation' => true])->out(false);
+                $data->ljcardurl = $sectionurl;
             }
             if ($data->ljhasgotourl) {
-                $data->ljgotourl = $format->get_view_url((int) $this->section->section, ['navigation' => true])->out(false);
+                $data->ljgotourl = $sectionurl;
                 $cmid = (int) ($this->section->tjbuttoncmid ?? 0);
                 if ($cmid > 0) {
                     $modinfo = $format->get_modinfo();
@@ -70,6 +71,10 @@ class section extends section_base {
                 }
                 $label = trim((string) ($this->section->tjbuttonlabel ?? ''));
                 $data->ljgotolabel = ($label !== '') ? $label : get_string('ljbuttondefault', 'format_learningjourney');
+                // Bezeq card design: whole tile is clickable; no separate CTA button.
+                $data->ljcardclick = true;
+                $data->ljcardurl = $data->ljgotourl;
+                $data->ljhasgotourl = false;
             }
             if ($data->ljisheader) {
                 // Header units are visual separators: title only.
@@ -77,6 +82,8 @@ class section extends section_base {
                 $data->hasljdates = false;
                 $data->ljcardclick = false;
                 $data->ljcardurl = null;
+            } else {
+                $this->add_card_bezeq_fields($data);
             }
         }
         if ($this->format->is_showing_all_sections() && !format_learningjourney::section_info_is_delegated($this->section)) {
@@ -93,6 +100,42 @@ class section extends section_base {
         }
 
         return $data;
+    }
+
+    /**
+     * Bezeq-style card meta: status pill, type pill, short summary.
+     */
+    protected function add_card_bezeq_fields(stdClass $data): void {
+        $data->ljcardtypelabel = get_string('ljcardtypelabel', 'format_learningjourney');
+
+        $summary = trim(strip_tags((string) ($this->section->summary ?? '')));
+        if ($summary !== '') {
+            $data->hasljcardsummary = true;
+            $data->ljcardsummary = shorten_text($summary, 140);
+        } else {
+            $data->hasljcardsummary = false;
+            $data->ljcardsummary = '';
+        }
+
+        $start = (int) ($this->section->tjstart ?? 0);
+        $end = (int) ($this->section->tjend ?? 0);
+        $now = time();
+        $available = !empty($this->section->uservisible);
+
+        if (!$available) {
+            $data->ljstatusmod = 'locked';
+            $data->ljstatuslabel = get_string('ljstatuslocked', 'format_learningjourney');
+        } else if ($start > 0 && $now < $start) {
+            $data->ljstatusmod = 'soon';
+            $data->ljstatuslabel = get_string('ljstatussoon', 'format_learningjourney');
+        } else if ($end > 0 && $now > $end) {
+            $data->ljstatusmod = 'closed';
+            $data->ljstatuslabel = get_string('ljstatusclosed', 'format_learningjourney');
+        } else {
+            $data->ljstatusmod = 'open';
+            $data->ljstatuslabel = get_string('ljstatusopen', 'format_learningjourney');
+        }
+        $data->hasljstatusbadge = true;
     }
 
     /**
