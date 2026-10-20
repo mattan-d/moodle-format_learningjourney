@@ -837,6 +837,69 @@ function format_learningjourney_portal_page_keys(): array {
 }
 
 /**
+ * Course learning-meter data for the personal portal card.
+ *
+ * @param stdClass $course
+ * @param int $userid
+ * @return array{enabled: bool, percent: int, completed: int, total: int, label: string, infolabel: string}
+ */
+function format_learningjourney_course_learning_meter(stdClass $course, int $userid): array {
+    global $CFG;
+    require_once($CFG->libdir . '/completionlib.php');
+
+    $result = [
+        'enabled' => false,
+        'percent' => 0,
+        'completed' => 0,
+        'total' => 0,
+        'label' => get_string('learningmeter', 'format_learningjourney'),
+        'infolabel' => get_string('learningmeterinfo', 'format_learningjourney'),
+        'percentlabel' => '',
+        'countlabel' => '',
+        'dashoffset' => 565.48,
+    ];
+
+    $completion = new completion_info($course);
+    if (!$completion->is_enabled()) {
+        return $result;
+    }
+
+    $modinfo = get_fast_modinfo($course, $userid);
+    $completed = 0;
+    $total = 0;
+    foreach ($modinfo->get_cms() as $cm) {
+        if (!$cm->uservisible || $cm->completion == COMPLETION_TRACKING_NONE) {
+            continue;
+        }
+        $total++;
+        $cdata = $completion->get_data($cm, false, $userid);
+        if ((int) $cdata->completionstate === COMPLETION_COMPLETE
+                || (int) $cdata->completionstate === COMPLETION_COMPLETE_PASS) {
+            $completed++;
+        }
+    }
+
+    $percent = ($total > 0) ? (int) round(($completed / $total) * 100) : 0;
+    // Circumference of r=90 ≈ 565.48; offset draws the remaining arc.
+    $circumference = 2 * M_PI * 90;
+    $dashoffset = $circumference * (1 - ($percent / 100));
+
+    $result['enabled'] = true;
+    $result['percent'] = $percent;
+    $result['completed'] = $completed;
+    $result['total'] = $total;
+    $result['percentlabel'] = get_string('learningmeterpercent', 'format_learningjourney', $percent);
+    $result['countlabel'] = get_string('learningmetercount', 'format_learningjourney', (object) [
+        'completed' => $completed,
+        'total' => $total,
+    ]);
+    $result['dashoffset'] = round($dashoffset, 2);
+    $result['circumference'] = round($circumference, 2);
+
+    return $result;
+}
+
+/**
  * URL for a course-scoped portal page that keeps content-only / dark mode chrome.
  *
  * @param int $courseid

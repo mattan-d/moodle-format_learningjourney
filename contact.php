@@ -88,10 +88,9 @@ if ($form->is_cancelled()) {
 }
 
 echo $OUTPUT->header();
-echo html_writer::start_div('lj-portal-shell lj-portal-contact');
-echo html_writer::tag('h1', get_string('contentonlyfootercontact', 'format_learningjourney'), [
-    'class' => 'lj-portal-heading h3',
+echo $OUTPUT->render_from_template('format_learningjourney/portal_contact', [
+    'heading' => get_string('contentonlyfootercontact', 'format_learningjourney'),
+    'lead' => get_string('contactlead', 'format_learningjourney'),
+    'formhtml' => $output,
 ]);
-echo html_writer::div($output, 'lj-portal-contact__form');
-echo html_writer::end_div();
 echo $OUTPUT->footer();

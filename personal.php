@@ -34,6 +34,7 @@ $avatarurl = $userpicture->get_url($PAGE);
 $coursesurl = new moodle_url('/local/learningjourneylogin/courses.php');
 $courseurl = new moodle_url('/course/view.php', ['id' => $course->id]);
 $logouturl = new moodle_url('/local/learningjourneylogin/logout.php', ['sesskey' => sesskey()]);
+$meter = format_learningjourney_course_learning_meter($course, (int) $USER->id);
 
 echo $OUTPUT->header();
 echo $OUTPUT->render_from_template('format_learningjourney/portal_personal', [
@@ -47,5 +48,6 @@ echo $OUTPUT->render_from_template('format_learningjourney/portal_personal', [
     'courseslabel' => get_string('portalmycourses', 'format_learningjourney'),
     'logouturl' => $logouturl->out(false),
     'logoutlabel' => get_string('logout'),
+    'meter' => $meter,
 ]);
 echo $OUTPUT->footer();

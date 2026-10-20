@@ -1,11 +1,12 @@
 {{!
     @template format_learningjourney/portal_personal
 
-    Personal area card for content-only portal pages.
+    Personal area: identity card + learning meter (Bezeq card atmosphere).
 }}
 <div class="lj-portal-shell lj-portal-personal">
     <h1 class="lj-portal-heading h3">{{heading}}</h1>
-    <div class="lj-portal-card">
+
+    <div class="lj-portal-card lj-portal-card--identity">
         <div class="lj-portal-card__identity">
             <img class="lj-portal-card__avatar" src="{{{avatarurl}}}" alt="{{fullname}}"/>
             <div class="lj-portal-card__meta">
@@ -16,9 +17,40 @@
             </div>
         </div>
         <div class="lj-portal-card__actions">
-            <a class="btn btn-primary" href="{{{courseurl}}}">{{courselabel}}</a>
-            <a class="btn btn-secondary" href="{{{coursesurl}}}">{{courseslabel}}</a>
-            <a class="btn btn-outline-secondary" href="{{{logouturl}}}">{{logoutlabel}}</a>
+            <a class="btn lj-portal-btn lj-portal-btn--primary" href="{{{courseurl}}}">{{courselabel}}</a>
+            <a class="btn lj-portal-btn lj-portal-btn--secondary" href="{{{coursesurl}}}">{{courseslabel}}</a>
+            <a class="btn lj-portal-btn lj-portal-btn--ghost" href="{{{logouturl}}}">{{logoutlabel}}</a>
         </div>
     </div>
+
+    {{#meter.enabled}}
+    <div class="lj-portal-card lj-portal-card--meter" data-region="lj-learning-meter">
+        <div class="lj-meter">
+            <div class="lj-meter__dial" aria-hidden="true">
+                <svg class="lj-meter__svg" viewBox="0 0 200 200">
+                    <defs>
+                        <linearGradient id="ljMeterGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#38bdf8"/>
+                            <stop offset="100%" stop-color="#3b82f6"/>
+                        </linearGradient>
+                    </defs>
+                    <circle class="lj-meter__track" cx="100" cy="100" r="90"></circle>
+                    <circle class="lj-meter__fill"
+                            cx="100" cy="100" r="90"
+                            stroke-dasharray="{{meter.circumference}}"
+                            stroke-dashoffset="{{meter.dashoffset}}"></circle>
+                </svg>
+                <div class="lj-meter__center">
+                    <span class="lj-meter__percent">{{meter.percent}}%</span>
+                    <span class="lj-meter__percent-label">{{meter.percentlabel}}</span>
+                </div>
+            </div>
+            <div class="lj-meter__copy">
+                <h2 class="lj-meter__title">{{meter.label}}</h2>
+                <p class="lj-meter__info">{{meter.infolabel}}</p>
+                <span class="lj-meter__badge">{{meter.countlabel}}</span>
+            </div>
+        </div>
+    </div>
+    {{/meter.enabled}}
 </div>
