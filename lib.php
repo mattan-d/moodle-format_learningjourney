@@ -1044,8 +1044,8 @@ function format_learningjourney_content_only_editbar_html(): string {
         $editurl = (new moodle_url($PAGE->url, ['edit' => 1, 'sesskey' => sesskey()]))->out(false);
     }
 
-    // Always use the format-bundled Bezeq mark in the content-only header.
-    $logourl = $OUTPUT->image_url('bezeq_logo', 'format_learningjourney');
+    // Format-bundled Journey mark in the content-only header.
+    $logourl = $OUTPUT->image_url('journey_logo', 'format_learningjourney');
     $sitename = format_string($SITE->fullname, true, [
         'context' => context_course::instance(SITEID),
     ]);
