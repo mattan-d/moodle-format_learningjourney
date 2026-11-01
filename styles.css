@@ -2321,12 +2321,11 @@ body.lj-content-only.lj-dark-mode .format-learningjourney-mode-view .lj-path__le
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    --lj-path-gap: 5.25rem;
-    gap: var(--lj-path-gap);
+    gap: 2.4rem;
     width: 100%;
     max-width: none;
     margin-inline: 0;
-    padding: 3.4rem 0 0.5rem;
+    padding: 3.4rem 1.4rem 0.5rem;
     position: relative;
     overflow: visible;
 }
@@ -2337,9 +2336,8 @@ body.lj-content-only.lj-dark-mode .format-learningjourney-mode-view .lj-path__le
 }
 
 .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view.lj-step {
-    width: 100%;
-    max-width: none;
-    align-self: stretch;
+    width: 82%;
+    align-self: flex-end;
     overflow: visible;
 }
 
@@ -2352,10 +2350,10 @@ body.lj-content-only.lj-dark-mode .format-learningjourney-mode-view .lj-path__le
     display: block;
     clear: none;
     position: absolute;
-    z-index: 3;
+    z-index: 0;
     top: 50%;
     width: 46%;
-    height: calc(100% + var(--lj-path-gap));
+    height: calc(100% + 2.4rem);
     border: 0 solid #38bdf8;
     border-inline-start-width: 3px;
     border-bottom-width: 3px;
@@ -2375,35 +2373,6 @@ body.lj-content-only.lj-dark-mode .format-learningjourney-mode-view .lj-path__le
     border-inline-end-width: 3px;
     border-end-start-radius: 0;
     border-end-end-radius: 2.75rem;
-}
-
-.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view.lj-step:has(~ li.lj-step)::after {
-    width: calc(100% + 4px);
-    height: calc(50% + var(--lj-path-gap) - 8px);
-    border-end-start-radius: 6.5rem;
-}
-
-.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view.lj-step-flip:has(~ li.lj-step)::after {
-    border-end-end-radius: 6.5rem;
-}
-
-.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view.lj-step > .lj-step-join {
-    position: absolute;
-    top: -8px;
-    z-index: 3;
-    width: 3px;
-    height: calc(50% - 1.2rem);
-    background: #38bdf8;
-    box-shadow: 0 0 8px rgba(56, 189, 248, 0.85);
-    pointer-events: none;
-}
-
-.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view.lj-step:not(.lj-step-flip) > .lj-step-join {
-    inset-inline-start: -2px;
-}
-
-.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view.lj-step-flip > .lj-step-join {
-    inset-inline-end: -2px;
 }
 
 .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view.lj-step:not(:has(~ li.lj-step)) {
@@ -2516,7 +2485,7 @@ body.lj-content-only.lj-dark-mode .format-learningjourney-mode-view .lj-path__le
     position: relative;
     flex: 0 0 38%;
     width: 38%;
-    max-width: 16rem;
+    max-width: 22rem;
     aspect-ratio: auto;
     min-height: 8.75rem;
     align-self: stretch;
@@ -2660,7 +2629,7 @@ body:not(.lj-dark-mode) .format-learningjourney-mode-view ul.format-learningjour
 @media (max-width: 640px) {
     .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view.lj-step,
     .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view.lj-step-flip {
-        width: 100%;
+        width: calc(100% - 1.6rem);
     }
 
     .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view.lj-step > .section-item,
