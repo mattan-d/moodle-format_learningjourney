@@ -900,6 +900,137 @@ function format_learningjourney_course_learning_meter(stdClass $course, int $use
 }
 
 /**
+ * Progress along the journey path, shown when a learner opens the course home.
+ *
+ * Each visible station (a section that is not the general section or a header) is one step.
+ * A station with completion tracking is done when every tracked activity is complete.
+ * Otherwise it is done once the learner has opened it.
+ *
+ * @param stdClass $course
+ * @param int $userid
+ * @return array
+ */
+function format_learningjourney_path_progress(stdClass $course, int $userid): array {
+    global $CFG, $DB;
+    require_once($CFG->libdir . '/completionlib.php');
+
+    $empty = [
+        'enabled' => false,
+        'percent' => 0,
+        'remainingpercent' => 0,
+        'completed' => 0,
+        'remaining' => 0,
+        'total' => 0,
+        'label' => get_string('learningpath', 'format_learningjourney'),
+        'infolabel' => get_string('learningpathinfo', 'format_learningjourney'),
+        'donelabel' => get_string('learningpathdone', 'format_learningjourney'),
+        'leftlabel' => get_string('learningpathleft', 'format_learningjourney'),
+        'countlabel' => '',
+        'valuetext' => '',
+    ];
+
+    if ($userid <= 0) {
+        return $empty;
+    }
+
+    $format = course_get_format($course);
+    if (!$format instanceof format_learningjourney) {
+        return $empty;
+    }
+
+    $modinfo = get_fast_modinfo($course, $userid);
+    $completion = new completion_info($course);
+    $completionon = $completion->is_enabled();
+
+    $viewed = [];
+    if ($DB->get_manager()->table_exists('logstore_standard_log')) {
+        $viewedids = $DB->get_fieldset_sql(
+            "SELECT DISTINCT objectid
+               FROM {logstore_standard_log}
+              WHERE userid = :userid
+                AND courseid = :courseid
+                AND eventname = :eventname",
+            [
+                'userid' => $userid,
+                'courseid' => $course->id,
+                'eventname' => '\core\event\section_viewed',
+            ]
+        );
+        foreach ($viewedids as $sectionid) {
+            $viewed[(int) $sectionid] = true;
+        }
+    }
+
+    $completed = 0;
+    $total = 0;
+    foreach ($modinfo->get_section_info_all() as $section) {
+        if ((int) $section->section === 0 || !empty($section->tjisheader)) {
+            continue;
+        }
+        if (!$format->is_section_visible($section)) {
+            continue;
+        }
+
+        $tracked = 0;
+        $donecms = 0;
+        if ($completionon) {
+            foreach ($modinfo->get_cms() as $cm) {
+                if ((int) $cm->sectionnum !== (int) $section->section || !$cm->uservisible) {
+                    continue;
+                }
+                if ((int) $cm->completion === COMPLETION_TRACKING_NONE) {
+                    continue;
+                }
+                $tracked++;
+                $cdata = $completion->get_data($cm, false, $userid);
+                $state = (int) $cdata->completionstate;
+                if ($state === COMPLETION_COMPLETE || $state === COMPLETION_COMPLETE_PASS) {
+                    $donecms++;
+                }
+            }
+        }
+
+        $total++;
+        if ($completionon && $tracked > 0) {
+            if ($donecms === $tracked) {
+                $completed++;
+            }
+        } else if (!empty($viewed[(int) $section->id])) {
+            $completed++;
+        }
+    }
+
+    if ($total === 0) {
+        return $empty;
+    }
+
+    $remaining = $total - $completed;
+    $percent = (int) round(($completed / $total) * 100);
+    $remainingpercent = 100 - $percent;
+    $counts = (object) [
+        'completed' => $completed,
+        'remaining' => $remaining,
+        'total' => $total,
+    ];
+
+    $empty['enabled'] = true;
+    $empty['percent'] = $percent;
+    $empty['remainingpercent'] = $remainingpercent;
+    $empty['completed'] = $completed;
+    $empty['remaining'] = $remaining;
+    $empty['total'] = $total;
+    $empty['countlabel'] = ($remaining === 0)
+        ? get_string('learningpathfinished', 'format_learningjourney')
+        : get_string('learningpathcount', 'format_learningjourney', $counts);
+    $empty['valuetext'] = get_string('learningpathvalue', 'format_learningjourney', (object) [
+        'percent' => $percent,
+        'remainingpercent' => $remainingpercent,
+    ]);
+
+    return $empty;
+}
+
+/**
  * URL for a course-scoped portal page that keeps content-only / dark mode chrome.
  *
  * @param int $courseid

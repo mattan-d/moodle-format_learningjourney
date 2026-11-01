@@ -146,6 +146,13 @@ class content extends content_base {
             }
         }
 
+        // Path progress on the journey home: how much is done, and how much is left.
+        $data->ljpath = ['enabled' => false];
+        if (empty($data->singlesection) && empty($data->hasnavigation) && isloggedin() && !isguestuser()) {
+            global $USER;
+            $data->ljpath = format_learningjourney_path_progress($format->get_course(), (int) $USER->id);
+        }
+
         return $data;
     }
 }

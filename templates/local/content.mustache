@@ -31,6 +31,33 @@
         </div>
     </div>
     {{/ljhascoursebanner}}
+    {{#ljpath.enabled}}
+    <section class="lj-path" aria-label="{{ljpath.label}}">
+        <div class="lj-path__head">
+            <h2 class="lj-path__title">{{ljpath.label}}</h2>
+            <p class="lj-path__info">{{ljpath.infolabel}}</p>
+        </div>
+        <div class="lj-path__bar"
+             role="progressbar"
+             aria-valuenow="{{ljpath.percent}}"
+             aria-valuemin="0"
+             aria-valuemax="100"
+             aria-valuetext="{{ljpath.valuetext}}">
+            <span class="lj-path__done" style="width: {{ljpath.percent}}%;"></span>
+        </div>
+        <div class="lj-path__legend">
+            <span class="lj-path__legend-item lj-path__legend-item--done">
+                <span class="lj-path__swatch" aria-hidden="true"></span>
+                {{ljpath.donelabel}} {{ljpath.percent}}%
+            </span>
+            <span class="lj-path__legend-item lj-path__legend-item--left">
+                <span class="lj-path__swatch" aria-hidden="true"></span>
+                {{ljpath.leftlabel}} {{ljpath.remainingpercent}}%
+            </span>
+        </div>
+        <p class="lj-path__count">{{ljpath.countlabel}}</p>
+    </section>
+    {{/ljpath.enabled}}
     <ul class="{{format}} format-learningjourney-sectionlist {{#ljsectionlayoutgrid}}lj-layout-grid{{/ljsectionlayoutgrid}}{{^ljsectionlayoutgrid}}lj-layout-list{{/ljsectionlayoutgrid}} lj-grid-cols-{{ljgridcols}}" data-for="course_sectionlist">
         {{#ljshowsection0}}
             {{#initialsection}}
