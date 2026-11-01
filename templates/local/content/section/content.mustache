@@ -19,11 +19,6 @@
 
     Core section inner content plus learning journey availability dates under the header.
 }}
-{{#ljcardview}}
-{{#ljsteplabel}}
-<div class="lj-step-kicker">{{ljsteplabel}}</div>
-{{/ljsteplabel}}
-{{/ljcardview}}
 {{#ljsinglesectionpage}}
 <div class="lj-section-single-header mb-2 w-100" data-for="section_single_header">
     {{#hassectionimage}}
@@ -40,6 +35,11 @@
      data-id="{{id}}"
      data-number="{{num}}"
 >
+    {{#ljcardview}}
+    {{#ljsteplabel}}
+    <div class="lj-step-kicker">{{ljsteplabel}}</div>
+    {{/ljsteplabel}}
+    {{/ljcardview}}
     {{#singleheader}}
         {{$ core_courseformat/local/content/section/header }}
             {{> core_courseformat/local/content/section/header }}

@@ -114,6 +114,10 @@ class section extends section_base {
      */
     protected function add_path_step(stdClass $data): void {
         $num = (int) $this->section->section;
+        // Section 0 is the introduction, not a station on the path.
+        if ($num === 0) {
+            return;
+        }
         if ($num <= self::$laststepsection) {
             self::$step = 0;
         }
