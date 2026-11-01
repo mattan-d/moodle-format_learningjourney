@@ -2325,7 +2325,7 @@ body.lj-content-only.lj-dark-mode .format-learningjourney-mode-view .lj-path__le
     width: 100%;
     max-width: none;
     margin-inline: 0;
-    padding: 3.4rem 1.4rem 0.5rem;
+    padding: 3.4rem 1.15rem 0.5rem;
     position: relative;
     overflow: visible;
 }
@@ -2336,7 +2336,8 @@ body.lj-content-only.lj-dark-mode .format-learningjourney-mode-view .lj-path__le
 }
 
 .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view.lj-step {
-    width: 82%;
+    width: calc(100% - 2.75rem);
+    max-width: none;
     align-self: flex-end;
     overflow: visible;
 }
