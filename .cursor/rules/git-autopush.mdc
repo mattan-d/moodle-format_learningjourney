@@ -1,0 +1,15 @@
+---
+description: Commit and push after every completed request
+alwaysApply: true
+---
+
+# Commit and push after each request
+
+When a request changes files, finish by committing and pushing every git repository you changed.
+
+- Stage only the files that belong to the request. Do not stage secrets (`.env`, credentials, private keys).
+- Write a short commit message that says why the change was made.
+- Push the current branch to `origin`. Do not force-push.
+- Do not skip git hooks.
+- If a repository has no changes, do not create an empty commit.
+- If the push fails, report the error. Do not rewrite history to get past it.
