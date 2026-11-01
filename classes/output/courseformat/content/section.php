@@ -125,6 +125,7 @@ class section extends section_base {
         self::$step++;
         $data->ljstep = self::$step;
         $data->ljstepflip = (self::$step % 2 === 0);
+        $data->ljstepfirst = (self::$step === 1);
         $data->ljsteplabel = get_string('ljsteplabel', 'format_learningjourney', self::$step);
     }
 

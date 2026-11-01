@@ -2324,7 +2324,7 @@ body.lj-content-only.lj-dark-mode .format-learningjourney-mode-view .lj-path__le
     gap: 2.4rem;
     max-width: 52rem;
     margin-inline: auto;
-    padding: 1.6rem 1.75rem 0.5rem;
+    padding: 3.4rem 1.75rem 0.5rem;
     position: relative;
     overflow: visible;
 }
@@ -2411,26 +2411,27 @@ body.lj-content-only.lj-dark-mode .format-learningjourney-mode-view .lj-path__le
     transform: rotate(-16deg);
 }
 
-.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view.lj-step:not(.lj-step ~ .lj-step):has(~ li.lj-step)::before {
-    content: "";
-    display: block;
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view.lj-step > .lj-step-start {
     position: absolute;
-    z-index: 1;
-    top: -1.35rem;
-    width: 3px;
-    height: calc(50% + 1.35rem);
-    border-radius: 999px;
-    background: #38bdf8;
-    box-shadow: 0 0 8px rgba(56, 189, 248, 0.85);
+    z-index: 5;
+    top: -2.55rem;
+    width: 2.7rem;
+    height: calc(50% + 2.55rem);
     pointer-events: none;
+    background:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath fill='%237dd3fc' d='M30 2h4v26h-4z'/%3E%3Cpath fill='%237dd3fc' d='M34 4h24l-7 10 7 10H34z'/%3E%3Cpath fill='%23e0f2fe' d='M34 7h16l-5 7 5 7H34z'/%3E%3C/svg%3E") top center / 2.45rem 2.45rem no-repeat,
+        linear-gradient(#38bdf8, #38bdf8) center bottom / 3px calc(100% - 2.05rem) no-repeat;
+    filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.9));
 }
 
-.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view.lj-step:not(.lj-step-flip):not(.lj-step ~ .lj-step):has(~ li.lj-step)::before {
-    inset-inline-start: -2px;
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view.lj-step:not(.lj-step-flip) > .lj-step-start {
+    inset-inline-start: -1.35rem;
 }
 
-.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view.lj-step-flip:not(.lj-step ~ .lj-step):has(~ li.lj-step)::before {
-    inset-inline-end: -2px;
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view.lj-step-flip > .lj-step-start {
+    inset-inline-start: auto;
+    inset-inline-end: -1.35rem;
+    transform: scaleX(-1);
 }
 
 .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view.lj-step > .lj-step-node {

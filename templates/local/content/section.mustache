@@ -36,6 +36,9 @@
         <a class="lj-card-link" href="{{{ljcardurl}}}" aria-label="{{sectionname}}"></a>
     {{/ljcardclick}}
     {{#ljstep}}
+        {{#ljstepfirst}}
+            <span class="lj-step-start" aria-hidden="true"></span>
+        {{/ljstepfirst}}
         <span class="lj-step-node" aria-hidden="true">{{ljstep}}</span>
     {{/ljstep}}
     <div class="section-item">
