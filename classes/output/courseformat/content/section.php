@@ -34,6 +34,12 @@ use stdClass;
  */
 class section extends section_base {
 
+    /** @var int Sequential step index for the course-home path. */
+    private static $step = 0;
+
+    /** @var int Last section number seen, used to restart the path on a new render. */
+    private static $laststepsection = PHP_INT_MAX;
+
     public function get_template_name(\renderer_base $renderer): string {
         return 'format_learningjourney/local/content/section';
     }
@@ -83,6 +89,7 @@ class section extends section_base {
                 $data->ljcardclick = false;
                 $data->ljcardurl = null;
             } else {
+                $this->add_path_step($data);
                 $this->add_card_bezeq_fields($data);
             }
         }
@@ -103,7 +110,22 @@ class section extends section_base {
     }
 
     /**
-     * Bezeq-style card meta: status pill, type pill, short summary.
+     * Number this unit as the next step on the course-home path.
+     */
+    protected function add_path_step(stdClass $data): void {
+        $num = (int) $this->section->section;
+        if ($num <= self::$laststepsection) {
+            self::$step = 0;
+        }
+        self::$laststepsection = $num;
+        self::$step++;
+        $data->ljstep = self::$step;
+        $data->ljstepflip = (self::$step % 2 === 0);
+        $data->ljsteplabel = get_string('ljsteplabel', 'format_learningjourney', self::$step);
+    }
+
+    /**
+     * Card meta: status, type pill, short summary.
      */
     protected function add_card_bezeq_fields(stdClass $data): void {
         $data->ljcardtypelabel = get_string('ljcardtypelabel', 'format_learningjourney');
@@ -135,7 +157,46 @@ class section extends section_base {
             $data->ljstatusmod = 'open';
             $data->ljstatuslabel = get_string('ljstatusopen', 'format_learningjourney');
         }
-        $data->hasljstatusbadge = true;
+        $this->apply_section_completion_status($data);
+        // Open steps stay clean; done / locked / scheduled steps get a corner mark.
+        $data->hasljstatusbadge = ($data->ljstatusmod !== 'open');
+    }
+
+    /**
+     * Mark a step done when every tracked activity in the section is complete.
+     */
+    protected function apply_section_completion_status(stdClass $data): void {
+        global $USER;
+
+        if (($data->ljstatusmod ?? '') === 'locked') {
+            return;
+        }
+
+        $completion = new \completion_info($this->format->get_course());
+        if (!$completion->is_enabled()) {
+            return;
+        }
+
+        $total = 0;
+        $done = 0;
+        foreach ($this->format->get_modinfo()->get_cms() as $cm) {
+            if ((int) $cm->section !== (int) $this->section->id) {
+                continue;
+            }
+            if ((int) $cm->completion === COMPLETION_TRACKING_NONE || !$cm->uservisible) {
+                continue;
+            }
+            $total++;
+            $state = (int) $completion->get_data($cm, false, $USER->id)->completionstate;
+            if ($state === COMPLETION_COMPLETE || $state === COMPLETION_COMPLETE_PASS) {
+                $done++;
+            }
+        }
+
+        if ($total > 0 && $done === $total) {
+            $data->ljstatusmod = 'done';
+            $data->ljstatuslabel = get_string('ljstatusdone', 'format_learningjourney');
+        }
     }
 
     /**

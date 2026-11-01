@@ -2316,3 +2316,219 @@ body.lj-content-only.lj-dark-mode .format-learningjourney-mode-view .lj-path__le
     background: #60a5fa;
 }
 
+/* —— Course home: vertical learning path (step cards) —— */
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.15rem;
+    max-width: 46rem;
+    margin-inline: auto;
+    padding-inline-start: 3.4rem;
+    position: relative;
+}
+
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"]::before {
+    content: "";
+    position: absolute;
+    inset-inline-start: 1.15rem;
+    top: 0.4rem;
+    bottom: 0.4rem;
+    width: 3px;
+    border-radius: 999px;
+    background: linear-gradient(180deg, #38bdf8 0%, #2563eb 55%, rgba(56, 189, 248, 0.15) 100%);
+    box-shadow: 0 0 14px rgba(56, 189, 248, 0.65);
+}
+
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view.lj-step {
+    width: 100%;
+}
+
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view.lj-step > .lj-step-node {
+    position: absolute;
+    inset-inline-start: -2.85rem;
+    top: 50%;
+    z-index: 4;
+    display: grid;
+    place-items: center;
+    width: 2.35rem;
+    height: 2.35rem;
+    margin-top: -1.175rem;
+    border-radius: 999px;
+    border: 2px solid #38bdf8;
+    background: #0b1c33;
+    color: #f8fafc;
+    font-weight: 800;
+    font-size: 0.95rem;
+    line-height: 1;
+    box-shadow: 0 0 0 4px rgba(11, 28, 51, 0.9), 0 0 16px rgba(56, 189, 248, 0.75);
+    pointer-events: none;
+}
+
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view.lj-step > .section-item {
+    flex-direction: row;
+    align-items: stretch;
+    height: auto;
+    min-height: 0;
+    border-radius: 1.15rem;
+    border: 1px solid rgba(56, 189, 248, 0.55) !important;
+    background: linear-gradient(180deg, rgba(15, 39, 68, 0.96), rgba(8, 22, 42, 0.96)) !important;
+    box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.18), 0 0 22px rgba(37, 99, 235, 0.28);
+}
+
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view.lj-step-flip > .section-item {
+    flex-direction: row-reverse;
+}
+
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view.lj-step:hover > .section-item {
+    transform: none;
+    box-shadow: 0 0 0 1px rgba(125, 211, 252, 0.45), 0 0 28px rgba(56, 189, 248, 0.4);
+}
+
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view.lj-step .section-learningjourney-image {
+    position: relative;
+    flex: 0 0 38%;
+    width: 38%;
+    max-width: 16rem;
+    aspect-ratio: auto;
+    min-height: 8.75rem;
+    align-self: stretch;
+}
+
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view.lj-step .section-learningjourney-image img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    object-fit: cover;
+}
+
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view.lj-step .lj-step-kicker {
+    order: 0;
+    margin: 0.95rem 1.05rem 0;
+    color: #7dd3fc;
+    font-size: 0.95rem;
+    font-weight: 800;
+    letter-spacing: 0.01em;
+}
+
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view.lj-step .course-section-header {
+    flex: 1 1 auto;
+    justify-content: flex-start;
+    padding: 0.15rem 1.05rem 0.15rem;
+    color: #f8fafc;
+}
+
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view.lj-step .course-section-header .sectionname > a,
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view.lj-step .course-section-header .sectionname > span {
+    color: #f8fafc !important;
+    font-size: 1.2rem;
+    font-weight: 800;
+    min-height: 0;
+    -webkit-line-clamp: 2;
+}
+
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view.lj-step .lj-card-type {
+    order: 4;
+    margin: 0.15rem 1.05rem 0.35rem;
+    background: rgba(56, 189, 248, 0.16);
+    color: #bae6fd;
+}
+
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view.lj-step .lj-card-summary,
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view.lj-step .section-learningjourney-dates {
+    order: 5;
+    display: -webkit-box;
+    margin: 0 1.05rem 0.95rem;
+    color: #cbd5e1;
+    text-align: start;
+}
+
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view.lj-step .section-learningjourney-dates {
+    display: block;
+}
+
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view.lj-step .section-learningjourney-dates::before {
+    display: none;
+}
+
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view.lj-step .lj-card-status {
+    top: 0.65rem;
+    inset-inline-start: auto;
+    inset-inline-end: 0.65rem;
+    z-index: 3;
+}
+
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view.lj-step .lj-card-status--done,
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view.lj-step .lj-card-status--locked {
+    width: 1.7rem;
+    height: 1.7rem;
+    min-height: 0;
+    padding: 0;
+    font-size: 0;
+    border-radius: 999px;
+}
+
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view.lj-step .lj-card-status--done {
+    background: #22c55e;
+}
+
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view.lj-step .lj-card-status--done::after,
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view.lj-step .lj-card-status--locked::after {
+    font-size: 0.95rem;
+    line-height: 1;
+    color: #fff;
+}
+
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view.lj-step .lj-card-status--done::after {
+    content: "✓";
+}
+
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view.lj-step .lj-card-status--locked {
+    background: #334155;
+}
+
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view.lj-step .lj-card-status--locked::after {
+    content: "🔒";
+    font-size: 0.8rem;
+}
+
+body:not(.lj-dark-mode) .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view.lj-step > .section-item {
+    background: #fff !important;
+    border-color: rgba(37, 99, 235, 0.28) !important;
+    box-shadow: 0 8px 22px rgba(15, 23, 42, 0.08);
+}
+
+body:not(.lj-dark-mode) .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view.lj-step > .lj-step-node {
+    background: #fff;
+    color: #1d4ed8;
+    box-shadow: 0 0 0 4px #fff, 0 0 12px rgba(37, 99, 235, 0.35);
+}
+
+body:not(.lj-dark-mode) .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view.lj-step .course-section-header,
+body:not(.lj-dark-mode) .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view.lj-step .course-section-header .sectionname > a,
+body:not(.lj-dark-mode) .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view.lj-step .course-section-header .sectionname > span {
+    color: #0f172a !important;
+}
+
+body:not(.lj-dark-mode) .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view.lj-step .lj-card-summary,
+body:not(.lj-dark-mode) .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view.lj-step .section-learningjourney-dates {
+    color: #64748b;
+}
+
+@media (max-width: 640px) {
+    .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view.lj-step > .section-item,
+    .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view.lj-step-flip > .section-item {
+        flex-direction: column;
+    }
+
+    .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view.lj-step .section-learningjourney-image {
+        flex-basis: auto;
+        width: 100%;
+        max-width: none;
+        aspect-ratio: 16 / 9;
+        min-height: 0;
+    }
+}
+

@@ -20,7 +20,7 @@
     Learning journey format: same as core section wrapper; inner content adds schedule dates.
 }}
 <li id="section-{{num}}"
-    class="section course-section main {{#ljcardview}}lj-card-view{{/ljcardview}} {{#ljscheduleincludestoday}}lj-schedule-today{{/ljscheduleincludestoday}} {{#ljisheader}}lj-header-unit{{/ljisheader}} {{#onlysummary}} section-summary {{/onlysummary}} clearfix
+    class="section course-section main {{#ljcardview}}lj-card-view{{/ljcardview}} {{#ljstep}}lj-step{{/ljstep}} {{#ljstepflip}}lj-step-flip{{/ljstepflip}} {{#ljscheduleincludestoday}}lj-schedule-today{{/ljscheduleincludestoday}} {{#ljisheader}}lj-header-unit{{/ljisheader}} {{#onlysummary}} section-summary {{/onlysummary}} clearfix
             {{#ljcontentdisabled}} lj-section-unavailable {{/ljcontentdisabled}}
             {{#ishidden}} hidden {{/ishidden}} {{#iscurrent}}{{^displayonesection}} current {{/displayonesection}}{{/iscurrent}}
             {{#isstealth}} orphaned {{/isstealth}}"
@@ -35,6 +35,9 @@
     {{#ljcardclick}}
         <a class="lj-card-link" href="{{{ljcardurl}}}" aria-label="{{sectionname}}"></a>
     {{/ljcardclick}}
+    {{#ljstep}}
+        <span class="lj-step-node" aria-hidden="true">{{ljstep}}</span>
+    {{/ljstep}}
     <div class="section-item">
         {{$ core_courseformat/local/content/section/content }}
             {{> format_learningjourney/local/content/section/content }}
