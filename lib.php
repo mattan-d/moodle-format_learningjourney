@@ -574,20 +574,14 @@ class format_learningjourney extends course_format_base {
                     'help' => 'showsection0',
                     'help_component' => 'format_learningjourney',
                 ],
-                'contentonly' => [
-                    'label' => new lang_string('contentonly', 'format_learningjourney'),
-                    'element_type' => 'checkbox',
-                    'help' => 'contentonly',
-                    'help_component' => 'format_learningjourney',
-                ],
-                'darkmode' => [
-                    'label' => new lang_string('darkmode', 'format_learningjourney'),
-                    'element_type' => 'checkbox',
-                    'help' => 'darkmode',
-                    'help_component' => 'format_learningjourney',
-                ],
             ];
             $courseformatoptions = array_merge_recursive($courseformatoptions, $courseformatoptionsedit);
+        }
+        if ($foreditform) {
+            // Content-only and dark mode stay stored, but are not course settings.
+            $editoptions = $courseformatoptions;
+            unset($editoptions['contentonly'], $editoptions['darkmode']);
+            return $editoptions;
         }
         return $courseformatoptions;
     }
@@ -612,9 +606,6 @@ class format_learningjourney extends course_format_base {
         global $COURSE;
         $elements = parent::create_edit_form_elements($mform, $forsection);
         if (!$forsection) {
-            if ($mform->elementExists('darkmode') && $mform->elementExists('contentonly')) {
-                $mform->disabledIf('darkmode', 'contentonly', 'notchecked');
-            }
             if ((empty($COURSE->id) || $COURSE->id == SITEID)) {
                 $courseconfig = get_config('moodlecourse');
                 $max = (int) $courseconfig->maxsections;
@@ -636,16 +627,6 @@ class format_learningjourney extends course_format_base {
         if (!array_key_exists('showsection0', $data)) {
             $data['showsection0'] = 0;
         }
-        if (!array_key_exists('contentonly', $data)) {
-            $data['contentonly'] = 0;
-        }
-        if (!array_key_exists('darkmode', $data)) {
-            $data['darkmode'] = 0;
-        }
-        // Dark mode only applies together with content-only.
-        if (empty($data['contentonly'])) {
-            $data['darkmode'] = 0;
-        }
         if ($oldcourse !== null) {
             $oldcourse = (array) $oldcourse;
             $options = $this->course_format_options();
@@ -654,6 +635,10 @@ class format_learningjourney extends course_format_base {
                     $data[$key] = $oldcourse[$key];
                 }
             }
+        }
+        // Dark mode only applies together with content-only. Neither is on the edit form.
+        if (array_key_exists('contentonly', $data) && empty($data['contentonly'])) {
+            $data['darkmode'] = 0;
         }
         return $this->update_format_options($data);
     }
