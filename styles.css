@@ -438,6 +438,123 @@
     transform: translateY(-1px);
 }
 
+/* Day number / title must stay fully visible. A fixed top+bottom box on a
+   square multi-column card is shorter than the chevron plus the label, and
+   overflow:hidden slices the glyphs. Stack the label, the day line and the
+   button at their natural height instead. */
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view:not(.lj-header-unit) > .section-item {
+    container-type: inline-size;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    box-sizing: border-box;
+    gap: 0.4rem;
+    padding: 0.65rem 0.9rem 0.8rem !important;
+    /* Grow past the square when the day number would otherwise be clipped. */
+    min-height: min-content;
+}
+
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view:not(.lj-header-unit) .course-section-header {
+    position: relative;
+    inset: auto;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    flex: 0 0 auto;
+    width: 100%;
+    height: auto;
+    max-height: none;
+    margin-top: clamp(0.2rem, 10cqw, 1.6rem);
+    margin-right: 0;
+    margin-bottom: auto;
+    margin-left: 0;
+    padding: 0;
+    overflow: visible;
+    transform: none;
+    z-index: 2;
+}
+
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view:not(.lj-header-unit) .course-section-header .sectionname {
+    margin: 0;
+    overflow: visible;
+    line-height: 1.4;
+}
+
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view:not(.lj-header-unit) .course-section-header .sectionname::before {
+    width: 1.85rem;
+    height: 1.85rem;
+    margin: 0 auto 0.35rem;
+    flex-shrink: 0;
+}
+
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view:not(.lj-header-unit) .course-section-header .sectionname > a,
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view:not(.lj-header-unit) .course-section-header .sectionname > span {
+    line-height: 1.45;
+    padding-bottom: 0.08em;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    overflow: hidden;
+}
+
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view:not(.lj-header-unit) .section-learningjourney-dates,
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view:not(.lj-header-unit) .section-learningjourney-locked {
+    position: relative;
+    inset: auto;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    flex: 0 0 auto;
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+    overflow: visible;
+    white-space: normal;
+    line-height: 1.45;
+    box-sizing: border-box;
+}
+
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view:not(.lj-header-unit) .section-learningjourney-dates {
+    display: block;
+    text-align: center;
+}
+
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view:not(.lj-header-unit) .section-learningjourney-dates::before {
+    display: inline-block;
+    vertical-align: -0.15em;
+    margin-inline-end: 0.35rem;
+}
+
+.format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view:not(.lj-header-unit) .lj-card-goto {
+    position: relative;
+    inset: auto;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    flex: 0 0 auto;
+    width: 100%;
+    margin: 0;
+}
+
+@container (max-width: 210px) {
+    .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view:not(.lj-header-unit) .course-section-header .sectionname::before {
+        width: 1.5rem;
+        height: 1.5rem;
+        margin-bottom: 0.2rem;
+    }
+
+    .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view:not(.lj-header-unit) .course-section-header .sectionname > a,
+    .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view:not(.lj-header-unit) .course-section-header .sectionname > span {
+        font-size: 0.95rem;
+    }
+}
+
 /* In card mode show the tile only; details remain available on the section page */
 .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view .content,
 .format-learningjourney-mode-view ul.format-learningjourney-sectionlist.lj-layout-grid.learningjourney[data-for="course_sectionlist"] > li.section.lj-card-view [data-for="sectionbadges"],
